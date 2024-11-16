@@ -1,0 +1,49 @@
+#signupPane {
+    -fx-background-color: linear-gradient(to bottom, rgb(7, 7, 7), rgb(0, 0, 0), rgb(8, 0, 0), rgb(20, 0, 0), rgb(29, 0, 0), rgb(63, 0, 0));
+}
+
+#signupAuthPane {
+    -fx-background-color: #040000;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-color: white;
+    -fx-border-width: .5;
+}
+
+#signupTitle {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 24;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fefcff;
+}
+
+#signupFieldLabels Label {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-text-fill: #fefcff;
+}
+
+#createAccountButton {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    -fx-background-color: #fefcff;
+
+    -fx-font-family: "Roboto";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0e0e0e;
+}
+
+.hyperlink {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 12;
+    -fx-font-weight: 700;
+    -fx-text-fill: #fefcff;
+    -fx-underline: true;
+}
+
+.text-field {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+}
