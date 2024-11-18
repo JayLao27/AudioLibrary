@@ -1,0 +1,99 @@
+#loginPane {
+    -fx-background-color: linear-gradient(to bottom, rgb(7, 7, 7), rgb(0, 0, 0), rgb(8, 0, 0), rgb(20, 0, 0), rgb(29, 0, 0), rgb(63, 0, 0));
+}
+
+#loginAuthPane {
+    -fx-background-color: #040000b0;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-color: #f5f5f5;
+    -fx-border-width: .5;
+}
+
+#loginPaneAppName {
+    -fx-font-family: "Dubai";
+    -fx-font-size: 42;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fefcff;
+}
+
+#loginPaneWelcomeLabel {
+    -fx-font-family: "Dubai";
+    -fx-font-size: 72;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fefcff;
+}
+
+#loginTitle {
+    -fx-font-family: "Dubai";
+    -fx-font-size: 24;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fefcff;
+}
+
+#loginFieldLabels Label {
+    -fx-font-family: "Dubai";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-text-fill: #fefcff;
+}
+
+#loginButton {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    -fx-background-color: #e0e0e0;
+
+    -fx-font-family: "Dubai";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0e0e0e;
+
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-transition: 0.2s ease-in-out;
+}
+
+#createAccountButton:hover {
+    -fx-background-color: #ffffff;
+    -fx-scale-x: 1.005;
+    -fx-scale-y: 1.008;
+}
+
+#descriptionLabel {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 24;
+    -fx-font-weight: 100;
+    -fx-text-fill: #fefcff;
+}
+
+.hyperlink {
+    -fx-font-family: "Dubai";
+    -fx-font-size: 12;
+    -fx-font-weight: 700;
+    -fx-text-fill: #e0e0e0;
+    -fx-focus-color: transparent;
+    -fx-underline: true;
+
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-transition: 0.2s ease-in-out;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #ffffff;
+    -fx-scale-x: 1.005;
+    -fx-scale-y: 1.008;
+}
+
+.text-field {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    -fx-focus-color: transparent;
+    -fx-padding: 8px;
+}
+
+.text-field:focused {
+    -fx-border-color: #b30707;
+    -fx-border-width: 2px;
+    -fx-padding: 6px;
+}

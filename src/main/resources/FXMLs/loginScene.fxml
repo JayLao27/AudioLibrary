@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="loginPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/loginSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.audiolibrary.controllers.LoginScene">
+   <children>
+      <AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+         <children>
+            <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="205.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../ProjectImages/loginbackground.png" />
+               </image>
+            </ImageView>
+            <Label id="loginPaneWelcomeLabel" layoutX="38.0" layoutY="203.0" text="A personalized library" />
+            <Label id="loginPaneWelcomeLabel" layoutX="38.0" layoutY="278.0" prefWidth="366.0" text="just for you." />
+            <AnchorPane id="loginAuthPane" fx:id="loginAuthPane" layoutX="819.0" layoutY="50.0" prefHeight="620.0" prefWidth="421.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="819.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label id="loginTitle" fx:id="loginTitle" alignment="CENTER" layoutX="1.0" layoutY="118.0" text="Log in" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
+                  <Button id="loginButton" fx:id="loginButton" layoutX="111.0" layoutY="383.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="200.0" text="Log in" />
+                  <AnchorPane id="loginFieldLabels" fx:id="loginFieldLabels" layoutX="96.0" layoutY="173.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
+                     <children>
+                        <Label layoutY="2.0" prefHeight="25.0" prefWidth="298.0" text="Username" />
+                        <Label layoutY="96.0" prefHeight="25.0" prefWidth="298.0" text="Password" />
+                        <TextField id="loginUsernameField" fx:id="loginUsernameField" layoutY="27.0" prefHeight="36.0" prefWidth="299.0" />
+                        <PasswordField id="loginPasswordField" fx:id="loginPasswordField" layoutY="121.0" prefHeight="36.0" prefWidth="299.0" />
+                     </children>
+                  </AnchorPane>
+                  <Hyperlink fx:id="signupLink" alignment="CENTER" layoutX="185.0" layoutY="429.0" onAction="#onSignupLinkClick" prefHeight="23.0" prefWidth="41.0" text="Sign up" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="183.0" />
+                  <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="183.0" layoutY="63.0">
+                     <image>
+                        <Image url="@../ProjectImages/image3.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Label id="descriptionLabel" alignment="CENTER_RIGHT" layoutX="77.0" layoutY="496.0" text="Get access to our vast collection of tracks across genres and tailor " textAlignment="RIGHT" />
+            <Label id="descriptionLabel" layoutX="374.0" layoutY="525.0" text="your library to your taste. Join us now!" />
+            <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="37.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ProjectImages/image3.png" />
+               </image>
+            </ImageView>
+            <Label id="loginPaneAppName" layoutX="140.0" layoutY="33.0" prefWidth="366.0" text="App name" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
