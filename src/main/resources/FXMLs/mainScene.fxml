@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../CSS/mainSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="720.0" prefWidth="1280.0">
+         <left>
+            <AnchorPane id="sidebarAnchorPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane id="sidebarTitlePane" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="33.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ProjectImages/image3.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink id="sidebarHomeLink" alignment="CENTER" layoutX="73.0" layoutY="24.0" text="Home" textAlignment="CENTER" />
+                     </children>
+                  </Pane>
+                  <ScrollPane id="sidebarScrollPane" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <VBox id="sidebarBodyPane" prefHeight="620.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>
