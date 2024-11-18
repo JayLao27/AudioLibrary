@@ -23,6 +23,8 @@ public class LoginScene {
     @FXML
     private Hyperlink signupLink;
 
+
+
     @FXML
     private void onSignupLinkClick() {
         try {
