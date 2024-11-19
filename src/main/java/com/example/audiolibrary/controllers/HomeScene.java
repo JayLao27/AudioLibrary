@@ -108,6 +108,8 @@ public class HomeScene {
 
         String imagePath = isPlaying ? "/ProjectImages/pause.png" : "/ProjectImages/play-button.png";
         playPauseIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+        playPauseIcon.setSmooth(true);
+        playPauseIcon.setPreserveRatio(true);
 
         if (isPlaying) {
             System.out.println("Swapped to Pause");
