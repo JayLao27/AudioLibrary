@@ -1,4 +1,4 @@
-package com.example.audiolibrary.controllers;
+package AudioController.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +64,7 @@ public class SignupScene {
             try {
 
                 Statement stmt = db.getConnection().createStatement();
-                String sql = "INSERT INTO Signup (firstname, lastname, username,email,password) VALUES (?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO signup (firstname, lastname, username,email,password) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement = db.getConnection().prepareStatement(sql);
                 preparedStatement.setString(1, firstname);
                 preparedStatement.setString(2, lastname);

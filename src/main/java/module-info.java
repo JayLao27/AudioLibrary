@@ -5,9 +5,9 @@ module com.example.audiolibrary {
     requires com.dlsc.formsfx;
     requires java.sql;
 
-    opens com.example.audiolibrary to javafx.fxml;
-    opens com.example.audiolibrary.controllers to javafx.fxml;
+    opens AudioController to javafx.fxml;
+    opens AudioController.controllers to javafx.fxml;
 
-    exports com.example.audiolibrary;
-    exports com.example.audiolibrary.controllers;
+    exports AudioController;
+    exports AudioController.controllers;
 }

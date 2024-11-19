@@ -1,4 +1,4 @@
-package com.example.audiolibrary.controllers;
+package AudioController.controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
