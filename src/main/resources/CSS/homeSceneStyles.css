@@ -1,0 +1,95 @@
+#homeFrame {
+    -fx-background-color: #0f0f0f;
+}
+
+#topbarPane {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#nameLabel {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 30;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fefcff;
+}
+
+#sidebarPane {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#sidebarScrollPane {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#sidebarScrollPane > .corner {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#sidebarScrollPane > .viewport {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#sidebarBody {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#sidebarUsernameLabel {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 16;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fefcff;
+}
+
+#bodyPane {
+    -fx-background-color: linear-gradient(to bottom, #00022f, #600213);
+    -fx-background-radius: 10px;
+}
+
+#bodyScrollPane {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#bodyScrollPane > .corner {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#bodyScrollPane > .viewport {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent; 
+    -fx-padding: 5;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-background-color: transparent; 
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #3f3f3f;
+    -fx-background-radius: 5em;
+}
+
+.text-field {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    -fx-focus-color: transparent;
+    -fx-padding: 8px;
+}
+
+.text-field:focused {
+    -fx-border-color: #b30707;
+    -fx-border-width: 2px;
+    -fx-padding: 6px;
+}
