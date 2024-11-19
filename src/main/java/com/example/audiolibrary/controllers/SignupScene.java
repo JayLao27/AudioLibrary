@@ -8,6 +8,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SignupScene {
 
@@ -42,7 +45,9 @@ public class SignupScene {
 
     @FXML
     public void register(ActionEvent event) {
-        // Collect user input
+
+        DatabaseConnection db = new DatabaseConnection();
+
         String firstname = signupFirstnameField.getText().trim();
         String lastname = signupLastnameField.getText().trim();
         String username = signupUsernameField.getText().trim();
@@ -53,15 +58,24 @@ public class SignupScene {
             showAlert(Alert.AlertType.WARNING, "Validation Error", "All fields are required.");
             highlightEmptyFields();
             return;
-        }
 
-        boolean isUserInserted = DatabaseConnection.insertUser(firstname, lastname, username, email, password);
-
-        if (isUserInserted) {
-            showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "User registered successfully!");
-            navigateToLoginScene();
         } else {
-            showAlert(Alert.AlertType.ERROR, "Registration Failed", "An error occurred. Please try again.");
+
+            try {
+
+                Statement stmt = db.getConnection().createStatement();
+                String sql = "INSERT INTO Signup (firstname, lastname, username,email,password) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = db.getConnection().prepareStatement(sql);
+                preparedStatement.setString(1, firstname);
+                preparedStatement.setString(2, lastname);
+                preparedStatement.setString(3, username);
+                preparedStatement.setString(4, email);
+                preparedStatement.setString(5, password);
+                preparedStatement.execute();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
