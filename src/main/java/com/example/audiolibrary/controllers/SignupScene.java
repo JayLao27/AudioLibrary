@@ -77,10 +77,6 @@ public class SignupScene {
                 throw new RuntimeException(e);
             }
         }
-
-
-
-
     }
 
     private void highlightEmptyFields() {
