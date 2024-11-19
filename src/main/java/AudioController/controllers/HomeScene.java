@@ -1,10 +1,13 @@
 package AudioController.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class HomeScene {
 
@@ -20,7 +23,13 @@ public class HomeScene {
     Pane sidebarCartPane;
     @FXML
     ImageView playPauseIcon;
+    @FXML
+    VBox bodyVBox;
 
+    @FXML
+    private void initialize() {
+        loadMainpageScene();
+    }
 
     //Sidebar Panes UX
     @FXML
@@ -47,8 +56,13 @@ public class HomeScene {
 
     //Side Bar Panes Functions
     @FXML
+    private void handleTitleClicked(MouseEvent event) {
+        loadMainpageScene();
+    }
+
+    @FXML
     private void handleProfileClicked(MouseEvent event) {
-        //Logic
+        loadProfileScene();
     }
 
     @FXML
@@ -129,4 +143,33 @@ public class HomeScene {
     private void handleShuffleClicked(MouseEvent event) {
         //Logic
     }
+
+    public void loadMainpageScene() {
+        try {
+            // Load the FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/mainpageScene.fxml"));
+            Parent mainpageScene = loader.load();
+
+            // Set the loaded content to the VBox
+            bodyVBox.getChildren().setAll(mainpageScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading mainpageScene.fxml");
+        }
+    }
+
+    public void loadProfileScene() {
+        try {
+            // Load the FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/profileScene.fxml"));
+            Parent profileScene = loader.load();
+
+            // Set the loaded content to the VBox
+            bodyVBox.getChildren().setAll(profileScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading profileScene.fxml");
+        }
+    }
+
 }

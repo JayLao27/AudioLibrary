@@ -47,16 +47,10 @@
     -fx-font-size: 16;
     -fx-font-weight: 700;
     -fx-text-fill: #0e0e0e;
-
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
-    -fx-transition: 0.2s ease-in-out;
 }
 
 #loginButton:hover {
     -fx-background-color: #ffffff;
-    -fx-scale-x: 1.005;
-    -fx-scale-y: 1.008;
 }
 
 #descriptionLabel {

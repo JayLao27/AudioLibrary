@@ -1,0 +1,9 @@
+#profilePane Label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #fefcff;
+}
+
+#profileTitle {
+    -fx-font-size: 28px;
+}
+

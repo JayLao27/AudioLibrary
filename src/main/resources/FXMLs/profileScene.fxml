@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="profilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="988.0" stylesheets="@../CSS/profileSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.ProfileScene">
+   <children>
+      <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="76.0" layoutY="142.0">
+         <image>
+            <Image url="@../ProjectImages/profile-user.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="308.0" layoutY="142.0" text="Username" />
+      <Label layoutX="308.0" layoutY="210.0" text="FirstName" />
+      <Label layoutX="506.0" layoutY="210.0" text="LastName" />
+      <Label layoutX="308.0" layoutY="273.0" text="Email" />
+      <Label id="profileTitle" layoutX="76.0" layoutY="52.0" text="My Profile" />
+   </children>
+</AnchorPane>
