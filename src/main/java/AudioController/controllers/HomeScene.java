@@ -170,6 +170,7 @@ public class HomeScene {
             System.out.println("Error loading profileScene.fxml");
         }
     }
+
     public void loadCartScene() {
         try {
             // Load the FXML
@@ -180,9 +181,10 @@ public class HomeScene {
             bodyVBox.getChildren().setAll(cartScene);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error loading profileScene.fxml");
+            System.out.println("Error loading cartScene.fxml");
         }
     }
+
     public void loadLibraryScene() {
         {
             try {
@@ -194,7 +196,7 @@ public class HomeScene {
                 bodyVBox.getChildren().setAll(libraryScene);
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Error loading libraryscene.fxml");
+                System.out.println("Error loading libraryScene.fxml");
             }
         }
     }
