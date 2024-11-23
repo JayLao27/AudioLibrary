@@ -6,6 +6,13 @@ import javafx.scene.layout.Pane;
 
 public class PlaylistScene {
 
+    @FXML
+    Pane makeplaylistCard;
+
+    private void onMakeplaylistCardClicked() {
+        //Logic
+    }
+
     //Playlist Card Pane UX
     @FXML
     private void handlePaneEntered(MouseEvent event) {
