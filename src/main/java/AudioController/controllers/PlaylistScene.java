@@ -9,7 +9,7 @@ public class PlaylistScene {
     //Playlist Card Pane UX
     @FXML
     private void handlePaneEntered(MouseEvent event) {
-        ((Pane) event.getSource()).setStyle("-fx-background-color: #202020;");
+        ((Pane) event.getSource()).setStyle("-fx-background-color: #d3d3d32b;");
     }
 
     @FXML
@@ -20,12 +20,12 @@ public class PlaylistScene {
     @FXML
     private void handlePanePressed(MouseEvent event) {
         Pane pressedPane = (Pane) event.getSource();
-        pressedPane.setStyle("-fx-background-color: #252525;");
+        pressedPane.setStyle("-fx-background-color: #dfdfdf3b;");
     }
 
     @FXML
     private void handlePaneRelease(MouseEvent event) {
         Pane releasedPane = (Pane) event.getSource();
-        releasedPane.setStyle("-fx-background-color: #202020;");
+        releasedPane.setStyle("-fx-background-color: #d3d3d32b;");
     }
 }

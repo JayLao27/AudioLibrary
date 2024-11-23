@@ -1,5 +1,5 @@
 #playlistPane {
-    -fx-background-color: #1c1c1c8c;
+    -fx-background-color: #1c1c1cb0;
     -fx-background-radius: 10px;
 }
 
@@ -9,8 +9,14 @@
 
 }
 
+#makeplaylistCard {
+    -fx-background-radius: 10px;
+}
+
 #makeplaylistLabel {
     -fx-font-size: 14px;
     -fx-text-fill: #fefcff;
 }
+
+
 

@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,40 +9,36 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="playlistPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="956.0" stylesheets="@../CSS/playlistSceneStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PlaylistScene">
+<AnchorPane id="playlistPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="956.0" stylesheets="@../CSS/playlistSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PlaylistScene">
    <children>
-      <ScrollPane disable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <content>
-            <VBox spacing="20.0">
-               <children>
-                  <Label id="playlistLabel" stylesheets="@../CSS/playlistSceneStyles.css" text="My Playlist" textFill="#030000">
-                     <padding>
-                        <Insets left="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <FlowPane>
-                     <children>
-                        <Pane id="makeplaylistCard" fx:id="makeplaylistCard" onMouseEntered="#handlePaneEntered" onMouseExited="#handlePaneExited" onMousePressed="#handlePanePressed" onMouseReleased="#handlePaneRelease" prefWidth="190.0">
-                           <children>
-                              <Label id="makeplaylistLabel" alignment="CENTER" layoutX="15.0" layoutY="186.0" prefHeight="20.0" prefWidth="160.0" text="Make New Playlist" textAlignment="CENTER" />
-                              <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../ProjectImages/Vector.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Pane>
-                     </children>
-                  </FlowPane>
-               </children>
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label id="playlistLabel" stylesheets="@../CSS/playlistSceneStyles.css" text="My Playlist" textFill="#030000">
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets left="10.0" top="10.0" />
                </padding>
-            </VBox>
-         </content>
-      </ScrollPane>
+            </Label>
+            <FlowPane>
+               <children>
+                  <Pane id="makeplaylistCard" fx:id="makeplaylistCard" onMouseEntered="#handlePaneEntered" onMouseExited="#handlePaneExited" onMousePressed="#handlePanePressed" onMouseReleased="#handlePaneRelease" prefWidth="190.0">
+                     <children>
+                        <Label id="makeplaylistLabel" alignment="CENTER" layoutX="15.0" layoutY="186.0" prefHeight="20.0" prefWidth="160.0" text="Make New Playlist" textAlignment="CENTER" />
+                        <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ProjectImages/Vector.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Pane>
+               </children>
+            </FlowPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>
