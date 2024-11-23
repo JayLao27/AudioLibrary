@@ -1,0 +1,41 @@
+#cartPane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+#mycartLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;
+    -fx-text-align: center;
+}
+
+#totalLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;
+    -fx-text-align: center;
+}
+
+
+
+#checkoutButton {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-background-color: #4caf50;
+    -fx-border-radius: 5;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0);
+}
+
+#checkoutButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(69,160,73,0.8), 20, 0.8, 0, 0);
+    -fx-transition: all 0.4s ease;
+}
+

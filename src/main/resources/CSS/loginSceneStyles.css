@@ -23,7 +23,12 @@
     -fx-font-weight: 900;
     -fx-text-fill: #fefcff;
 }
-
+#aboutus{
+    -fx-font-family: "Dubai";
+    -fx-font-size: 14;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fefcff;
+}
 #loginTitle {
     -fx-font-family: "Dubai";
     -fx-font-size: 24;

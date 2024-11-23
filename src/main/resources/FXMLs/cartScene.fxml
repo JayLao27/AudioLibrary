@@ -7,23 +7,23 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="988.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CartScene">
+<AnchorPane id="cartPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="988.0" stylesheets="@../CSS/cartSceneStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CartScene">
    <children>
-      <Label id="mycartLabel" layoutX="88.0" layoutY="61.0" stylesheets="@../CSS/castSceneStyles.css" text="MY CART" />
-      <VBox layoutX="79.0" layoutY="115.0" prefHeight="200.0" prefWidth="691.0">
+      <Label fx:id="mycartLabel" layoutX="20.0" layoutY="26.0" stylesheets="@../CSS/cartSceneStyles.css" text="My Cart" />
+      <VBox layoutX="17.0" layoutY="69.0" prefHeight="342.0" prefWidth="912.0">
          <children>
             <FlowPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextArea opacity="0.28" prefHeight="280.0" prefWidth="759.0" />
+                  <TextArea editable="false" opacity="0.28" prefHeight="343.0" prefWidth="911.0" />
                </children>
             </FlowPane>
          </children>
       </VBox>
-      <AnchorPane layoutX="604.0" layoutY="420.0" prefHeight="54.0" prefWidth="214.0">
+      <AnchorPane layoutX="622.0" layoutY="418.0" prefHeight="54.0" prefWidth="287.0">
          <children>
-            <Label id="totalLabel" layoutX="14.0" layoutY="16.0" prefHeight="22.0" prefWidth="80.0" stylesheets="@../CSS/castSceneStyles.css" text="Total ₱" />
-            <Button id="checkoutButton" layoutX="94.0" layoutY="15.0" mnemonicParsing="false" stylesheets="@../CSS/castSceneStyles.css" text="Check Out" />
-            <TextArea layoutX="177.0" layoutY="9.0" opacity="0.05" prefHeight="22.0" prefWidth="57.0" />
+            <TextArea editable="false" layoutX="-53.0" opacity="0.28" prefHeight="57.0" prefWidth="357.0" />
+            <Label fx:id="totalLabel" layoutX="-37.0" layoutY="16.0" prefHeight="22.0" prefWidth="80.0" stylesheets="@../CSS/cartSceneStyles.css" text="Total: ₱" />
+            <Button fx:id="checkoutButton" layoutX="126.0" layoutY="8.0" mnemonicParsing="false" opacity="0.63" stylesheets="@../CSS/cartSceneStyles.css" text="Check out " />
          </children>
       </AnchorPane>
    </children>

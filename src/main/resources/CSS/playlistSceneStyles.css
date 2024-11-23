@@ -1,6 +1,10 @@
 #myplaylistLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
     -fx-font-size: 28px;
+    -fx-font-weight: bold;
     -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;
+    -fx-text-align: center;
 
 }
 
