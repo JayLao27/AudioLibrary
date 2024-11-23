@@ -1,8 +1,10 @@
-#topArtistsLabel {
+#mycartLabel {
     -fx-font-size: 28px;
     -fx-text-fill: #fefcff;
+
 }
-#recommendedLabel{
-    -fx-font-size: 28px;
+#totalLabel {
+    -fx-font-size: 15px;
     -fx-text-fill: #fefcff;
+
 }

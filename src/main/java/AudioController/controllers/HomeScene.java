@@ -72,8 +72,9 @@ public class HomeScene {
 
     @FXML
     private void handlePlaylistClicked(MouseEvent event) {
-
+        loadplaylistScene();
     }
+
     @FXML
     private void handleCartClicked(MouseEvent event) {
         loadCartScene();
@@ -172,6 +173,7 @@ public class HomeScene {
     }
 
     public void loadCartScene() {
+
         try {
             // Load the FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/cartScene.fxml"));
@@ -194,6 +196,23 @@ public class HomeScene {
                 System.out.println("library Scene");
                 // Set the loaded content to the VBox
                 bodyVBox.getChildren().setAll(libraryScene);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error loading libraryScene.fxml");
+            }
+
+        }
+    }
+
+    public void loadplaylistScene() {
+        {
+            try {
+                // Load the FXML
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/playlistScene.fxml"));
+                Parent playlistScene = loader.load();
+                System.out.println("library Scene");
+                // Set the loaded content to the VBox
+                bodyVBox.getChildren().setAll(playlistScene);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error loading libraryScene.fxml");
