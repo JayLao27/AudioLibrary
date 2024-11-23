@@ -1,6 +1,16 @@
-#myplaylistLabel {
+#playlistPane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
+#playlistLabel {
     -fx-font-size: 28px;
     -fx-text-fill: #fefcff;
 
+}
+
+#makeplaylistLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #fefcff;
 }
 

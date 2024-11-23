@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="956.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PlaylistScene">
+<AnchorPane id="playlistPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="956.0" stylesheets="@../CSS/playlistSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PlaylistScene">
    <children>
-      <Label id="myplaylistLabel" layoutX="43.0" layoutY="55.0" stylesheets="@../CSS/playlistSceneStyles.css" text="My Playlist" textFill="#030000" />
-      <Pane layoutX="43.0" layoutY="125.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="178.0" layoutX="445.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="150.0" fitWidth="178.0" layoutX="225.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="263.0" layoutY="166.0" prefHeight="18.0" prefWidth="102.0" />
-            <Label layoutX="483.0" layoutY="166.0" prefHeight="18.0" prefWidth="102.0" />
-            <Label layoutX="36.0" layoutY="166.0" prefHeight="18.0" prefWidth="102.0" text="Make New Playlist" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9d9d9" height="150.0" stroke="#d9d9d9" strokeType="INSIDE" width="175.0" />
-            <ImageView fitHeight="74.0" fitWidth="77.0" layoutX="50.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../Downloads/Add%20to%20playlist%20(1).png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
+      <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox spacing="20.0">
+               <children>
+                  <Label id="playlistLabel" stylesheets="@../CSS/playlistSceneStyles.css" text="My Playlist" textFill="#030000">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <FlowPane>
+                     <children>
+                        <Pane id="makeplaylistCard" fx:id="makeplaylistCard" onMouseEntered="#handlePaneEntered" onMouseExited="#handlePaneExited" onMousePressed="#handlePanePressed" onMouseReleased="#handlePaneRelease" prefWidth="190.0">
+                           <children>
+                              <Label id="makeplaylistLabel" alignment="CENTER" layoutX="15.0" layoutY="186.0" prefHeight="20.0" prefWidth="160.0" text="Make New Playlist" textAlignment="CENTER" />
+                              <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../ProjectImages/Vector.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Pane>
+                     </children>
+                  </FlowPane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

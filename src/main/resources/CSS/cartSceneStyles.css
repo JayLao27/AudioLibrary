@@ -1,0 +1,47 @@
+#cartScenePane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
+#cartScrollPane {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px; 
+}
+
+#cartScrollPane > .corner {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#cartScrollPane > .viewport {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#cartVBox {
+    -fx-background-color: #1c1c1c;
+    -fx-background-radius: 10px;
+}
+
+#mycartLabel {
+    -fx-font-size: 28px;
+    -fx-text-fill: #fefcff;
+
+}
+
+#totalLabel {
+    -fx-font-size: 15px;
+    -fx-text-fill: #fefcff;
+
+}
+
+#totalamountLabel {
+    -fx-font-size: 15px;
+    -fx-text-fill: #fefcff;
+}
+
+#checkoutButton {
+    -fx-background-color: #f5f5f5b0;
+    -fx-background-radius: 10px;
+    -fx-font-size: 15px;
+}

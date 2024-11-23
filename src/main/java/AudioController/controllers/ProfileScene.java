@@ -14,9 +14,8 @@ public class ProfileScene {
     private void handleButtonEntered(MouseEvent event) {
         Button button = (Button) event.getSource();
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
-        scaleTransition.setToX(1.1);
-        scaleTransition.setToY(1.1);
-        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+        scaleTransition.setToX(1.11);
+        scaleTransition.setToY(1.11);
         scaleTransition.play();
     }
 
@@ -26,27 +25,24 @@ public class ProfileScene {
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
         scaleTransition.setToX(1.0);
         scaleTransition.setToY(1.0);
-        scaleTransition.setInterpolator(Interpolator.EASE_OUT);
         scaleTransition.play();
     }
 
     @FXML
     private void handleButtonPressed(MouseEvent event) {
         Button button = (Button) event.getSource();
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), button);
-        scaleTransition.setToX(1.05);
-        scaleTransition.setToY(1.05);
-        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), button);
+        scaleTransition.setToX(1.1);
+        scaleTransition.setToY(1.1);
         scaleTransition.play();
     }
 
     @FXML
     private void handleButtonReleased(MouseEvent event) {
         Button button = (Button) event.getSource();
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), button);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
-        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), button);
+        scaleTransition.setToX(1.05);
+        scaleTransition.setToY(1.05);
         scaleTransition.play();
     }
 }
