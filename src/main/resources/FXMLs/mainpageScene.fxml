@@ -32,7 +32,7 @@
             <Image url="@../ProjectImages/beethoven.png" />
          </image>
       </ImageView>
-      <Label id="topArtistsLabel" layoutX="29.0" layoutY="26.0" text="Top Artists  &gt;" />
-      <Label id="recommendedLabel" layoutX="29.0" layoutY="234.0" stylesheets="@../CSS/mainpageSceneStyles.css" text="Recommended Songs &gt;" />
+      <Label id="topArtistsLabel" layoutX="20.0" layoutY="20.0" text="Top Artists  &gt;" />
+      <Label id="recommendedLabel" layoutX="20.0" layoutY="220.0" stylesheets="@../CSS/mainpageSceneStyles.css" text="Recommended Songs &gt;" />
    </children>
 </AnchorPane>

@@ -22,6 +22,6 @@
       <Label layoutX="280.0" layoutY="225.0" prefHeight="25.0" prefWidth="153.0" text="John" />
       <Label layoutX="280.0" layoutY="325.0" prefHeight="25.0" prefWidth="385.0" text="Doe" />
       <Label layoutX="280.0" layoutY="425.0" prefHeight="25.0" prefWidth="416.0" text="emailnijohndoe@gmail.com" />
-      <Button id="logoutButton" layoutX="734.0" layoutY="450.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" text="Log Out" />
+      <Button id="logoutButton" fx:id="logoutButton" layoutX="734.0" layoutY="450.0" mnemonicParsing="false" onMouseEntered="#handleButtonEntered" onMouseExited="#handleButtonExited" onMousePressed="#handleButtonPressed" onMouseReleased="#handleButtonReleased" prefHeight="40.0" prefWidth="140.0" text="Log Out" />
    </children>
 </AnchorPane>
