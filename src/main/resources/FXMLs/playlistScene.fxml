@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="playlistPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="956.0" stylesheets="@../CSS/playlistSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PlaylistScene">
+<AnchorPane id="playlistPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="956.0" stylesheets="@../CSS/playlistSceneStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PlaylistScene">
    <children>
-      <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane disable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <VBox spacing="20.0">
                <children>
