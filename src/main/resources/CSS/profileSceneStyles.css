@@ -1,3 +1,8 @@
+#profilePane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
 #profilePane Label {
     -fx-font-size: 16px;
     -fx-text-fill: #fefcff;
@@ -5,5 +10,20 @@
 
 #profileTitle {
     -fx-font-size: 28px;
+}
+
+#logoutButton {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    -fx-background-color: #e0e0e0;
+
+    -fx-font-family: "Dubai";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0e0e0e;
+}
+
+#logoutButton:hover {
+    -fx-background-color: #ffffff;
 }
 

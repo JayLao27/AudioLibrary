@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="988.0" stylesheets="@../CSS/mainpageSceneStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.MainpageScene">
+<AnchorPane id="mainPagePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="956.0" stylesheets="@../CSS/mainpageSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.MainpageScene">
    <children>
       <ImageView fitHeight="120.0" fitWidth="200.0" layoutX="29.0" layoutY="80.0" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
          <image>
@@ -33,6 +33,6 @@
          </image>
       </ImageView>
       <Label id="topArtistsLabel" layoutX="29.0" layoutY="26.0" text="Top Artists  &gt;" />
-      <Label id="recommendedLabel" layoutX="29.0" layoutY="234.0" stylesheets="@../CSS/mainpageSceneStyles.css" text="Recommended Song &gt;" />
+      <Label id="recommendedLabel" layoutX="29.0" layoutY="234.0" stylesheets="@../CSS/mainpageSceneStyles.css" text="Recommended Songs &gt;" />
    </children>
 </AnchorPane>
