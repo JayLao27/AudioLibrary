@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="23d96d2c-557e-4476-9a7b-27ff0204c98d" name="Changes" comment="Updated Database" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JayLao27&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JayLao27/AudioLibrary.git&quot;,
+    &quot;accountId&quot;: &quot;e47121c6-0037-4d7a-82c3-533c6bd52fd5&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/example/audiolibrary/controllers/DatabaseConnection.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/example/audiolibrary/controllers/LoginScene.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2ovrua6JU7SVVf9Y5kBPy4EvvsG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/AudioLibrary/AudioLibrary/src/main/resources/CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\AudioLibrary\AudioLibrary\src\main\resources\CSS" />
+      <recent name="D:\AudioLibrary\AudioLibrary\src\main\resources\FXMLs" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\AudioLibrary\AudioLibrary\src\main\resources" />
+      <recent name="D:\AudioLibrary\AudioLibrary\src\main\resources\Database" />
+      <recent name="D:\AudioLibrary\AudioLibrary\src\main\java\Database" />
+      <recent name="D:\AudioLibrary\AudioLibrary\src\main\resources\FXML" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="23d96d2c-557e-4476-9a7b-27ff0204c98d" name="Changes" comment="" />
+      <created>1731761116164</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731761116164</updated>
+      <workItem from="1731761117376" duration="1386000" />
+      <workItem from="1731806929017" duration="3236000" />
+      <workItem from="1731843789648" duration="120000" />
+      <workItem from="1731916991914" duration="2132000" />
+      <workItem from="1731925972236" duration="164000" />
+      <workItem from="1731926233245" duration="375000" />
+      <workItem from="1731926675379" duration="2106000" />
+      <workItem from="1731929352228" duration="146000" />
+      <workItem from="1731929522596" duration="40000" />
+      <workItem from="1731929666035" duration="675000" />
+      <workItem from="1731930349927" duration="6000" />
+      <workItem from="1731930477474" duration="19000" />
+      <workItem from="1731930520189" duration="1949000" />
+      <workItem from="1731933065226" duration="1944000" />
+      <workItem from="1731935364556" duration="12000" />
+      <workItem from="1731935410509" duration="11000" />
+      <workItem from="1731935430121" duration="8000" />
+      <workItem from="1731935458846" duration="12000" />
+      <workItem from="1731935482475" duration="152000" />
+      <workItem from="1731935658495" duration="282000" />
+      <workItem from="1731935954158" duration="463000" />
+      <workItem from="1731936632228" duration="964000" />
+      <workItem from="1732004128695" duration="1558000" />
+      <workItem from="1732006174914" duration="282000" />
+      <workItem from="1732006479419" duration="870000" />
+      <workItem from="1732007371841" duration="465000" />
+      <workItem from="1732007870276" duration="2573000" />
+      <workItem from="1732014921843" duration="773000" />
+      <workItem from="1732022536129" duration="1152000" />
+      <workItem from="1732024035126" duration="397000" />
+      <workItem from="1732024590733" duration="313000" />
+      <workItem from="1732097652706" duration="2101000" />
+      <workItem from="1732099980756" duration="1749000" />
+      <workItem from="1732103372015" duration="550000" />
+      <workItem from="1732104173089" duration="831000" />
+      <workItem from="1732144931379" duration="2632000" />
+      <workItem from="1732188315341" duration="73000" />
+      <workItem from="1732235133696" duration="2137000" />
+      <workItem from="1732237359326" duration="4941000" />
+      <workItem from="1732260987698" duration="2187000" />
+      <workItem from="1732289081067" duration="34000" />
+      <workItem from="1732321895724" duration="2089000" />
+      <workItem from="1732324135225" duration="909000" />
+      <workItem from="1732328162440" duration="5266000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1731761236583</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731761236583</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1731807260949</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731807260949</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1731807332094</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731807332094</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1731807853909</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731807853909</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1731808200116</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731808200116</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1731936992213</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731936992214</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1732005325240</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732005325240</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1732006227435</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732006227435</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1732006414150</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732006414150</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008482196</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008482197</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008505691</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008505691</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008543609</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008543609</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008632221</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008632221</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008710826</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008710827</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008778217</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008778217</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008934380</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008934380</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732008958641</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1732008958641</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732009070264</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732009070264</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732009084442</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732009084442</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732009342109</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1732009342109</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732009380371</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1732009380371</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732023610783</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1732023610783</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732099120660</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1732099120660</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732261067670</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1732261067670</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Updated Database">
+      <option name="closed" value="true" />
+      <created>1732325022100</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1732325022100</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="Updated Database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Database" />
+    <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="e" />
+        <watch expression="e" language="JAVA" />
+        <watch expression="this" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

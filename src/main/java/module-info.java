@@ -4,6 +4,7 @@ module com.example.audiolibrary {
 
     requires com.dlsc.formsfx;
     requires java.sql;
+    requires java.desktop;
 
     opens AudioController to javafx.fxml;
     opens AudioController.controllers to javafx.fxml;

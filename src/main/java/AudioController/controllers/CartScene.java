@@ -1,5 +1,8 @@
 package AudioController.controllers;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,11 +17,20 @@ public class CartScene {
     @FXML
     private Label totalamountLabel;
 
+    @FXML
+    public void initialize() {
+        updateCheckoutButtonText();
+
+        // Create and set Tooltip for checkoutButton
+        Tooltip tooltip = new Tooltip("Click to complete your purchase");
+        checkoutButton.setTooltip(tooltip);
+
+    }
+
     //Button Function
     private void onCheckoutButtonClicked() {
         //Logic
     }
-
 
     //Button UX
     @FXML
@@ -55,5 +67,21 @@ public class CartScene {
         scaleTransition.setToX(1.05);
         scaleTransition.setToY(1.05);
         scaleTransition.play();
+    }
+
+    private int orderCount = 0;
+
+    public void updateCheckoutButtonText() {
+        checkoutButton.setText("Check Out (" + orderCount + ")");
+    }
+
+    public void addOrder() {
+        orderCount++;
+        updateCheckoutButtonText();
+    }
+
+    public void clearOrders() {
+        orderCount = 0;
+        updateCheckoutButtonText();
     }
 }
