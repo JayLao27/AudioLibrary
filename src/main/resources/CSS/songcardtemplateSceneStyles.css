@@ -1,0 +1,8 @@
+#songcardPane {
+    -fx-background-color: #cfcfcf1b;
+    -fx-background-radius: 10px;
+}
+
+#songcardLabel {
+    -fx-text-fill: #fefcff;
+}

@@ -2,12 +2,13 @@ package AudioController.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class PlaylistScene {
 
     @FXML
-    Pane makeplaylistCard;
+    AnchorPane makeplaylistCard;
 
     private void onMakeplaylistCardClicked() {
         //Logic
@@ -31,7 +32,7 @@ public class PlaylistScene {
     }
 
     @FXML
-    private void handlePaneRelease(MouseEvent event) {
+    private void handlePaneReleased(MouseEvent event) {
         Pane releasedPane = (Pane) event.getSource();
         releasedPane.setStyle("-fx-background-color: #d3d3d32b;");
     }

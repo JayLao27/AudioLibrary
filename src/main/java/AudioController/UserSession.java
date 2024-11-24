@@ -2,7 +2,6 @@ package AudioController;
 
 public class UserSession {
     private static UserSession instance;
-
     private int userID;
 
     private UserSession() {}
