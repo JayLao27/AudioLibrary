@@ -1,5 +1,6 @@
 package AudioController.controllers;
 
+import AudioController.DatabaseConnection;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
@@ -33,7 +34,7 @@ public class LoginScene {
         Connection connection = db.getConnection();
 
         try {
-            String sql = "SELECT * FROM Signup WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, loginUsernameField.getText().trim());
             preparedStatement.setString(2, loginPasswordField.getText().trim());

@@ -1,5 +1,6 @@
 package AudioController.controllers;
 
+import AudioController.DatabaseConnection;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
@@ -49,7 +50,6 @@ public class SignupScene {
 
     @FXML
     public void register(ActionEvent event) {
-
         DatabaseConnection db = new DatabaseConnection();
 
         String firstname = signupFirstnameField.getText().trim();
@@ -62,13 +62,10 @@ public class SignupScene {
             showAlert(Alert.AlertType.WARNING, "Validation Error", "All fields are required.");
             highlightEmptyFields();
             return;
-
         } else {
-
             try {
-
                 Statement stmt = db.getConnection().createStatement();
-                String sql = "INSERT INTO signup (firstname, lastname, username,email,password) VALUES (?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO user (userName, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement = db.getConnection().prepareStatement(sql);
                 preparedStatement.setString(1, firstname);
                 preparedStatement.setString(2, lastname);
@@ -76,7 +73,6 @@ public class SignupScene {
                 preparedStatement.setString(4, email);
                 preparedStatement.setString(5, password);
                 preparedStatement.execute();
-
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
