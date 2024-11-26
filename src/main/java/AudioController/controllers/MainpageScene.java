@@ -3,18 +3,22 @@ package AudioController.controllers;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
 
 public class MainpageScene {
+
+    private HomeScene homeScene; // Reference to the main controller
+
+    public void setHomeScene(HomeScene homeScene) {
+        this.homeScene = homeScene;
+    }
 
     @FXML
     FlowPane songcardContainerPane;
@@ -31,7 +35,13 @@ public class MainpageScene {
 
                 songCard.setOnMouseClicked(event -> {
                     System.out.println("Redirecting to song...");
-                   //Redirect logic
+
+                    // Move the scene loading logic here
+                    if (homeScene != null) {
+                        homeScene.loadScene("/FXMLs/songpageScene.fxml");
+                    } else {
+                        System.out.println("HomeScene is null!");
+                    }
                 });
 
                 // Add the song card to the FlowPane
@@ -122,4 +132,5 @@ public class MainpageScene {
             songCard.setStyle("-fx-background-color: #d3d3d32b;");
         });
     }
+
 }

@@ -28,7 +28,7 @@ public class HomeScene {
 
     @FXML
     private void initialize() {
-        loadMainpageScene();
+        loadScene("/FXMLs/mainpageScene.fxml");
     }
 
     //Sidebar Panes UX
@@ -57,27 +57,27 @@ public class HomeScene {
     //Side Bar Panes Functions
     @FXML
     private void handleTitleClicked(MouseEvent event) {
-        loadMainpageScene();
+        loadScene("/FXMLs/mainpageScene.fxml");
     }
 
     @FXML
     private void handleProfileClicked(MouseEvent event) {
-        loadProfileScene();
+        loadScene("/FXMLs/profileScene.fxml");
     }
 
     @FXML
     private void handleLibraryClicked(MouseEvent event) {
-        loadLibraryScene();
+        loadScene("/FXMLs/libraryScene.fxml");
     }
 
     @FXML
     private void handlePlaylistClicked(MouseEvent event) {
-        loadplaylistScene();
+        loadScene("/FXMLs/playlistScene.fxml");
     }
 
     @FXML
     private void handleCartClicked(MouseEvent event) {
-        loadCartScene();
+        loadScene("/FXMLs/cartScene.fxml");
     }
 
 
@@ -144,78 +144,28 @@ public class HomeScene {
         //Logic
     }
 
+    //Load Scene
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-    public void loadMainpageScene() {
+    public void loadScene(String fxmlPath) {
         try {
-            // Load the FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/mainpageScene.fxml"));
-            Parent mainpageScene = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent sceneContent = loader.load();
 
-            // Set the loaded content to the VBox
-            bodyVBox.getChildren().setAll(mainpageScene);
+            Object controller = loader.getController();
+            if (controller != null) {
+                try {
+                    // Check if the controller has a 'setHomeScene' method
+                    controller.getClass().getMethod("setHomeScene", HomeScene.class)
+                            .invoke(controller, this);
+                } catch (NoSuchMethodException ignored) {
+                    // If the method doesn't exist, skip (it's not required)
+                }
+            }
+
+            bodyVBox.getChildren().setAll(sceneContent);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error loading mainpageScene.fxml");
-        }
-    }
-
-    public void loadProfileScene() {
-        try {
-            // Load the FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/profileScene.fxml"));
-            Parent profileScene = loader.load();
-            System.out.print("Profile");
-            // Set the loaded content to the VBox
-            bodyVBox.getChildren().setAll(profileScene);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error loading profileScene.fxml");
-        }
-    }
-
-    public void loadCartScene() {
-        try {
-            // Load the FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/cartScene.fxml"));
-            Parent cartScene = loader.load();
-            System.out.println("Cart Scene");
-            // Set the loaded content to the VBox
-            bodyVBox.getChildren().setAll(cartScene);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error loading cartScene.fxml");
-        }
-    }
-
-    public void loadLibraryScene() {
-        try {
-            // Load the FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/libraryScene.fxml"));
-            Parent libraryScene = loader.load();
-            System.out.println("library Scene");
-            // Set the loaded content to the VBox
-            bodyVBox.getChildren().setAll(libraryScene);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error loading libraryScene.fxml");
-        }
-    }
-
-    public void loadplaylistScene() {
-        try {
-            // Load the FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/playlistScene.fxml"));
-            Parent playlistScene = loader.load();
-            System.out.println("library Scene");
-            // Set the loaded content to the VBox
-            bodyVBox.getChildren().setAll(playlistScene);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error loading libraryScene.fxml");
+            System.out.println("Error loading " + fxmlPath);
         }
     }
 }
