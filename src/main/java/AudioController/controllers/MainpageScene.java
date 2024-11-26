@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class MainpageScene {
 
-    private HomeScene homeScene; // Reference to the main controller
+    private HomeScene homeScene;
 
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
@@ -36,7 +36,6 @@ public class MainpageScene {
                 songCard.setOnMouseClicked(event -> {
                     System.out.println("Redirecting to song...");
 
-                    // Move the scene loading logic here
                     if (homeScene != null) {
                         homeScene.loadScene("/FXMLs/songpageScene.fxml");
                     } else {
@@ -44,7 +43,6 @@ public class MainpageScene {
                     }
                 });
 
-                // Add the song card to the FlowPane
                 songcardContainerPane.getChildren().add(songCard);
             }
         } catch (IOException e) {

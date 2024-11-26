@@ -154,11 +154,10 @@ public class HomeScene {
             Object controller = loader.getController();
             if (controller != null) {
                 try {
-                    // Check if the controller has a 'setHomeScene' method
                     controller.getClass().getMethod("setHomeScene", HomeScene.class)
                             .invoke(controller, this);
                 } catch (NoSuchMethodException ignored) {
-                    // If the method doesn't exist, skip (it's not required)
+                    //Ignore controllers without setHomeScene Method
                 }
             }
 
