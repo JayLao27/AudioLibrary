@@ -1,0 +1,25 @@
+#playlistPane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
+#addplaylistLabel {
+    -fx-font-size: 28px;
+    -fx-text-fill: #fefcff;
+}
+
+#makeplaylistCard {
+    -fx-background-radius: 10px;
+}
+
+#makeplaylistLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #fefcff;
+}
+#UploadButton {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+
+

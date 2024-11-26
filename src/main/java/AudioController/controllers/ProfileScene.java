@@ -5,11 +5,13 @@ import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.awt.event.ActionEvent;
 
 public class ProfileScene {
 
@@ -17,10 +19,20 @@ public class ProfileScene {
     private Button logoutButton;
 
     @FXML
-    private void logout (MouseEvent Event){
-        handleLogoutAction();
+    private Label thankYouLabel;
+
+    @FXML
+    public void initialize() {
+        Tooltip tooltip = new Tooltip("Click to Logout");
+        logoutButton.setTooltip(tooltip);
     }
-    //Button UX
+
+    @FXML
+    private void logout(MouseEvent event) {
+        setThankYouMessage("Thank you for using the app!");
+        LogoutScene();
+    }
+
     @FXML
     private void handleButtonEntered(MouseEvent event) {
         Button button = (Button) event.getSource();
@@ -46,21 +58,23 @@ public class ProfileScene {
         scaleTransition.setToX(1.1);
         scaleTransition.setToY(1.1);
         scaleTransition.play();
+    }
 
+    private void setThankYouMessage(String message) {
+        thankYouLabel.setText(message);
     }
 
     @FXML
-    private void handleLogoutAction() {
+    public void LogoutScene() {
         try {
-            // Load the LoginScene FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AudioController/views/loginScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/loginScene.fxml"));
             Parent loginScene = loader.load();
-
-            // Get the current stage (window) and set the new scene
-            logoutButton.getScene().setRoot(loginScene);
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.setScene(new Scene(loginScene));
+            System.out.println("Login Scene loaded successfully.");
         } catch (Exception e) {
-            e.printStackTrace(); // Print any errors to the console for debugging
+            e.printStackTrace();
+            System.out.println("Error loading loginScene.fxml");
         }
     }
-
 }

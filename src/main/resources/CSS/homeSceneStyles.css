@@ -8,10 +8,11 @@
 }
 
 #nameLabel {
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Arial", "Helvetica", sans-serif;
     -fx-font-size: 30;
     -fx-font-weight: 900;
     -fx-text-fill: #fefcff;
+
 }
 
 #sidebarPane {
@@ -40,7 +41,7 @@
 }
 
 #sidebarUsernameLabel {
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Arial", "Helvetica", sans-serif;
     -fx-font-size: 16;
     -fx-font-weight: 900;
     -fx-text-fill: #fefcff;

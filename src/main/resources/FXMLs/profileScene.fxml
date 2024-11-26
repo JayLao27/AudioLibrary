@@ -8,30 +8,21 @@
 
 <AnchorPane id="profilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="956.0" stylesheets="@../CSS/profileSceneStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.ProfileScene">
    <children>
-      <!-- Profile Icon -->
       <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="60.0" layoutY="100.0">
          <image>
             <Image url="@../ProjectImages/profilePageIcon.png" />
          </image>
       </ImageView>
-
-      <!-- Profile Labels -->
       <Label layoutX="280.0" layoutY="100.0" prefHeight="25.0" prefWidth="160.0" text="Username:" />
       <Label layoutX="280.0" layoutY="125.0" prefHeight="25.0" prefWidth="160.0" text="username" />
-
       <Label layoutX="280.0" layoutY="200.0" prefHeight="25.0" prefWidth="153.0" text="First Name:" />
       <Label layoutX="280.0" layoutY="225.0" prefHeight="25.0" prefWidth="153.0" text="John" />
-
       <Label layoutX="280.0" layoutY="300.0" prefHeight="25.0" prefWidth="385.0" text="Last Name:" />
       <Label layoutX="280.0" layoutY="325.0" prefHeight="25.0" prefWidth="385.0" text="Doe" />
-
       <Label layoutX="280.0" layoutY="400.0" prefHeight="25.0" prefWidth="416.0" text="Email:" />
       <Label layoutX="280.0" layoutY="425.0" prefHeight="25.0" prefWidth="416.0" text="emailnijohndoe@gmail.com" />
-
-      <!-- Profile Title -->
       <Label id="profileTitle" layoutX="20.0" layoutY="20.0" text="My Profile" />
-
-      <!-- Logout Button -->
       <Button id="logoutButton" fx:id="logoutButton" layoutX="734.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#logout" onMouseEntered="#handleButtonEntered" onMouseExited="#handleButtonExited" onMousePressed="#handleButtonPressed" prefHeight="40.0" prefWidth="140.0" text="Log Out" />
+      <Label fx:id="thankYouLabel" layoutX="296.0" layoutY="249.0" prefHeight="30.0" prefWidth="400.0" style="-fx-font-size: 18px; -fx-text-fill: green;" text="" />
    </children>
 </AnchorPane>
