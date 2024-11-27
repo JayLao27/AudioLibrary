@@ -33,6 +33,22 @@ public class ProfileScene {
         LogoutScene();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @FXML
     private void handleButtonEntered(MouseEvent event) {
         Button button = (Button) event.getSource();
