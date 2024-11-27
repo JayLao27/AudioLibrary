@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane id="artistpagePane" prefWidth="956.0" stylesheets="@../CSS/artistpageSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLs.ArtistpageScene">
+<AnchorPane id="artistpagePane" prefWidth="956.0" stylesheets="@../CSS/artistpageSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.ArtistpageScene">
    <children>
       <VBox>
          <children>

@@ -9,32 +9,32 @@
 
 <AnchorPane id="mainPagePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="956.0" stylesheets="@../CSS/mainpageSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.MainpageScene">
    <children>
-      <ImageView fx:id="mozartShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="29.0" layoutY="80.0" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
+      <ImageView fx:id="mozartShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="29.0" layoutY="80.0" onMouseClicked="#handleShortcutClicked" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
          <image>
             <Image url="@../ProjectImages/mozart.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="tchaikovskyShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="129.0" layoutY="80.0" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
+      <ImageView fx:id="tchaikovskyShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="129.0" layoutY="80.0" onMouseClicked="#handleShortcutClicked" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
          <image>
             <Image url="@../ProjectImages/tchaikovsky.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="chopinshortcut" fitHeight="120.0" fitWidth="200.0" layoutX="229.0" layoutY="80.0" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
+      <ImageView fx:id="chopinShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="229.0" layoutY="80.0" onMouseClicked="#handleShortcutClicked" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
          <image>
             <Image url="@../ProjectImages/chopin.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="rossiniShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="322.0" layoutY="80.0" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
+      <ImageView fx:id="rossiniShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="322.0" layoutY="80.0" onMouseClicked="#handleShortcutClicked" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
          <image>
             <Image url="@../ProjectImages/rossini.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="alanwalkerShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="422.0" layoutY="80.0" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
+      <ImageView fx:id="alanwalkerShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="422.0" layoutY="80.0" onMouseClicked="#handleShortcutClicked" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
          <image>
             <Image url="@../ProjectImages/alanwalker.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="beethovenShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="514.0" layoutY="80.0" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
+      <ImageView fx:id="beethovenShortcut" fitHeight="120.0" fitWidth="200.0" layoutX="514.0" layoutY="80.0" onMouseClicked="#handleShortcutClicked" onMouseEntered="#handleImageEntered" onMouseExited="#handleImageExited" onMousePressed="#handleImagePressed" onMouseReleased="#handleImageReleased">
          <image>
             <Image url="@../ProjectImages/beethoven.png" />
          </image>
