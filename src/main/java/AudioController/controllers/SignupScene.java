@@ -65,7 +65,7 @@ public class SignupScene {
         } else {
             try {
                 Statement stmt = db.getConnection().createStatement();
-                String sql = "INSERT INTO user (userName, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO user (firstName, lastName, userName, email, password) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement = db.getConnection().prepareStatement(sql);
                 preparedStatement.setString(1, firstname);
                 preparedStatement.setString(2, lastname);
