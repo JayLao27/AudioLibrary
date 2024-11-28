@@ -145,7 +145,6 @@ public class HomeScene {
     }
 
     //Load Scene
-
     public void loadScene(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -166,5 +165,10 @@ public class HomeScene {
             e.printStackTrace();
             System.out.println("Error loading " + fxmlPath);
         }
+    }
+
+    //Load Current Song
+    public void loadCurrentSong(String audioID) {
+        
     }
 }
