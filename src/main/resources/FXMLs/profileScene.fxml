@@ -14,7 +14,7 @@
          </image>
       </ImageView>
       <Label layoutX="280.0" layoutY="100.0" prefHeight="25.0" prefWidth="160.0" text="Username:" />
-      <Label layoutX="280.0" layoutY="125.0" prefHeight="25.0" prefWidth="160.0" text="username" />
+      <Label fx:id="usernameLabel" layoutX="280.0" layoutY="125.0" prefHeight="25.0" prefWidth="160.0" text="username" />
       <Label layoutX="280.0" layoutY="200.0" prefHeight="25.0" prefWidth="153.0" text="First Name:" />
       <Label layoutX="280.0" layoutY="225.0" prefHeight="25.0" prefWidth="153.0" text="John" />
       <Label layoutX="280.0" layoutY="300.0" prefHeight="25.0" prefWidth="385.0" text="Last Name:" />
