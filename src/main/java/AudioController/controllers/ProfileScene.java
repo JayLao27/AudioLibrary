@@ -1,6 +1,7 @@
 package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
+import AudioController.controllers.User;
 import AudioController.UserSession;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
@@ -22,17 +23,21 @@ public class ProfileScene {
 
     @FXML
     private Label usernameLabel;
-
+    @FXML
+    private Label firstnameLabel;
+    @FXML
+    private Label lastnameLabel;
+    @FXML
+    private Label emailLabel;
     @FXML
     private Button logoutButton;
-
     @FXML
     private Label thankYouLabel;
 
     @FXML
     public void initialize() {
         setupLogoutTooltip();
-        displayUsername();
+        displayUserProfile(); // Ensure this method is called to display profile data
     }
 
     private void setupLogoutTooltip() {
@@ -40,17 +45,31 @@ public class ProfileScene {
         logoutButton.setTooltip(tooltip);
     }
 
-    private void displayUsername() {
+    private void displayUserProfile() {
         int userID = UserSession.getInstance().getUserID();
         if (userID != 0) {
-            String userName = fetchUsernameFromDatabase(userID);
-            usernameLabel.setText(userName != null ? userName : "User not found.");
+            User user = fetchUserProfileFromDatabase(userID);
+            if (user != null) {
+                // Set user information in the labels
+                usernameLabel.setText(user.getUserName());
+                firstnameLabel.setText(user.getFirstName());
+                lastnameLabel.setText(user.getLastName());
+                emailLabel.setText(user.getEmail());
+            } else {
+                // If user not found in DB
+                usernameLabel.setText("User not found.");
+                firstnameLabel.setText("-");
+                lastnameLabel.setText("-");
+                emailLabel.setText("-");
+            }
         } else {
-            usernameLabel.setText("Guest");
+            // No valid userID in the session
+            usernameLabel.setText("No user logged in.");
+            firstnameLabel.setText("-");
+            lastnameLabel.setText("-");
+            emailLabel.setText("-");
         }
     }
-
-
 
     @FXML
     private void logout(MouseEvent event) {
@@ -62,22 +81,6 @@ public class ProfileScene {
     private void displayThankYouMessage(String message) {
         thankYouLabel.setText(message);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @FXML
     private void handleButtonEntered(MouseEvent event) {
@@ -119,6 +122,7 @@ public class ProfileScene {
             Parent loginScene = loader.load();
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
             currentStage.setScene(new Scene(loginScene));
+            currentStage.show();
             System.out.println("Login Scene loaded successfully.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,20 +130,24 @@ public class ProfileScene {
         }
     }
 
-    private String fetchUsernameFromDatabase(int userID) {
-        String query = "SELECT userName FROM User WHERE userID = ?";
+    private User fetchUserProfileFromDatabase(int userID) {
+        String query = "SELECT userName, firstName, lastName, email FROM User WHERE userID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, userID); // Set userID in the query
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getString("userName"); // Retrieve userName
+                return new User(
+                        resultSet.getString("userName"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("email")
+                );
             }
-            System.out.println("Fetching username for userID: " + userID);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error retrieving username from database.");
+            System.out.println("Error retrieving user profile from database.");
         }
         return null;
     }
