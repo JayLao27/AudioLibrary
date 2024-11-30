@@ -1,5 +1,6 @@
 package AudioController.controllers;
 
+import AudioController.SceneWithHomeContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
+import java.lang.reflect.Method;
+import java.util.function.Consumer;
 
 public class HomeScene {
 
@@ -146,17 +150,51 @@ public class HomeScene {
 
     //Load Scene
     public void loadScene(String fxmlPath) {
+        loadScene(fxmlPath, controller -> {});
+    }
+
+    public void loadScene(String fxmlPath, Consumer<Object> setupController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent sceneContent = loader.load();
+
+            Object controller = loader.getController();
+            if (controller instanceof SceneWithHomeContext) {
+                ((SceneWithHomeContext) controller).setHomeScene(this);
+            }
+
+            // Allow custom setup of the controller
+            setupController.accept(controller);
+
+            bodyVBox.getChildren().setAll(sceneContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading " + fxmlPath);
+        }
+    }
+
+    public void loadScene(String fxmlPath, int artistID) {
+        loadScene(fxmlPath, artistID, controller -> {});
+    }
+
+    public void loadScene(String fxmlPath, int artistID, Consumer<Object> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent sceneContent = loader.load();
 
             Object controller = loader.getController();
             if (controller != null) {
+                // Set HomeScene first
+                if (controller instanceof SceneWithHomeContext) {
+                    ((SceneWithHomeContext) controller).setHomeScene(this);
+                }
+
+                // Set artistID using reflection to maintain flexibility
                 try {
-                    controller.getClass().getMethod("setHomeScene", HomeScene.class)
-                            .invoke(controller, this);
-                } catch (NoSuchMethodException ignored) {
-                    //Ignore controllers without setHomeScene Method
+                    Method setArtistIDMethod = controller.getClass().getMethod("setArtistID", int.class);
+                    setArtistIDMethod.invoke(controller, artistID);
+                } catch (NoSuchMethodException e) {
+                    System.out.println("Controller does not have setArtistID method: " + controller.getClass().getSimpleName());
                 }
             }
 
@@ -167,26 +205,36 @@ public class HomeScene {
         }
     }
 
-    public void loadScene(String fxmlPath, int artistID) {
+    public void loadSongScene(String fxmlPath, int artistID) {
+        loadSongScene(fxmlPath, artistID, controller -> {});
+    }
+
+    public void loadSongScene(String fxmlPath, int artistID, Consumer<Object> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent sceneContent = loader.load();
 
             Object controller = loader.getController();
             if (controller != null) {
-                // Set the artistID before the scene is swapped
-                controller.getClass().getMethod("setArtistID", int.class)
-                        .invoke(controller, artistID);
+                // Set HomeScene first
+                if (controller instanceof SceneWithHomeContext) {
+                    ((SceneWithHomeContext) controller).setHomeScene(this);
+                }
+
+                try {
+                    Method setArtistIDMethod = controller.getClass().getMethod("setAudioID", int.class);
+                    setArtistIDMethod.invoke(controller, artistID);
+                } catch (NoSuchMethodException e) {
+                    System.out.println("Controller does not have setArtistID method: " + controller.getClass().getSimpleName());
+                }
             }
 
-            // Swap content in VBox
             bodyVBox.getChildren().setAll(sceneContent);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error loading " + fxmlPath);
         }
     }
-
 
     //Load Current Song
     public void loadCurrentSong(String audioID) {

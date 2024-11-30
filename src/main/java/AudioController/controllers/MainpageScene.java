@@ -1,25 +1,28 @@
 package AudioController.controllers;
 
+import AudioController.DatabaseConnection;
+import AudioController.SceneWithHomeContext;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class MainpageScene {
+public class MainpageScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
 
+    @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
     }
@@ -29,11 +32,20 @@ public class MainpageScene {
 
     @FXML
     public void initialize() {
-        try {
-            // temporary loop to be replaced with database select * statement
-            for (int i = 0; i < 10; i++) {
+        String query = "SELECT audioID FROM Audio ORDER BY audioID ASC";
+
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet rs = preparedStatement.executeQuery()) {
+
+            while (rs.next()) {
+                int audioID = rs.getInt("audioID");
+
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/songcardtemplateScene.fxml"));
                 AnchorPane songCard = fxmlLoader.load();
+
+                SongcardtemplateScene controller = fxmlLoader.getController();
+                controller.setAudioID(audioID);
 
                 addMouseEffects(songCard);
 
@@ -41,7 +53,7 @@ public class MainpageScene {
                     System.out.println("Redirecting to song...");
 
                     if (homeScene != null) {
-                        homeScene.loadScene("/FXMLs/songpageScene.fxml");
+                        homeScene.loadSongScene("/FXMLs/songpageScene.fxml", audioID);
                     } else {
                         System.out.println("HomeScene is null!");
                     }
@@ -49,10 +61,12 @@ public class MainpageScene {
 
                 songcardContainerPane.getChildren().add(songCard);
             }
-        } catch (IOException e) {
+
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void handleShortcutClicked(MouseEvent event) {
         ImageView clickedShortcut = (ImageView) event.getSource();

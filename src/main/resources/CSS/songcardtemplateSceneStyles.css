@@ -5,4 +5,5 @@
 
 #songcardLabel {
     -fx-text-fill: #fefcff;
+    -fx-font-weight: 900;
 }

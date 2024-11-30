@@ -1,11 +1,11 @@
-#artistpagePane {
+#songlistPane {
     -fx-background-color: #1c1c1c8c;
     -fx-background-radius: 10px;
 }
 
-#artistnameLabel {
+#songNameLabel {
     -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
-    -fx-font-size: 48px;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #fefcff;
 }
