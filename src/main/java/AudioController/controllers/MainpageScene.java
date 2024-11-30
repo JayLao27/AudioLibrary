@@ -3,11 +3,15 @@ package AudioController.controllers;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -51,67 +55,40 @@ public class MainpageScene {
     }
 
     public void handleShortcutClicked(MouseEvent event) {
-        // Get the source of the click event
         ImageView clickedShortcut = (ImageView) event.getSource();
-
-        // Retrieve the fx:id of the clicked ImageView
         String fxId = clickedShortcut.getId();
+        int artistID;
 
-        // Perform actions based on the fx:id
-        System.out.println("Clicked ImageView ID: " + fxId);
-
-        // Example action
         switch (fxId) {
             case "mozartShortcut":
-                System.out.println("Redirecting to artist...");
-                if (homeScene != null) {
-                    homeScene.loadScene("/FXMLs/artistpageScene.fxml");
-                } else {
-                    System.out.println("HomeScene is null!");
-                }
+                artistID = 1;
                 break;
             case "tchaikovskyShortcut":
-                System.out.println("Redirecting to artist...");
-                if (homeScene != null) {
-                    homeScene.loadScene("/FXMLs/artistpageScene.fxml");
-                } else {
-                    System.out.println("HomeScene is null!");
-                }
+                artistID = 2;
                 break;
             case "chopinShortcut":
-                System.out.println("Redirecting to artist...");
-                if (homeScene != null) {
-                    homeScene.loadScene("/FXMLs/artistpageScene.fxml");
-                } else {
-                    System.out.println("HomeScene is null!");
-                }
+                artistID = 3;
                 break;
             case "rossiniShortcut":
-                System.out.println("Redirecting to artist...");
-                if (homeScene != null) {
-                    homeScene.loadScene("/FXMLs/artistpageScene.fxml");
-                } else {
-                    System.out.println("HomeScene is null!");
-                }
+                artistID = 4;
                 break;
             case "alanwalkerShortcut":
-                System.out.println("Redirecting to artist...");
-                if (homeScene != null) {
-                    homeScene.loadScene("/FXMLs/artistpageScene.fxml");
-                } else {
-                    System.out.println("HomeScene is null!");
-                }
+                artistID = 5;
                 break;
             case "beethovenShortcut":
-                System.out.println("Redirecting to artist...");
-                if (homeScene != null) {
-                    homeScene.loadScene("/FXMLs/artistpageScene.fxml");
-                } else {
-                    System.out.println("HomeScene is null!");
-                }
+                artistID = 6;
                 break;
             default:
                 System.out.println("Unknown ImageView clicked!");
+                return;
+        }
+
+        try {
+            if (homeScene != null) {
+                homeScene.loadScene("/FXMLs/artistpageScene.fxml", artistID);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -3,6 +3,14 @@
     -fx-background-radius: 10px;
 }
 
+#artistImage {
+    -fx-background-radius: 20; /* Roundness of corners */
+    -fx-border-radius: 20;
+    -fx-padding: 5;
+    -fx-border-color: transparent; /* To ensure the corners appear rounded */
+    -fx-background-insets: 0;
+}
+
 #artistnameLabel {
     -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
     -fx-font-size: 48px;

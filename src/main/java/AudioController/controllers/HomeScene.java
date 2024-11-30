@@ -167,6 +167,27 @@ public class HomeScene {
         }
     }
 
+    public void loadScene(String fxmlPath, int artistID) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent sceneContent = loader.load();
+
+            Object controller = loader.getController();
+            if (controller != null) {
+                // Set the artistID before the scene is swapped
+                controller.getClass().getMethod("setArtistID", int.class)
+                        .invoke(controller, artistID);
+            }
+
+            // Swap content in VBox
+            bodyVBox.getChildren().setAll(sceneContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading " + fxmlPath);
+        }
+    }
+
+
     //Load Current Song
     public void loadCurrentSong(String audioID) {
         

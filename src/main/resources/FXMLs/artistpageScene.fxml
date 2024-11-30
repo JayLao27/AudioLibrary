@@ -7,19 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane id="artistpagePane" prefWidth="956.0" stylesheets="@../CSS/artistpageSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.ArtistpageScene">
    <children>
       <VBox>
          <children>
             <AnchorPane id="artisttopPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="956.0">
                <children>
-                  <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="40.0">
+                  <ImageView id="artistImage" fx:id="artistImage" fitHeight="180.0" fitWidth="180.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="40.0">
                      <image>
                         <Image url="@../ProjectImages/cardplaceholder.png" />
                      </image>
                   </ImageView>
-                  <Label id="artistnameLabel" alignment="BOTTOM_LEFT" layoutX="338.0" layoutY="78.0" text="Artist Name" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
+                  <Label id="artistnameLabel" fx:id="artistNameLabel" alignment="BOTTOM_LEFT" layoutX="338.0" layoutY="78.0" text="Artist Name" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
                </children>
             </AnchorPane>
             <VBox>

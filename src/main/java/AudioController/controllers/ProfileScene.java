@@ -1,7 +1,7 @@
 package AudioController.controllers;
 
-import AudioController.DatabaseConnection;
-import AudioController.controllers.User;
+import AudioController.ResourceLoader;
+import AudioController.User;
 import AudioController.UserSession;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
@@ -15,11 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 public class ProfileScene {
+
+    private ResourceLoader resourceLoader = new ResourceLoader();
 
     @FXML
     private Label usernameLabel;
@@ -48,7 +46,7 @@ public class ProfileScene {
     private void displayUserProfile() {
         int userID = UserSession.getInstance().getUserID();
         if (userID != 0) {
-            User user = fetchUserProfileFromDatabase(userID);
+            User user = resourceLoader.getProfile(userID);
             if (user != null) {
                 // Set user information in the labels
                 usernameLabel.setText(user.getUserName());
@@ -128,27 +126,5 @@ public class ProfileScene {
             e.printStackTrace();
             System.out.println("Error loading loginScene.fxml");
         }
-    }
-
-    private User fetchUserProfileFromDatabase(int userID) {
-        String query = "SELECT userName, firstName, lastName, email FROM User WHERE userID = ?";
-        try (Connection connection = new DatabaseConnection().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, userID); // Set userID in the query
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return new User(
-                        resultSet.getString("userName"),
-                        resultSet.getString("firstName"),
-                        resultSet.getString("lastName"),
-                        resultSet.getString("email")
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error retrieving user profile from database.");
-        }
-        return null;
     }
 }
