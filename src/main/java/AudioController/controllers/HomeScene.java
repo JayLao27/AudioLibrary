@@ -130,9 +130,9 @@ public class HomeScene {
         playPauseIcon.setPreserveRatio(true);
 
         if (isPlaying) {
-            System.out.println("Swapped to Pause");
-        } else {
             System.out.println("Swapped to Play");
+        } else {
+            System.out.println("Swapped to Pause");
         }
 
         //More Logic
