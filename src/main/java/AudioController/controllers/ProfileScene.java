@@ -127,15 +127,16 @@ public class ProfileScene {
     }
 
     private String fetchUsernameFromDatabase(int userID) {
-        String query = "SELECT userID FROM User WHERE userName = ?";
+        String query = "SELECT userName FROM User WHERE userID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(1, userID); // Set userID in the query
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getString("userName");
+                return resultSet.getString("userName"); // Retrieve userName
             }
+            System.out.println("Fetching username for userID: " + userID);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error retrieving username from database.");

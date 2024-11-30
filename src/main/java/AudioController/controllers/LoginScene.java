@@ -1,6 +1,7 @@
 package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
+import AudioController.UserSession;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
@@ -48,6 +49,11 @@ public class LoginScene {
                 alert.setContentText("Invalid username or password. Please try again.");
                 alert.showAndWait();
             } else {
+                int userID = result.getInt("userID");
+
+                UserSession.getInstance().setUserID(userID);
+                System.out.println("User logged in with ID: " + userID);
+
                 Stage window = (Stage) loginButton.getScene().getWindow();
                 window.close();
 
