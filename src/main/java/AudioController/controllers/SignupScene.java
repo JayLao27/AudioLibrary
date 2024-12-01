@@ -13,9 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class SignupScene {
 
@@ -39,7 +37,6 @@ public class SignupScene {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/loginScene.fxml"));
             Scene loginScene = new Scene(loader.load());
-
             Stage stage = (Stage) loginLink.getScene().getWindow();
             stage.setScene(loginScene);
             stage.show();
@@ -62,22 +59,67 @@ public class SignupScene {
             showAlert(Alert.AlertType.WARNING, "Validation Error", "All fields are required.");
             highlightEmptyFields();
             return;
-        } else {
+        }
+
+        Connection conn = null;
+        PreparedStatement userStmt = null;
+        PreparedStatement libraryStmt = null;
+        PreparedStatement cartStmt = null;
+
+        try {
+            conn = db.getConnection();
+            conn.setAutoCommit(false); // Start transaction
+
+            // Insert user
+            String userSql = "INSERT INTO User (firstName, lastName, userName, email, password) VALUES (?, ?, ?, ?, ?)";
+            userStmt = conn.prepareStatement(userSql, Statement.RETURN_GENERATED_KEYS);
+            userStmt.setString(1, firstname);
+            userStmt.setString(2, lastname);
+            userStmt.setString(3, username);
+            userStmt.setString(4, email);
+            userStmt.setString(5, password);
+            userStmt.executeUpdate();
+
+            // Get the generated userID
+            ResultSet rs = userStmt.getGeneratedKeys();
+            if (rs.next()) {
+                int userID = rs.getInt(1);
+
+                // Insert into Library
+                String librarySql = "INSERT INTO Library (userID) VALUES (?)";
+                libraryStmt = conn.prepareStatement(librarySql);
+                libraryStmt.setInt(1, userID);
+                libraryStmt.executeUpdate();
+
+                // Insert into Cart
+                String cartSql = "INSERT INTO Cart (userID) VALUES (?)";
+                cartStmt = conn.prepareStatement(cartSql);
+                cartStmt.setInt(1, userID);
+                cartStmt.executeUpdate();
+            }
+
+            // Commit transaction
+            conn.commit();
+            showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "User registered successfully!");
+        } catch (SQLException e) {
             try {
-                Statement stmt = db.getConnection().createStatement();
-                String sql = "INSERT INTO user (firstName, lastName, userName, email, password) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = db.getConnection().prepareStatement(sql);
-                preparedStatement.setString(1, firstname);
-                preparedStatement.setString(2, lastname);
-                preparedStatement.setString(3, username);
-                preparedStatement.setString(4, email);
-                preparedStatement.setString(5, password);
-                preparedStatement.execute();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                if (conn != null) conn.rollback(); // Rollback on failure
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (userStmt != null) userStmt.close();
+                if (libraryStmt != null) libraryStmt.close();
+                if (cartStmt != null) cartStmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException closeEx) {
+                closeEx.printStackTrace();
             }
         }
     }
+
 
     private void highlightEmptyFields() {
         if (signupFirstnameField.getText().trim().isEmpty()) {

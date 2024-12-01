@@ -1,0 +1,36 @@
+#cartlistPane {
+    -fx-background-color: #cfcfcf1b;
+    -fx-background-radius: 10px;
+}
+
+#songNameLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+}
+
+#priceLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+}
+
+/* Change the appearance of the box */
+.check-box .box {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-border-color: rgb(160, 160, 160);
+    -fx-border-width: 1px;
+}
+
+/* Change the appearance when selected */
+.check-box:selected .box {
+    -fx-background-color: rgb(185, 95, 95);
+    -fx-border-color: rgb(94, 0, 0);
+}
+
+/* Hover effect */
+.check-box:hover .box {
+    -fx-background-color: rgb(253, 60, 60);
+}
