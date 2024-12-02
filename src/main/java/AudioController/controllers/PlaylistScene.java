@@ -1,20 +1,32 @@
 package AudioController.controllers;
 
+import AudioController.SceneWithHomeContext; // Make sure to import this if needed
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class PlaylistScene {
+public class PlaylistScene implements SceneWithHomeContext {
 
     @FXML
-    AnchorPane makeplaylistCard;
+    private AnchorPane makeplaylistCard;
 
-    private void onMakeplaylistCardClicked() {
-        //Logic
+    private HomeScene homeScene; // Reference to the HomeScene
+
+    // Method to set the HomeScene reference
+    public void setHomeScene(HomeScene homeScene) {
+        this.homeScene = homeScene;
     }
 
-    //Playlist Card Pane UX
+    @FXML
+    private void onMakeplaylistCardClicked(MouseEvent event) {
+        System.out.println("Button clicked!");
+        if (homeScene != null) {
+            homeScene.loadScene("/FXMLs/addPlaylistScene.fxml");
+        }
+    }
+
+    // Playlist Card Pane UX
     @FXML
     private void handlePaneEntered(MouseEvent event) {
         ((Pane) event.getSource()).setStyle("-fx-background-color: #d3d3d32b;");
@@ -36,4 +48,6 @@ public class PlaylistScene {
         Pane releasedPane = (Pane) event.getSource();
         releasedPane.setStyle("-fx-background-color: #d3d3d32b;");
     }
+
+
 }
