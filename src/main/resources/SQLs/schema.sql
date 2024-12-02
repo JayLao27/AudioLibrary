@@ -69,3 +69,20 @@ CREATE TABLE IF NOT EXISTS CartAudio (
     FOREIGN KEY (userID) REFERENCES Cart(userID) ON DELETE CASCADE,
     FOREIGN KEY (audioID) REFERENCES Audio(audioID) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS Payments (
+    paymentID INT AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
+    paymentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(10, 2) NOT NULL,
+    paymentMethod VARCHAR(100) NOT NULL,  -- For example: 'Credit Card', 'PayPal', etc.
+    FOREIGN KEY (userID) REFERENCES User(userID) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS PaymentAudio (
+    paymentID INT NOT NULL,
+    audioID INT NOT NULL,
+    PRIMARY KEY (paymentID, audioID),
+    FOREIGN KEY (paymentID) REFERENCES Payments(paymentID) ON DELETE CASCADE,
+    FOREIGN KEY (audioID) REFERENCES Audio(audioID) ON DELETE CASCADE
+);

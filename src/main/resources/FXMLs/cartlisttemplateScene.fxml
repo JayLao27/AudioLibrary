@@ -2,15 +2,23 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane id="cartlistPane" prefHeight="100.0" prefWidth="854.0" stylesheets="@../CSS/cartlisttemplateSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CartlisttemplateScene">
    <children>
-      <ImageView fx:id="songCoverImage" fitHeight="80.0" fitWidth="80.0" layoutX="54.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <ImageView fx:id="songCoverImage" fitHeight="80.0" fitWidth="80.0" layoutX="54.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../ProjectImages/cardplaceholder.png" />
+         </image></ImageView>
       <Label id="songNameLabel" fx:id="songNameLabel" layoutX="102.0" layoutY="42.0" prefHeight="80.0" prefWidth="417.0" text="Label" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <Label id="priceLabel" fx:id="priceLabel" layoutX="638.0" layoutY="42.0" prefHeight="80.0" prefWidth="89.0" text="₱ 0.00" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <CheckBox fx:id="cartCheckBox" layoutX="767.0" layoutY="42.0" mnemonicParsing="false" AnchorPane.rightAnchor="20.0" />
+      <Label id="priceLabel" fx:id="priceLabel" alignment="CENTER" layoutX="602.0" layoutY="42.0" prefHeight="80.0" prefWidth="125.0" text="₱ 0.00" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <CheckBox fx:id="cartCheckBox" layoutX="767.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleCheckboxChange" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="41.0" />
+      <ImageView fx:id="deleteImage" fitHeight="32.0" fitWidth="32.0" layoutX="739.0" layoutY="31.0" onMouseClicked="#handleDeleteClicked" onMouseEntered="#onMouseEnteredImage" onMouseExited="#onMouseExitedImage" onMousePressed="#onMousePressedImage" onMouseReleased="#onMouseReleasedImage" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="34.0" AnchorPane.topAnchor="34.0">
+         <image>
+            <Image url="@../ProjectImages/binwhite.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -6,6 +6,24 @@ import java.sql.ResultSet;
 
 public class ResourceLoader {
 
+    public static String getUsername(int userID) {
+        String query = "SELECT userName FROM User" +
+                " WHERE userID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("userName");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving artist name from database.");
+        }
+        return null;
+    }
+
     public static String getArtistImagePath(int artistID) {
         String query = "SELECT artistImageFile FROM Artists WHERE artistID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -88,6 +106,24 @@ public class ResourceLoader {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString("audioName");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving artist name from database.");
+        }
+        return null;
+    }
+
+    public static Double getAudioPrice(int audioID) {
+        String query = "SELECT audioPrice FROM Audio WHERE audioID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, audioID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                System.out.println(resultSet.getDouble("audioPrice"));
+                return resultSet.getDouble("audioPrice");
             }
         } catch (Exception e) {
             e.printStackTrace();

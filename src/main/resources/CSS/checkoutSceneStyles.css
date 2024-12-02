@@ -1,0 +1,77 @@
+#checkoutScenePane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
+#checkoutScrollPane {
+    -fx-background-color: #494949;
+    -fx-background-radius: 10px; 
+}
+
+#checkoutScrollPane > .corner {
+    -fx-background-color: #494949;
+    -fx-background-radius: 10px;
+}
+
+#checkoutScrollPane > .viewport {
+    -fx-background-color: #494949;
+    -fx-background-radius: 10px;
+}
+
+#checkoutVBox {
+    -fx-background-color: #494949;
+    -fx-background-radius: 10px;
+}
+
+#checkoutLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;
+    -fx-text-align: center;
+
+}
+
+#totalLabel {
+    -fx-font-size: 15px;
+    -fx-text-fill: #fefcff;
+
+}
+
+#totalamountLabel {
+    -fx-font-size: 15px;
+    -fx-text-fill: #fefcff;
+}
+
+#purchaseButton {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-background-color: #4caf50;
+    -fx-border-radius: 5;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+}
+
+#purchaseButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(69,160,73,0.8), 5, 0.8, 0, 0);
+    -fx-transition: all 0.4s ease;
+}
+
+#cancelButton {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-background-color: #dd2525;
+    -fx-border-radius: 5;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+}
+
+#cancelButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(185, 47, 47, 0.8), 5, 0.8, 0, 0);
+    -fx-transition: all 0.4s ease;
+}

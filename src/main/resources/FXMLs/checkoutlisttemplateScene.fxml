@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="cartlistPane" prefHeight="100.0" prefWidth="854.0" stylesheets="@../CSS/cartlisttemplateSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CheckoutlisttemplateScene">
+   <children>
+      <ImageView fx:id="songCoverImage" fitHeight="80.0" fitWidth="80.0" layoutX="54.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../ProjectImages/cardplaceholder.png" />
+         </image></ImageView>
+      <Label id="songNameLabel" fx:id="songNameLabel" layoutX="102.0" layoutY="42.0" prefHeight="80.0" prefWidth="417.0" text="Label" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Label id="priceLabel" fx:id="priceLabel" alignment="CENTER" layoutX="715.0" layoutY="10.0" prefHeight="80.0" prefWidth="125.0" text="₱ 0.00" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+   </children>
+</AnchorPane>

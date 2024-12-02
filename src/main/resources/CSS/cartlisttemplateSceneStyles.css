@@ -34,3 +34,10 @@
 .check-box:hover .box {
     -fx-background-color: rgb(253, 60, 60);
 }
+
+.check-box:selected > .box > .mark {
+    -fx-shape: "M22.903 2.828 20.075 0 6.641 13.435 3.102 9.09 0 11.616l6.338 7.779L22.903 2.828zM15.699,23.746,18.019,23.746,18.019,26.169,15.699,26.169";
+    -fx-background-color: white; /* Checkmark color */
+    -fx-scale-x: 1.5; /* Scale to make the check mark larger */
+    -fx-scale-y: 1.5;
+}

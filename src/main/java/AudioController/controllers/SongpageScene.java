@@ -3,11 +3,14 @@ package AudioController.controllers;
 import AudioController.DatabaseConnection;
 import AudioController.ResourceLoader;
 import AudioController.UserSession;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,6 +47,15 @@ public class SongpageScene {
 
         String albumName = ResourceLoader.getAlbumName(audioID);
         albumNameLabel.setText(albumName);
+
+        Double price = ResourceLoader.getAudioPrice(audioID);
+        if(price == 0) {
+            addtocartButton.setText("Add to Cart (FREE)");
+        } else if (price > 0) {
+            addtocartButton.setText("Add to Cart (₱ " + String.valueOf(price) +")");
+        } else {
+            addtocartButton.setText("Add to Cart (₱ ???)");
+        }
 
         String artistImagePath = ResourceLoader.getAudioImagePath(audioID);
         if (artistImagePath != null) {
@@ -90,5 +102,42 @@ public class SongpageScene {
             e.printStackTrace();
             System.out.println("Error adding audio to cart: " + e.getMessage());
         }
+    }
+
+    //Button UX
+    @FXML
+    private void handleButtonEntered(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
+        scaleTransition.setToX(1.11);
+        scaleTransition.setToY(1.11);
+        scaleTransition.play();
+    }
+
+    @FXML
+    private void handleButtonExited(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
+        scaleTransition.setToX(1.0);
+        scaleTransition.setToY(1.0);
+        scaleTransition.play();
+    }
+
+    @FXML
+    private void handleButtonPressed(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), button);
+        scaleTransition.setToX(1.1);
+        scaleTransition.setToY(1.1);
+        scaleTransition.play();
+    }
+
+    @FXML
+    private void handleButtonReleased(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), button);
+        scaleTransition.setToX(1.05);
+        scaleTransition.setToY(1.05);
+        scaleTransition.play();
     }
 }

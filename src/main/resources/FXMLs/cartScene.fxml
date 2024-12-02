@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="cartScenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="956.0" stylesheets="@../CSS/cartSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CartScene">
+<AnchorPane id="cartScenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="956.0" stylesheets="@../CSS/cartSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CartScene">
    <children>
       <Label id="mycartLabel" layoutX="20.0" layoutY="20.0" text="My Cart" />
       <ScrollPane id="cartScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="40.0" layoutY="77.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
@@ -22,9 +22,12 @@
       <AnchorPane layoutX="526.0" layoutY="464.0" prefHeight="54.0" prefWidth="390.0">
          <children>
             <Label id="totalLabel" layoutY="16.0" prefHeight="22.0" prefWidth="56.0" text="Total ₱:" />
-            <Button id="checkoutButton" fx:id="checkoutButton" layoutX="118.0" layoutY="7.0" mnemonicParsing="false" onMouseEntered="#handleButtonEntered" onMouseExited="#handleButtonExited" onMousePressed="#handleButtonPressed" onMouseReleased="#handleButtonReleased" prefHeight="40.0" prefWidth="190.0" text="Check Out (0)" AnchorPane.rightAnchor="10.0" />
+            <Button id="checkoutButton" fx:id="checkoutButton" layoutX="118.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleCheckoutClicked" onMouseEntered="#handleButtonEntered" onMouseExited="#handleButtonExited" onMousePressed="#handleButtonPressed" onMouseReleased="#handleButtonReleased" prefHeight="40.0" prefWidth="190.0" text="Check Out (0)" AnchorPane.rightAnchor="10.0" />
             <Label id="totalamountLabel" fx:id="totalamountLabel" layoutX="64.0" layoutY="17.0" prefHeight="21.0" prefWidth="114.0" text="0.00" />
          </children>
       </AnchorPane>
    </children>
+   <padding>
+      <Insets bottom="20.0" />
+   </padding>
 </AnchorPane>

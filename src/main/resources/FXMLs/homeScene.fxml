@@ -46,7 +46,7 @@
                                     <Insets bottom="2.0" left="5.0" right="5.0" top="10.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Label id="sidebarUsernameLabel" layoutX="58.0" layoutY="3.0" prefHeight="38.0" prefWidth="111.0" text="Username" />
+                                    <Label id="sidebarUsernameLabel" fx:id="usernameLabel" layoutX="58.0" layoutY="3.0" prefHeight="38.0" prefWidth="111.0" text="Username" />
                                     <ImageView layoutX="14.0" layoutY="6.0">
                                        <image>
                                           <Image url="@../ProjectImages/profile-user.png" />
@@ -144,7 +144,7 @@
                               <Slider id="volumeSlider" fx:id="volumeSlider" blockIncrement="1.0" layoutX="39.0" layoutY="52.0" prefHeight="14.0" prefWidth="173.0" value="50.0" />
                            </children>
                         </Pane>
-                        <Pane id="currentMusicPane" fx:id="currentMusicPane" prefHeight="80.0" prefWidth="400.0">
+                        <Pane id="currentMusicPane" fx:id="currentAudioPane" prefHeight="80.0" prefWidth="400.0">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>

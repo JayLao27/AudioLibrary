@@ -1,9 +1,13 @@
 package AudioController.controllers;
 
+import AudioController.PlaybackController;
+import AudioController.ResourceLoader;
 import AudioController.SceneWithHomeContext;
+import AudioController.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +21,8 @@ public class HomeScene {
 
     private boolean isPlaying = false;
 
+    @FXML
+    Label usernameLabel;
     @FXML
     Pane sidebarProfilePane;
     @FXML
@@ -32,6 +38,7 @@ public class HomeScene {
 
     @FXML
     private void initialize() {
+        usernameLabel.setText(ResourceLoader.getUsername(UserSession.getInstance().getUserID()));
         loadScene("/FXMLs/mainpageScene.fxml");
     }
 
@@ -122,20 +129,49 @@ public class HomeScene {
 
     @FXML
     private void handlePlayPauseClicked(MouseEvent event) {
-        isPlaying = !isPlaying;
+        // Check the current playback state from the PlaybackController singleton
+        boolean currentState = PlaybackController.getInstance().isPlaying();
 
+        // Toggle the isPlaying state based on the current state
+        if (currentState) {
+            // If currently playing, pause the audio
+            PlaybackController.getInstance().togglePlayPause();
+        } else {
+            // If currently paused, play the audio
+            PlaybackController.getInstance().togglePlayPause();
+        }
+
+        // Update the icon based on the new playback state
+        updatePlayPauseIcon(!currentState); // We invert the state since we are toggling
+
+        // Log the current state for debugging
+        logPlayPauseState(!currentState); // Again, inverting for the toggle
+    }
+
+    /**
+     * Updates the play/pause icon based on the current playing state.
+     */
+    private void updatePlayPauseIcon(boolean isPlaying) {
         String imagePath = isPlaying ? "/ProjectImages/pause.png" : "/ProjectImages/play-button.png";
         playPauseIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
         playPauseIcon.setSmooth(true);
         playPauseIcon.setPreserveRatio(true);
+    }
 
+    /**
+     * Logs the current play/pause state to the console for debugging.
+     */
+    private void logPlayPauseState(boolean isPlaying) {
+        String state = isPlaying ? "Play" : "Pause";
+        System.out.println("Swapped to " + state);
+    }
+
+    private void togglePlayback(boolean isPlaying) {
         if (isPlaying) {
-            System.out.println("Swapped to Play");
+            PlaybackController.getInstance().togglePlayPause();  // Start playing the audio
         } else {
-            System.out.println("Swapped to Pause");
+            PlaybackController.getInstance().togglePlayPause();  // Pause the audio
         }
-
-        //More Logic
     }
 
     @FXML
@@ -149,16 +185,16 @@ public class HomeScene {
     }
 
     //Load Scene
-    public void loadScene(String fxmlPath) {
-        loadScene(fxmlPath, controller -> {});
+    public <T> T loadScene(String fxmlPath) {
+        return loadScene(fxmlPath, controller -> {});
     }
 
-    public void loadScene(String fxmlPath, Consumer<Object> setupController) {
+    public <T> T loadScene(String fxmlPath, Consumer<T> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent sceneContent = loader.load();
 
-            Object controller = loader.getController();
+            T controller = loader.getController();
             if (controller instanceof SceneWithHomeContext) {
                 ((SceneWithHomeContext) controller).setHomeScene(this);
             }
@@ -167,11 +203,14 @@ public class HomeScene {
             setupController.accept(controller);
 
             bodyVBox.getChildren().setAll(sceneContent);
+            return controller; // Return the controller instance
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error loading " + fxmlPath);
+            return null; // Return null in case of an error
         }
     }
+
 
     public void loadScene(String fxmlPath, int artistID) {
         loadScene(fxmlPath, artistID, controller -> {});

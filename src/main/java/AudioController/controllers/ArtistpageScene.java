@@ -49,7 +49,6 @@ public class ArtistpageScene implements SceneWithHomeContext {
     public void initialize() {}
 
     private void loadSongList() {
-        // Move the song loading logic from initialize() to this method
         String query = "SELECT audioID FROM Audio WHERE artistID = ? ORDER BY audioID ASC";
 
         try (Connection connection = new DatabaseConnection().getConnection();
