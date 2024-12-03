@@ -88,7 +88,7 @@ public class LoginScene {
 
     //Button UX
     @FXML
-        private void handleButtonEntered(MouseEvent event) {
+    private void handleButtonEntered(MouseEvent event) {
         Button button = (Button) event.getSource();
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
         scaleTransition.setToX(1.1);

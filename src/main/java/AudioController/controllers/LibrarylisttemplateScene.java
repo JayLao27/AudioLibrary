@@ -11,14 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-public class LibrarylisttemplateScene implements SceneWithHomeContext {
-    private HomeScene homeScene;
+public class LibrarylisttemplateScene {
     @FXML
     private Label songNameLabel;
     @FXML
     private ImageView songCoverImage;
-    @FXML
-    private ImageView playImage;
+
 
     private int audioID;
 
@@ -52,9 +50,5 @@ public class LibrarylisttemplateScene implements SceneWithHomeContext {
         } else {
             System.out.println("Artist image path is null for artistID: " + audioID);
         }
-    }
-
-    public void setHomeScene(HomeScene homeScene) {
-        this.homeScene = homeScene;
     }
 }
