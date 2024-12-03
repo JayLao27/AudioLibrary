@@ -147,19 +147,6 @@ public class SignupScene {
         alert.showAndWait();
     }
 
-    private void navigateToLoginScene() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/loginScene.fxml"));
-            Scene loginScene = new Scene(loader.load());
-
-            Stage stage = (Stage) createAccountButton.getScene().getWindow();
-            stage.setScene(loginScene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     //Button UX
     @FXML
     private void handleButtonEntered(MouseEvent event) {

@@ -11,8 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class CurrentsongScene {
-
-    private final PlaybackController playbackController = PlaybackController.getInstance();
     @FXML
     ImageView songImage;
     @FXML
@@ -37,28 +35,28 @@ public class CurrentsongScene {
         playbackSlider.valueChangingProperty().addListener((obs, wasChanging, isChanging) -> {
             if (!isChanging) {
                 // When the user stops changing the slider value (i.e., releases the knob)
-                Duration seekTo = playbackController.getMediaPlayer().getMedia().getDuration()
+                Duration seekTo = PlaybackController.getInstance().getMediaPlayer().getMedia().getDuration()
                         .multiply(playbackSlider.getValue() / 100.0);
-                playbackController.getMediaPlayer().seek(seekTo);
+                PlaybackController.getInstance().getMediaPlayer().seek(seekTo);
             }
         });
 
         // This ensures the media player position is updated when the slider knob is released
         playbackSlider.setOnMouseReleased(event -> {
-            if (playbackController.isPlaying()) {
-                Duration seekTo = playbackController.getMediaPlayer().getMedia().getDuration()
+            if (PlaybackController.getInstance().isPlaying()) {
+                Duration seekTo = PlaybackController.getInstance().getMediaPlayer().getMedia().getDuration()
                         .multiply(playbackSlider.getValue() / 100.0);
-                playbackController.getMediaPlayer().seek(seekTo);
+                PlaybackController.getInstance().getMediaPlayer().seek(seekTo);
             }
         });
 
         // Update the slider's value and time labels only when the user is not dragging
-        playbackController.getMediaPlayer().currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+        PlaybackController.getInstance().getMediaPlayer().currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             // Only update the slider value if the user is not interacting with it
             if (!playbackSlider.isValueChanging()) {
                 Platform.runLater(() -> {
                     // Update the slider's position based on the current time
-                    double newValue = newTime.toMillis() / playbackController.getMediaPlayer().getTotalDuration().toMillis() * 100;
+                    double newValue = newTime.toMillis() / PlaybackController.getInstance().getMediaPlayer().getTotalDuration().toMillis() * 100;
                     playbackSlider.setValue(newValue);
 
                     // Update the current time label
@@ -71,7 +69,7 @@ public class CurrentsongScene {
         });
 
         // Set the duration label when the media player's total duration changes
-        playbackController.getMediaPlayer().totalDurationProperty().addListener((obs, oldDuration, newDuration) -> {
+        PlaybackController.getInstance().getMediaPlayer().totalDurationProperty().addListener((obs, oldDuration, newDuration) -> {
             if (newDuration != null) {
                 durationLabel.setText(formatTime(newDuration));
             }
