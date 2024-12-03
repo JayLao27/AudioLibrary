@@ -1,5 +1,6 @@
 package AudioController.controllers;
 
+import AudioController.AudioPlayer;
 import AudioController.DatabaseConnection;
 import AudioController.SceneWithHomeContext;
 import AudioController.UserSession;
@@ -27,6 +28,7 @@ public class LibraryScene implements SceneWithHomeContext {
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
+        System.out.println("HomeScene set on LibraryScene: " + (homeScene != null));
     }
 
     @FXML
@@ -55,19 +57,18 @@ public class LibraryScene implements SceneWithHomeContext {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/librarylisttemplateScene.fxml"));
                     AnchorPane songList = fxmlLoader.load();
 
-                    // Set the audioID in the controller
                     LibrarylisttemplateScene controller = fxmlLoader.getController();
+                    System.out.println("Controller initialized: " + controller);
                     controller.setAudioID(audioID);
 
-                    // Add mouse effects to the song list item
                     addMouseEffects(songList);
 
-                    // Set up the click event to load the song page
                     songList.setOnMouseClicked(event -> {
                         System.out.println("Redirecting to song...");
 
                         if (homeScene != null) {
-                            homeScene.loadSongScene("/FXMLs/songpageScene.fxml", audioID);
+                            AudioPlayer.playAudio(audioID);
+                            homeScene.loadCurrentSong(audioID);
                         } else {
                             System.out.println("HomeScene is null!");
                         }

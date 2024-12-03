@@ -142,9 +142,14 @@
                                  </image>
                               </ImageView>
                               <Slider id="volumeSlider" fx:id="volumeSlider" blockIncrement="1.0" layoutX="39.0" layoutY="52.0" prefHeight="14.0" prefWidth="173.0" value="50.0" />
+                              <ImageView fx:id="volumeIcon" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="49.0">
+                                 <image>
+                                    <Image url="@../ProjectImages/Repeat.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </Pane>
-                        <Pane id="currentMusicPane" fx:id="currentAudioPane" prefHeight="80.0" prefWidth="400.0">
+                        <Pane id="currentMusicPane" fx:id="currentSongPane" prefHeight="80.0" prefWidth="400.0">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>

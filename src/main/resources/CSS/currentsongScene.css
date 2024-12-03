@@ -1,0 +1,32 @@
+/* Style for the parent pane */
+#currentsongPane {
+    -fx-background-color: #dbdbdb;
+    -fx-background-radius: 15px;
+}
+
+/* Define default colors and track styles */
+.slider {
+    -fx-control-inner-background: #ddd;  /* default background for the track */
+    -fx-accent: #ff5722;  /* Color for the filled part (highlighted) */
+    -default-track-color: #e2e2e2;  /* Color for the unfilled part (remaining) */
+}
+
+.slider .track {
+    -fx-background-color: -fx-shadow-highlight-color,
+          linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+          -default-track-color;
+    -fx-background-radius: 5px;
+}
+
+/* Customize the thumb (slider knob) */
+.slider .thumb {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b91818;
+    -fx-border-width: 2px;
+    -fx-border-radius: 100%;
+    -fx-background-radius: 100%;
+}
+
+.slider .thumb:hover {
+    -fx-background-color: #ffffff;
+}

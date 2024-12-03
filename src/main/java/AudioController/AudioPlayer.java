@@ -1,7 +1,6 @@
 package AudioController;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import AudioController.controllers.HomeScene;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -15,7 +14,6 @@ public class AudioPlayer {
     public static void playAudio(int audioID) {
         String audioFileName = null;
 
-        // Query to get the audio file name from the database
         String query = "SELECT audioFileName FROM Audio WHERE audioID = ?";
 
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -35,20 +33,18 @@ public class AudioPlayer {
         }
 
         if (audioFileName != null) {
-            // Get the URI of the audio file in the resources folder
-            String filePath = "/audioFiles/" + audioFileName; // Assuming your audio files are in the 'resources/audioFiles' folder
-            URL resource = PlaybackController.class.getResource(filePath); // Replace YourClassName with the actual class name
+            String filePath = "/audioFiles/" + audioFileName;
+            URL resource = PlaybackController.class.getResource(filePath);
 
             if (resource != null) {
-                // Initialize the MediaPlayer through the AudioPlayer singleton
-                PlaybackController.getInstance().playAudio(resource.toString());  // Passing the file path to the AudioPlayer singleton
+                PlaybackController.getInstance().playAudio(resource.toString());
             } else {
                 System.out.println("Audio file not found in resources: " + filePath);
             }
         } else {
             System.out.println("No audio found for audioID: " + audioID);
         }
-    }
 
+    }
 
 }

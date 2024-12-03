@@ -6,16 +6,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="80.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CurrentsongScene">
+<AnchorPane id="currentsongPane" prefHeight="80.0" prefWidth="393.0" stylesheets="@../CSS/currentsongScene.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CurrentsongScene">
    <children>
       <ImageView fx:id="songImage" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="songName" alignment="CENTER" layoutX="85.0" layoutY="14.0" prefHeight="17.0" prefWidth="290.0" text="Song Name">
+      <Label fx:id="songNameLabel" alignment="CENTER" layoutX="85.0" layoutY="14.0" prefHeight="17.0" prefWidth="290.0" text="Song Name">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="artistName" alignment="CENTER" layoutX="85.0" layoutY="39.0" prefHeight="17.0" prefWidth="290.0" text="Artist Name" />
-      <Slider fx:id="playbackSlider" disable="true" layoutX="85.0" layoutY="59.0" prefHeight="14.0" prefWidth="290.0" />
+      <Label fx:id="artistNameLabel" alignment="CENTER" layoutX="85.0" layoutY="39.0" prefHeight="17.0" prefWidth="290.0" text="Artist Name" />
+      <Slider fx:id="playbackSlider" layoutX="126.0" layoutY="59.0" prefHeight="14.0" prefWidth="215.0" />
+      <Label fx:id="durationLabel" alignment="CENTER" layoutX="341.0" layoutY="58.0" prefHeight="17.0" prefWidth="40.0" text="00:00" />
+      <Label fx:id="currentTimeLabel" alignment="CENTER" layoutX="85.0" layoutY="58.0" prefHeight="17.0" prefWidth="40.0" text="00:00" />
    </children>
 </AnchorPane>

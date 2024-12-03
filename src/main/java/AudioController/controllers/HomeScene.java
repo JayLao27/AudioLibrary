@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,7 +33,13 @@ public class HomeScene {
     @FXML
     Pane sidebarCartPane;
     @FXML
+    Pane currentSongPane;
+    @FXML
     ImageView playPauseIcon;
+    @FXML
+    ImageView volumeIcon;
+    @FXML
+    Slider volumeSlider;
     @FXML
     VBox bodyVBox;
 
@@ -40,6 +47,33 @@ public class HomeScene {
     private void initialize() {
         usernameLabel.setText(ResourceLoader.getUsername(UserSession.getInstance().getUserID()));
         loadScene("/FXMLs/mainpageScene.fxml");
+        volumeSlider.setValue(50);
+
+        PlaybackController.getInstance().setVolume(volumeSlider.getValue() / 100.0);
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            PlaybackController.getInstance().setVolume(newValue.doubleValue() / 100.0);
+
+            updateVolumeIcon(newValue.doubleValue());
+        });
+
+        updateVolumeIcon(volumeSlider.getValue());
+
+    }
+
+    private void updateVolumeIcon(double volume) {
+        String imagePath;
+        if (volume < 1) {
+            imagePath = "/ProjectImages/muteicon.png";  // Mute icon
+        } else if (volume >= 1 && volume <= 50) {
+            imagePath = "/ProjectImages/volumemidicon.png";   // Low volume icon
+        } else {
+            imagePath = "/ProjectImages/volumehighicon.png";  // High volume icon
+        }
+
+        volumeIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+        volumeIcon.setSmooth(true);
+        volumeIcon.setPreserveRatio(true);
     }
 
     //Sidebar Panes UX
@@ -64,6 +98,7 @@ public class HomeScene {
         Pane releasedPane = (Pane) event.getSource();
         releasedPane.setStyle("-fx-background-color: #202020;");
     }
+
 
     //Side Bar Panes Functions
     @FXML
@@ -121,6 +156,7 @@ public class HomeScene {
         imageView.setScaleY(1.0);
     }
 
+
     //Top Bar Controller Buttons Functions
     @FXML
     private void handleReverseClicked(MouseEvent event) {
@@ -129,49 +165,25 @@ public class HomeScene {
 
     @FXML
     private void handlePlayPauseClicked(MouseEvent event) {
-        // Check the current playback state from the PlaybackController singleton
         boolean currentState = PlaybackController.getInstance().isPlaying();
 
-        // Toggle the isPlaying state based on the current state
         if (currentState) {
-            // If currently playing, pause the audio
             PlaybackController.getInstance().togglePlayPause();
         } else {
-            // If currently paused, play the audio
             PlaybackController.getInstance().togglePlayPause();
         }
 
         // Update the icon based on the new playback state
         updatePlayPauseIcon(!currentState); // We invert the state since we are toggling
-
-        // Log the current state for debugging
-        logPlayPauseState(!currentState); // Again, inverting for the toggle
+        String state = isPlaying ? "Play" : "Pause";
+        System.out.println("Swapped to " + state);
     }
 
-    /**
-     * Updates the play/pause icon based on the current playing state.
-     */
     private void updatePlayPauseIcon(boolean isPlaying) {
         String imagePath = isPlaying ? "/ProjectImages/pause.png" : "/ProjectImages/play-button.png";
         playPauseIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
         playPauseIcon.setSmooth(true);
         playPauseIcon.setPreserveRatio(true);
-    }
-
-    /**
-     * Logs the current play/pause state to the console for debugging.
-     */
-    private void logPlayPauseState(boolean isPlaying) {
-        String state = isPlaying ? "Play" : "Pause";
-        System.out.println("Swapped to " + state);
-    }
-
-    private void togglePlayback(boolean isPlaying) {
-        if (isPlaying) {
-            PlaybackController.getInstance().togglePlayPause();  // Start playing the audio
-        } else {
-            PlaybackController.getInstance().togglePlayPause();  // Pause the audio
-        }
     }
 
     @FXML
@@ -276,7 +288,26 @@ public class HomeScene {
     }
 
     //Load Current Song
-    public void loadCurrentSong(String audioID) {
-        
+    public void loadCurrentSong(int audioID) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/currentsongScene.fxml"));
+            Parent sceneContent = loader.load();
+
+            CurrentsongScene controller = loader.getController();
+
+            // Pass HomeScene context
+            if (controller instanceof SceneWithHomeContext) {
+                ((SceneWithHomeContext) controller).setHomeScene(this);
+            }
+
+            // Set up the controller with the audioID
+            controller.loadSong(audioID);
+
+            // Set the content into currentSongPane
+            currentSongPane.getChildren().setAll(sceneContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading currentsongScene.fxml");
+        }
     }
 }
