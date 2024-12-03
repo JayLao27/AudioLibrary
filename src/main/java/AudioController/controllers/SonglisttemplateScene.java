@@ -16,9 +16,11 @@ import java.sql.SQLException;
 public class SonglisttemplateScene {
 
     @FXML
-    private Label songNameLabel;
+    private Button addtocartButton;
     @FXML
     private ImageView songCoverImage;
+    @FXML
+    private Label songNameLabel;
 
     private int audioID;
 
@@ -33,6 +35,15 @@ public class SonglisttemplateScene {
     private void loadAudioDetails() {
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);
+
+        Double price = ResourceLoader.getAudioPrice(audioID);
+        if (price == 0) {
+            addtocartButton.setText("Add to Cart (FREE)");
+        } else if (price > 0) {
+            addtocartButton.setText("Add to Cart (₱" + String.format("%.2f", price) + ")");
+        } else {
+            addtocartButton.setText("Add to Cart (₱ ???)");
+        }
 
         String artistImagePath = ResourceLoader.getAudioImagePath(audioID);
         if (artistImagePath != null) {
