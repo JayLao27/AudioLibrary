@@ -1,0 +1,13 @@
+#paymenthistoryPane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
+#paymenthistoryPane Label {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;
+    -fx-text-align: center;
+}

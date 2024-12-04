@@ -1,0 +1,11 @@
+#paymentslistPane {
+    -fx-background-color: #cfcfcf1b;
+    -fx-background-radius: 10px;
+}
+
+#paymentLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+}

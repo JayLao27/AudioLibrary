@@ -17,6 +17,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LibraryScene implements SceneWithHomeContext {
 
@@ -49,9 +51,13 @@ public class LibraryScene implements SceneWithHomeContext {
             // Set the userID parameter in the query
             preparedStatement.setInt(1, userID);
 
+            // Queue for storing audio IDs
+            List<Integer> audioQueue = new ArrayList<>();
+
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 while (rs.next()) {
                     int audioID = rs.getInt("audioID");
+                    audioQueue.add(audioID); // Add audioID to the queue
 
                     // Load the song list template
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/librarylisttemplateScene.fxml"));
@@ -67,8 +73,10 @@ public class LibraryScene implements SceneWithHomeContext {
                         System.out.println("Redirecting to song...");
 
                         if (homeScene != null) {
-                            AudioPlayer.playAudio(audioID);
-                            homeScene.loadCurrentSong(audioID);
+                            // Play the clicked song
+                            AudioPlayer.getInstance().setQueue(audioQueue); // Set the entire queue
+                            AudioPlayer.getInstance().playAudio(audioID); // Start playback with the clicked song
+                            homeScene.loadCurrentSong(audioID); // Update homeScene with the current song
                         } else {
                             System.out.println("HomeScene is null!");
                         }
@@ -83,12 +91,13 @@ public class LibraryScene implements SceneWithHomeContext {
         }
     }
 
+
     private void addMouseEffects(Pane songList) {
         // Mouse enter: scale up and change background
         songList.setOnMouseEntered(event -> {
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songList);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
+            scaleTransition.setToX(1.02);
+            scaleTransition.setToY(1.02);
             scaleTransition.play();
 
             songList.setStyle("-fx-background-color: #d3d3d32b;");
@@ -106,8 +115,8 @@ public class LibraryScene implements SceneWithHomeContext {
         // Mouse pressed: scale slightly down and darken background
         songList.setOnMousePressed(event -> {
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.04);
-            scaleTransition.setToY(1.04);
+            scaleTransition.setToX(1.01);
+            scaleTransition.setToY(1.01);
             scaleTransition.play();
 
             // Darken background color
@@ -116,8 +125,8 @@ public class LibraryScene implements SceneWithHomeContext {
 
         songList.setOnMouseReleased(event -> {
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
+            scaleTransition.setToX(1.02);
+            scaleTransition.setToY(1.02);
             scaleTransition.play();
 
             // Restore hover background color

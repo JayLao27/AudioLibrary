@@ -1,6 +1,6 @@
 package AudioController.controllers;
 
-import AudioController.PlaybackController;
+import AudioController.AudioPlayer;
 import AudioController.ResourceLoader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -9,6 +9,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+
+import java.util.List;
 
 public class CurrentsongScene {
     @FXML
@@ -24,6 +26,8 @@ public class CurrentsongScene {
     @FXML
     Slider playbackSlider;
 
+    private List<Integer> audioQueue = AudioPlayer.getInstance().getAudioQueue();
+
     @FXML
     public void initialize() {
         // Initialize playback slider and bind to the media player's current time
@@ -35,58 +39,56 @@ public class CurrentsongScene {
         playbackSlider.valueChangingProperty().addListener((obs, wasChanging, isChanging) -> {
             if (!isChanging) {
                 // When the user stops changing the slider value (i.e., releases the knob)
-                Duration seekTo = PlaybackController.getInstance().getMediaPlayer().getMedia().getDuration()
+                Duration seekTo = AudioPlayer.getInstance().getMediaPlayer().getMedia().getDuration()
                         .multiply(playbackSlider.getValue() / 100.0);
-                PlaybackController.getInstance().getMediaPlayer().seek(seekTo);
+                AudioPlayer.getInstance().getMediaPlayer().seek(seekTo);
             }
         });
 
         // This ensures the media player position is updated when the slider knob is released
         playbackSlider.setOnMouseReleased(event -> {
-            if (PlaybackController.getInstance().isPlaying()) {
-                Duration seekTo = PlaybackController.getInstance().getMediaPlayer().getMedia().getDuration()
+            if (AudioPlayer.getInstance().isPlaying()) {
+                Duration seekTo = AudioPlayer.getInstance().getMediaPlayer().getMedia().getDuration()
                         .multiply(playbackSlider.getValue() / 100.0);
-                PlaybackController.getInstance().getMediaPlayer().seek(seekTo);
+                AudioPlayer.getInstance().getMediaPlayer().seek(seekTo);
             }
         });
 
         // Update the slider's value and time labels only when the user is not dragging
-        PlaybackController.getInstance().getMediaPlayer().currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+        AudioPlayer.getInstance().getMediaPlayer().currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             // Only update the slider value if the user is not interacting with it
             if (!playbackSlider.isValueChanging()) {
                 Platform.runLater(() -> {
-                    // Update the slider's position based on the current time
-                    double newValue = newTime.toMillis() / PlaybackController.getInstance().getMediaPlayer().getTotalDuration().toMillis() * 100;
-                    playbackSlider.setValue(newValue);
+                    // Ensure the total duration is not null before accessing it
+                    Duration totalDuration = AudioPlayer.getInstance().getMediaPlayer().getTotalDuration();
+                    if (totalDuration != null) {
+                        double newValue = newTime.toMillis() / totalDuration.toMillis() * 100;
+                        playbackSlider.setValue(newValue);
 
-                    // Update the current time label
-                    updateTimeLabels(newTime);
-
-                    // Update the slider track color dynamically based on value
-                    updateSliderTrackColor(newValue);
+                        // Update the current time label
+                        updateTimeLabels(newTime);
+                    }
                 });
             }
         });
 
-        // Set the duration label when the media player's total duration changes
-        PlaybackController.getInstance().getMediaPlayer().totalDurationProperty().addListener((obs, oldDuration, newDuration) -> {
-            if (newDuration != null) {
-                durationLabel.setText(formatTime(newDuration));
+        // Add listener to update the playback position when clicked directly on the slider
+        playbackSlider.setOnMouseClicked(event -> {
+            if (AudioPlayer.getInstance().isPlaying()) {
+                double clickX = event.getX();
+                double sliderWidth = playbackSlider.getWidth();
+                double percentage = clickX / sliderWidth;  // Get the percentage of the click position
+
+                // Calculate the corresponding time position in the media
+                Duration totalDuration = AudioPlayer.getInstance().getMediaPlayer().getTotalDuration();
+                if (totalDuration != null) {
+                    Duration seekTo = totalDuration.multiply(percentage);
+                    AudioPlayer.getInstance().getMediaPlayer().seek(seekTo);
+                }
             }
         });
     }
 
-    private void updateSliderTrackColor(double newValue) {
-        double percentage = newValue;  // In percentage (0-100)
-        String style = String.format(
-                "-fx-control-inner-background: linear-gradient(to right, " +
-                        "-fx-accent 0%%, " +
-                        "-fx-accent %.1f%%, " +
-                        "-default-track-color %.1f%%, " +
-                        "-default-track-color 100%%);",
-                percentage, percentage);
-        playbackSlider.setStyle(style);  // Update slider's style dynamically
-    }
 
     private void updateTimeLabels(Duration currentTime) {
         currentTimeLabel.setText(formatTime(currentTime));
@@ -98,12 +100,26 @@ public class CurrentsongScene {
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    public void loadSong(int audioID) {
-        songNameLabel.setText(ResourceLoader.getAudioName(audioID));
-        artistNameLabel.setText(ResourceLoader.getArtistNamefromAudioID(audioID));
+    private String formatTime(int durationSeconds) {
+        int minutes = durationSeconds / 60;
+        int seconds = durationSeconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
 
+    public void loadSong(int index) {
+        int audioID = audioQueue.get(index);
+        String songName = ResourceLoader.getAudioName(audioID);
+        String artistName = ResourceLoader.getArtistNamefromAudioID(audioID);
         String imagePath = ResourceLoader.getAudioImagePath(audioID);
+        int durationSeconds = ResourceLoader.getAudioDuration(audioID);
 
+        // Convert duration to "MM:SS" format
+        String formattedDuration = formatTime(durationSeconds);
+
+        // Update the labels and image view
+        songNameLabel.setText(songName);
+        artistNameLabel.setText(artistName);
+        durationLabel.setText(formattedDuration);
         songImage.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
     }
 }

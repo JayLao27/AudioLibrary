@@ -17,10 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -74,19 +71,23 @@ public class CheckoutScene implements SceneWithHomeContext {
     //Logic
     @FXML
     private void handlePurchaseClicked(MouseEvent event) {
-        // Assume userID and balance are placeholders for the logged-in user's details
-        int userID = UserSession.getInstance().getUserID(); // Replace with the actual logged-in user's ID
-        double userBalance = 100.00; // Replace with a method to retrieve the actual balance
+        int userID = UserSession.getInstance().getUserID();
+        double userBalance = 100.00;
+        String paymentMethod = "Credit Card"; // Placeholder, you may replace with actual payment method from UI
 
         double totalPrice = 0.0;
         String priceQuery = "SELECT audioPrice FROM Audio WHERE audioID = ?";
         String insertQuery = "INSERT IGNORE INTO LibraryAudio (userID, audioID) VALUES (?, ?)";
-        String deleteQuery = "DELETE FROM CartAudio WHERE userID = ? AND audioID = ?";  // Query to remove from CartAudio
+        String deleteQuery = "DELETE FROM CartAudio WHERE userID = ? AND audioID = ?";
+        String insertPaymentQuery = "INSERT INTO Payments (userID, amount, paymentMethod) VALUES (?, ?, ?)";
+        String insertPaymentAudioQuery = "INSERT INTO PaymentAudio (paymentID, audioID) VALUES (?, ?)";
 
         try (Connection conn = new DatabaseConnection().getConnection();
              PreparedStatement priceStmt = conn.prepareStatement(priceQuery);
              PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
-             PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
+             PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery);
+             PreparedStatement insertPaymentStmt = conn.prepareStatement(insertPaymentQuery, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement insertPaymentAudioStmt = conn.prepareStatement(insertPaymentAudioQuery)) {
 
             // Calculate the total price
             for (int audioID : checkedAudio) {
@@ -104,43 +105,64 @@ public class CheckoutScene implements SceneWithHomeContext {
                 userBalance -= totalPrice;
                 System.out.println("Purchase successful! Remaining balance: " + userBalance);
 
-                // Update LibraryAudio table
-                for (int audioID : checkedAudio) {
-                    insertStmt.setInt(1, userID);
-                    insertStmt.setInt(2, audioID);
-                    insertStmt.executeUpdate();
-                }
+                // Insert the payment record into the Payments table
+                insertPaymentStmt.setInt(1, userID);
+                insertPaymentStmt.setDouble(2, totalPrice);
+                insertPaymentStmt.setString(3, paymentMethod);
+                insertPaymentStmt.executeUpdate();
 
-                // Remove the purchased audio from the CartAudio table
-                for (int audioID : checkedAudio) {
-                    deleteStmt.setInt(1, userID);
-                    deleteStmt.setInt(2, audioID);
-                    deleteStmt.executeUpdate();
-                }
+                // Get the generated paymentID
+                try (ResultSet generatedKeys = insertPaymentStmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int paymentID = generatedKeys.getInt(1);
 
-                System.out.println("Library updated with purchased audio, and CartAudio removed.");
+                        // Insert the audio into LibraryAudio table
+                        for (int audioID : checkedAudio) {
+                            insertStmt.setInt(1, userID);
+                            insertStmt.setInt(2, audioID);
+                            insertStmt.executeUpdate();
 
-                // Success prompt
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION,
-                        "Would you like to generate a receipt for this purchase?",
-                        ButtonType.YES, ButtonType.NO);
+                            // Insert into PaymentAudio table
+                            insertPaymentAudioStmt.setInt(1, paymentID);
+                            insertPaymentAudioStmt.setInt(2, audioID);
+                            insertPaymentAudioStmt.executeUpdate();
+                        }
 
-                successAlert.setTitle("Purchase Successful");
-                successAlert.setHeaderText("Your purchase was successful!");
+                        // Remove the purchased audio from the CartAudio table
+                        for (int audioID : checkedAudio) {
+                            deleteStmt.setInt(1, userID);
+                            deleteStmt.setInt(2, audioID);
+                            deleteStmt.executeUpdate();
+                        }
 
-                // Wait for the user response (yes or no)
-                double finalTotalPrice = totalPrice;
-                successAlert.showAndWait().ifPresent(response -> {
-                    if (response == ButtonType.YES) {
-                        // Generate a receipt (Placeholder logic)
-                        displayReceiptDetails(userID, finalTotalPrice);
+                        System.out.println("Library updated with purchased audio, CartAudio removed, and PaymentAudio entries added.");
+
+                        // Success prompt
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION,
+                                "Would you like to generate a receipt for this purchase?",
+                                ButtonType.YES, ButtonType.NO);
+
+                        successAlert.setTitle("Purchase Successful");
+                        successAlert.setHeaderText("Your purchase was successful!");
+
+                        // Wait for the user response (yes or no)
+                        double finalTotalPrice = totalPrice;
+                        successAlert.showAndWait().ifPresent(response -> {
+                            if (response == ButtonType.YES) {
+                                // Generate a receipt (Placeholder logic)
+                                displayReceiptDetails(userID, finalTotalPrice);
+                            } else {
+                                System.out.println("Receipt generation canceled.");
+                            }
+                        });
+
+                        if(homeScene != null) {
+                            homeScene.loadScene("/FXMLs/libraryScene.fxml");
+                        }
+
                     } else {
-                        System.out.println("Receipt generation canceled.");
+                        System.out.println("Failed to retrieve generated payment ID.");
                     }
-                });
-
-                if(homeScene != null) {
-                    homeScene.loadScene("/FXMLs/libraryScene.fxml");
                 }
 
             } else {

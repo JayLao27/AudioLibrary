@@ -30,20 +30,17 @@ public class PaymenthistoryScene implements SceneWithHomeContext {
 
     @FXML
     private void initialize() {
-        loadSongList();
+        loadPaymentsList();
     }
 
-    private void loadSongList() {
-        // Get the current userID from the UserSession instance
+    private void loadPaymentsList() {
         int userID = UserSession.getInstance().getUserID();
 
-        // Modify the query to fetch audioIDs from LibraryAudio for the given userID
         String query = "SELECT paymentID FROM Payments WHERE userID = ? ORDER BY paymentID DESC";
 
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            // Set the userID parameter in the query
             preparedStatement.setInt(1, userID);
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
@@ -66,7 +63,7 @@ public class PaymenthistoryScene implements SceneWithHomeContext {
                         System.out.println("Redirecting to song...");
 
                         if (homeScene != null) {
-                            homeScene.loadSongScene("/FXMLs/paymentdetailsScene.fxml", paymentID);
+                            homeScene.loadPaymentScene("/FXMLs/paymentdetailsScene.fxml", paymentID);
                         } else {
                             System.out.println("HomeScene is null!");
                         }
@@ -81,45 +78,45 @@ public class PaymenthistoryScene implements SceneWithHomeContext {
         }
     }
 
-    private void addMouseEffects(Pane songList) {
+    private void addMouseEffects(Pane paymentList) {
         // Mouse enter: scale up and change background
-        songList.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songList);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
+        paymentList.setOnMouseEntered(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), paymentList);
+            scaleTransition.setToX(1.02);
+            scaleTransition.setToY(1.02);
             scaleTransition.play();
 
-            songList.setStyle("-fx-background-color: #d3d3d32b;");
+            paymentList.setStyle("-fx-background-color: #d3d3d32b;");
         });
 
-        songList.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songList);
+        paymentList.setOnMouseExited(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), paymentList);
             scaleTransition.setToX(1.0);
             scaleTransition.setToY(1.0);
             scaleTransition.play();
 
-            songList.setStyle("-fx-background-color: #cfcfcf1b");
+            paymentList.setStyle("-fx-background-color: #cfcfcf1b");
         });
 
         // Mouse pressed: scale slightly down and darken background
-        songList.setOnMousePressed(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.04);
-            scaleTransition.setToY(1.04);
+        paymentList.setOnMousePressed(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), paymentList);
+            scaleTransition.setToX(1.01);
+            scaleTransition.setToY(1.01);
             scaleTransition.play();
 
             // Darken background color
-            songList.setStyle("-fx-background-color: #dfdfdf2b;");
+            paymentList.setStyle("-fx-background-color: #dfdfdf2b;");
         });
 
-        songList.setOnMouseReleased(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
+        paymentList.setOnMouseReleased(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), paymentList);
+            scaleTransition.setToX(1.02);
+            scaleTransition.setToY(1.02);
             scaleTransition.play();
 
             // Restore hover background color
-            songList.setStyle("-fx-background-color: #d3d3d32b;");
+            paymentList.setStyle("-fx-background-color: #d3d3d32b;");
         });
     }
 }

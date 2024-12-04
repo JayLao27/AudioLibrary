@@ -1,22 +1,16 @@
 package AudioController.controllers;
 
-import AudioController.AudioPlayer;
 import AudioController.ResourceLoader;
-import AudioController.SceneWithHomeContext;
-import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 
 public class LibrarylisttemplateScene {
     @FXML
     private Label songNameLabel;
     @FXML
     private ImageView songCoverImage;
-
 
     private int audioID;
 

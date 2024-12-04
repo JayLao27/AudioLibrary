@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="playlistPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="956.0" stylesheets="@../CSS/playlistSceneStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PaymentdetailsScene">
+
+<AnchorPane id="paymentdetailsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="954.0" stylesheets="@../CSS/paymentdetailsSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PaymentdetailsScene">
+   <children>
+      <Label fx:id="paymentIDLabel" layoutX="55.0" layoutY="97.0" prefHeight="34.0" prefWidth="588.0" text="Payment ID: " AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+      <Label fx:id="firstNameLabel" layoutX="55.0" layoutY="141.0" prefHeight="34.0" prefWidth="611.0" text="First Name:" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+      <Label fx:id="lastNameLabel" layoutX="55.0" layoutY="184.0" prefHeight="34.0" prefWidth="678.0" text="Last Name:" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+      <Label fx:id="totalLabel" layoutX="55.0" layoutY="466.0" prefHeight="17.0" prefWidth="264.0" text="Total:" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+      <Label fx:id="purchasedAudioLabel" layoutX="55.0" layoutY="224.0" prefHeight="17.0" prefWidth="813.0" text="Purchased Audio:" />
+      <ListView fx:id="audioList" layoutX="55.0" layoutY="266.0" prefHeight="192.0" prefWidth="754.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+      <Label id="paymentTitleLabel" fx:id="paymentIDLabel1" layoutX="55.0" layoutY="41.0" prefHeight="34.0" prefWidth="588.0" text="Payment History" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+   </children>
 </AnchorPane>

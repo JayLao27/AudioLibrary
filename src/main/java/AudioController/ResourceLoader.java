@@ -20,7 +20,7 @@ public class ResourceLoader {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error retrieving artist name from database.");
+            System.out.println("Error retrieving username from database.");
         }
         return null;
     }
@@ -38,7 +38,7 @@ public class ResourceLoader {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error retrieving artist name from database.");
+            System.out.println("Error retrieving artist image path from database.");
         }
         return null;
     }
@@ -93,7 +93,7 @@ public class ResourceLoader {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error retrieving artist name from database.");
+            System.out.println("Error retrieving audio image path from database.");
         }
         return null;
     }
@@ -110,7 +110,7 @@ public class ResourceLoader {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error retrieving artist name from database.");
+            System.out.println("Error retrieving audio name from database.");
         }
         return null;
     }
@@ -128,9 +128,26 @@ public class ResourceLoader {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error retrieving artist name from database.");
+            System.out.println("Error retrieving audio price from database.");
         }
         return null;
+    }
+
+    public static int getAudioDuration(int audioID) {
+        String query = "SELECT audioDuration FROM Audio WHERE audioID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, audioID);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("audioDuration");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving duration from database.");
+        }
+        return 0; // Return 0 if no duration is found
     }
 
     public static String getAlbumName(int audioID) {
@@ -150,6 +167,26 @@ public class ResourceLoader {
             System.out.println("Error retrieving album name from database.");
         }
         return ""; // Return empty string if no album is found
+    }
+
+    public static String getPaymentDate(int paymentID) {
+        String query = "SELECT paymentDate FROM Payments WHERE paymentID = ?";  // Fixed space after "Payments"
+
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, paymentID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("paymentDate");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving payment date from database.");
+        }
+
+        return null;
     }
 
     public static User getProfile(int userID) {

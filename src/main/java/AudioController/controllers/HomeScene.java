@@ -1,9 +1,8 @@
 package AudioController.controllers;
 
-import AudioController.PlaybackController;
-import AudioController.ResourceLoader;
-import AudioController.SceneWithHomeContext;
-import AudioController.UserSession;
+import AudioController.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +19,7 @@ import java.util.function.Consumer;
 
 public class HomeScene {
 
-    private boolean isPlaying = false;
+    private BooleanProperty isPlaying = new SimpleBooleanProperty(false);
 
     @FXML
     Label usernameLabel;
@@ -45,20 +44,23 @@ public class HomeScene {
 
     @FXML
     private void initialize() {
+        AudioPlayer.getInstance().setHomeScene(this);
         usernameLabel.setText(ResourceLoader.getUsername(UserSession.getInstance().getUserID()));
         loadScene("/FXMLs/mainpageScene.fxml");
         volumeSlider.setValue(50);
 
-        PlaybackController.getInstance().setVolume(volumeSlider.getValue() / 100.0);
+        AudioPlayer.getInstance().setVolume(volumeSlider.getValue() / 100.0);
 
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            PlaybackController.getInstance().setVolume(newValue.doubleValue() / 100.0);
+            AudioPlayer.getInstance().setVolume(newValue.doubleValue() / 100.0);
 
             updateVolumeIcon(newValue.doubleValue());
         });
 
         updateVolumeIcon(volumeSlider.getValue());
+        isPlaying.bind(AudioPlayer.getInstance().isPlayingProperty());
 
+        isPlaying.addListener((observable, oldValue, newValue) -> updatePlayPauseIcon(newValue));
     }
 
     private void updateVolumeIcon(double volume) {
@@ -160,35 +162,22 @@ public class HomeScene {
     //Top Bar Controller Buttons Functions
     @FXML
     private void handleReverseClicked(MouseEvent event) {
-        //Logic
+        AudioPlayer.getInstance().playPrevious();
     }
 
     @FXML
     private void handlePlayPauseClicked(MouseEvent event) {
-        boolean currentState = PlaybackController.getInstance().isPlaying();
-
-        if (currentState) {
-            PlaybackController.getInstance().togglePlayPause();
-        } else {
-            PlaybackController.getInstance().togglePlayPause();
-        }
-
-        // Update the icon based on the new playback state
-        updatePlayPauseIcon(!currentState); // We invert the state since we are toggling
-        String state = isPlaying ? "Play" : "Pause";
-        System.out.println("Swapped to " + state);
+        AudioPlayer.getInstance().togglePlayPause();
     }
 
     private void updatePlayPauseIcon(boolean isPlaying) {
-        String imagePath = isPlaying ? "/ProjectImages/pause.png" : "/ProjectImages/play-button.png";
-        playPauseIcon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
-        playPauseIcon.setSmooth(true);
-        playPauseIcon.setPreserveRatio(true);
+        String iconPath = isPlaying ? "/ProjectImages/pause.png" : "/ProjectImages/play-button.png";
+        playPauseIcon.setImage(new Image(getClass().getResourceAsStream(iconPath)));
     }
 
     @FXML
     private void handleForwardClicked(MouseEvent event) {
-        //Logic
+        AudioPlayer.getInstance().playNext();
     }
 
     @FXML
@@ -286,6 +275,42 @@ public class HomeScene {
             System.out.println("Error loading " + fxmlPath);
         }
     }
+
+    public void loadPaymentScene(String fxmlPath, int paymentID) {
+        loadPaymentScene(fxmlPath, paymentID, controller -> {});
+    }
+
+    public void loadPaymentScene(String fxmlPath, int paymentID, Consumer<Object> setupController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent sceneContent = loader.load();
+
+            Object controller = loader.getController();
+            if (controller != null) {
+                // Set HomeScene first if needed
+                if (controller instanceof SceneWithHomeContext) {
+                    ((SceneWithHomeContext) controller).setHomeScene(this);
+                }
+
+                try {
+                    // Try to find the setPaymentID method and call it
+                    Method setPaymentIDMethod = controller.getClass().getMethod("setPaymentID", int.class);
+                    setPaymentIDMethod.invoke(controller, paymentID);
+                } catch (NoSuchMethodException e) {
+                    System.out.println("Controller does not have setPaymentID method: " + controller.getClass().getSimpleName());
+                }
+
+                // Call the setupController consumer, if any setup is needed
+                setupController.accept(controller);
+            }
+
+            bodyVBox.getChildren().setAll(sceneContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading " + fxmlPath);
+        }
+    }
+
 
     //Load Current Song
     public void loadCurrentSong(int audioID) {
