@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="profilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="956.0" stylesheets="@../CSS/profileSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.ProfileScene">
+<AnchorPane id="profilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="956.0" stylesheets="@../CSS/profileSceneStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.ProfileScene">
    <children>
       <ImageView fitHeight="160.0" fitWidth="160.0" layoutX="60.0" layoutY="100.0">
          <image>
@@ -25,6 +25,6 @@
       <Label id="profileTitle" layoutX="20.0" layoutY="20.0" text="My Profile" />
       <Button id="logoutButton" fx:id="logoutButton" layoutX="734.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#logout" onMouseEntered="#handleButtonEntered" onMouseExited="#handleButtonExited" onMousePressed="#handleButtonPressed" prefHeight="40.0" prefWidth="140.0" text="Log Out" />
       <Label fx:id="thankYouLabel" layoutX="296.0" layoutY="249.0" prefHeight="30.0" prefWidth="400.0" style="-fx-font-size: 18px; -fx-text-fill: green;" text="" />
-      <Hyperlink id="viewhistoryLink" layoutX="694.0" layoutY="102.0" prefHeight="46.0" prefWidth="200.0" text="View Payment History" />
+      <Hyperlink id="viewhistoryLink" fx:id="PaymentHistory" layoutX="694.0" layoutY="102.0" onAction="#onViewPaymentClicked" prefHeight="46.0" prefWidth="200.0" text="View Payment History" />
    </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 package AudioController.controllers;
 
 import AudioController.ResourceLoader;
+import AudioController.SceneWithHomeContext;
 import AudioController.User;
 import AudioController.UserSession;
 import javafx.animation.ScaleTransition;
@@ -9,14 +10,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.awt.event.ActionEvent;
 
-public class ProfileScene {
+public class ProfileScene implements SceneWithHomeContext {
+    private HomeScene homeScene;
 
+    @FXML
+    private FlowPane paymentsFlowPane;
+
+    @Override
+    public void setHomeScene(HomeScene homeScene) {
+        this.homeScene = homeScene;
+    }
     private ResourceLoader resourceLoader = new ResourceLoader();
 
     @FXML
@@ -31,6 +43,16 @@ public class ProfileScene {
     private Button logoutButton;
     @FXML
     private Label thankYouLabel;
+    @FXML
+    private Hyperlink viewhistoryLink;
+
+    @FXML
+    public void onViewPaymentClicked(javafx.event.ActionEvent actionEvent) {
+        System.out.println("Button clicked!");
+        if (homeScene != null) {
+            homeScene.loadScene("/FXMLs/paymenthistoryScene.fxml");
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -127,4 +149,6 @@ public class ProfileScene {
             System.out.println("Error loading loginScene.fxml");
         }
     }
+
+
 }

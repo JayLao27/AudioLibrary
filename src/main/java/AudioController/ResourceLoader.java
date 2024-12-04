@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 public class ResourceLoader {
 
     public static String getUsername(int userID) {
@@ -172,4 +173,5 @@ public class ResourceLoader {
         }
         return null;
     }
+
 }
