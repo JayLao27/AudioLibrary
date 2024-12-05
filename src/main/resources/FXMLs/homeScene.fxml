@@ -121,30 +121,30 @@
                                     <Image url="@../ProjectImages/play-button.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="nextButton" fitHeight="25.0" fitWidth="25.0" layoutX="140.0" layoutY="14.0" onMouseClicked="#handleForwardClicked" onMouseEntered="#handlePlayEntered" onMouseExited="#handlePlayExited" onMousePressed="#handlePlayPressed" onMouseReleased="#handlePlayRelease">
+                              <ImageView fx:id="nextIcon" fitHeight="25.0" fitWidth="25.0" layoutX="140.0" layoutY="14.0" onMouseClicked="#handleForwardClicked" onMouseEntered="#handlePlayEntered" onMouseExited="#handlePlayExited" onMousePressed="#handlePlayPressed" onMouseReleased="#handlePlayRelease">
                                  <image>
                                     <Image url="@../ProjectImages/forward-button.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="previousButton" fitHeight="25.0" fitWidth="25.0" layoutX="55.0" layoutY="14.0" onMouseClicked="#handleReverseClicked" onMouseEntered="#handlePlayEntered" onMouseExited="#handlePlayExited" onMousePressed="#handlePlayPressed" onMouseReleased="#handlePlayRelease">
+                              <ImageView fx:id="previousIcon" fitHeight="25.0" fitWidth="25.0" layoutX="55.0" layoutY="14.0" onMouseClicked="#handleReverseClicked" onMouseEntered="#handlePlayEntered" onMouseExited="#handlePlayExited" onMousePressed="#handlePlayPressed" onMouseReleased="#handlePlayRelease">
                                  <image>
                                     <Image url="@../ProjectImages/reverse-button.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="shuffleButton" fitHeight="20.0" fitWidth="20.0" layoutX="185.0" layoutY="17.0" onMouseClicked="#handleShuffleClicked" onMouseEntered="#handlePlayEntered" onMouseExited="#handlePlayExited" onMousePressed="#handlePlayPressed" onMouseReleased="#handlePlayRelease">
+                              <ImageView fx:id="shuffleIcon" fitHeight="20.0" fitWidth="20.0" layoutX="185.0" layoutY="17.0" onMouseClicked="#handleShuffleClicked" onMouseEntered="#handlePlayEntered" onMouseExited="#handlePlayExited" onMousePressed="#handlePlayPressed" onMouseReleased="#handlePlayRelease">
                                  <image>
                                     <Image url="@../ProjectImages/shuffle.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="loopButton" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="16.0">
+                              <ImageView fx:id="loopIcon" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="16.0" onMouseClicked="#handleLoopClicked" onMouseEntered="#handlePlayEntered" onMouseExited="#handlePlayExited" onMousePressed="#handlePlayPressed" onMouseReleased="#handlePlayRelease">
                                  <image>
-                                    <Image url="@../ProjectImages/Repeat.png" />
+                                    <Image url="@../ProjectImages/loop.png" />
                                  </image>
                               </ImageView>
                               <Slider id="volumeSlider" fx:id="volumeSlider" blockIncrement="1.0" layoutX="39.0" layoutY="52.0" prefHeight="14.0" prefWidth="173.0" value="50.0" />
                               <ImageView fx:id="volumeIcon" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="49.0">
                                  <image>
-                                    <Image url="@../ProjectImages/Repeat.png" />
+                                    <Image url="@../ProjectImages/volumemidicon.png" />
                                  </image>
                               </ImageView>
                            </children>

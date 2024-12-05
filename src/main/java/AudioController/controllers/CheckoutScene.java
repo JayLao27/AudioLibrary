@@ -200,11 +200,9 @@ public class CheckoutScene implements SceneWithHomeContext {
                 }
             }
 
-            // Format the current time to a readable format
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedTime = LocalDateTime.now().format(formatter);
 
-            // Generate the receipt display
             Alert receiptAlert = new Alert(Alert.AlertType.INFORMATION);
             receiptAlert.setTitle("Receipt");
             receiptAlert.setHeaderText("Purchase Receipt");

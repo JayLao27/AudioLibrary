@@ -47,18 +47,14 @@ public class PaymenthistoryScene implements SceneWithHomeContext {
                 while (rs.next()) {
                     int paymentID = rs.getInt("paymentID");
 
-                    // Load the song list template
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/paymentslisttemplateScene.fxml"));
                     AnchorPane paymentsList = fxmlLoader.load();
 
-                    // Set the audioID in the controller
                     PaymentslisttemplateScene controller = fxmlLoader.getController();
                     controller.setpaymentID(paymentID);
 
-                    // Add mouse effects to the song list item
                     addMouseEffects(paymentsList);
 
-                    // Set up the click event to load the song page
                     paymentsList.setOnMouseClicked(event -> {
                         System.out.println("Redirecting to song...");
 

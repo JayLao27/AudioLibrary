@@ -21,19 +21,16 @@ public class PaymentslisttemplateScene {
     public void initialize() {}
 
     private void loadPaymentDetails() {
-        String paymentDate = ResourceLoader.getPaymentDate(paymentID);
+        String paymentDateTime = ResourceLoader.getPaymentDate(paymentID);
 
-        if (paymentDate != null) {
+        if (paymentDateTime != null) {
             try {
-                // Assuming the paymentDate is returned in a standard format, e.g., "yyyy-MM-dd"
-                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = inputFormat.parse(paymentDate);
+                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = inputFormat.parse(paymentDateTime);
 
-                // Format the date to the desired output format (e.g., "MMM dd, yyyy")
-                SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm a");
                 String formattedDate = outputFormat.format(date);
 
-                // Set the label text to "Purchase on: formattedDate"
                 paymentLabel.setText("Purchase on: " + formattedDate);
             } catch (Exception e) {
                 e.printStackTrace();

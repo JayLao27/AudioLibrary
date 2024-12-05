@@ -58,8 +58,8 @@ public class CartScene implements SceneWithHomeContext {
         String query = """
             SELECT ca.audioID
             FROM CartAudio ca
-            INNER JOIN Cart c ON ca.userID = c.userID
-            WHERE c.userID = ?
+            INNER JOIN User u ON ca.userID = u.userID
+            WHERE u.userID = ?
             ORDER BY ca.audioID ASC
             """;
 

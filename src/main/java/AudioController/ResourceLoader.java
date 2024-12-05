@@ -170,7 +170,7 @@ public class ResourceLoader {
     }
 
     public static String getPaymentDate(int paymentID) {
-        String query = "SELECT paymentDate FROM Payments WHERE paymentID = ?";  // Fixed space after "Payments"
+        String query = "SELECT paymentDate FROM Payments WHERE paymentID = ?";
 
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
