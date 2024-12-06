@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import java.io.File;
 
-public class AddplaylistScene {
+public class AddPlaylistScene {
 
     @FXML
     private TextField playlistNameField; // TextField for the playlist name

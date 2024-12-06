@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 import static AudioController.ResourceLoader.getAudioPrice;
 
-public class CartlisttemplateScene {
+public class CartListTemplateScene {
 
     @FXML
     private CheckBox cartCheckBox;

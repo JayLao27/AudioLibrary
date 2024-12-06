@@ -2,11 +2,9 @@ package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
 import AudioController.SceneWithHomeContext;
-import AudioController.ResourceLoader;
 import AudioController.UserSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.animation.ScaleTransition;
 import javafx.scene.input.MouseEvent;
@@ -74,7 +72,7 @@ public class CartScene implements SceneWithHomeContext {
 
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/cartlisttemplateScene.fxml"));
                     AnchorPane cartItem = fxmlLoader.load();
-                    CartlisttemplateScene controller = fxmlLoader.getController();
+                    CartListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID, this);
 
                     addMouseEffects(cartItem);

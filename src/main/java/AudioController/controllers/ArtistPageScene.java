@@ -20,7 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ArtistpageScene implements SceneWithHomeContext {
+public class ArtistPageScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
 
