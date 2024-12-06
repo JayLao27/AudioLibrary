@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="paymentslistPane" prefHeight="100.0" prefWidth="906.0" stylesheets="@../CSS/paymentslisttemplateSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PaymentslisttemplateScene">
+<AnchorPane id="paymentslistPane" prefHeight="100.0" prefWidth="906.0" stylesheets="@../CSS/paymentslisttemplateSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PaymentsListTemplateScene">
    <children>
       <Label id="paymentLabel" fx:id="paymentLabel" layoutX="12.0" layoutY="9.0" prefHeight="80.0" prefWidth="683.0" text="Payment on: DATE" />
    </children>

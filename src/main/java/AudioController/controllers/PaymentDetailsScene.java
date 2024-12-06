@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-public class PaymentdetailsScene {
+public class PaymentDetailsScene {
 
     @FXML
     private Label titleLabel, paymentIDLabel, firstNameLabel, lastNameLabel, purchasedAudioLabel, totalLabel;

@@ -63,7 +63,7 @@ public class ArtistpageScene implements SceneWithHomeContext {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/songlisttemplateScene.fxml"));
                     AnchorPane songList = fxmlLoader.load();
 
-                    SonglisttemplateScene controller = fxmlLoader.getController();
+                    SongListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID);
 
                     addMouseEffects(songList);

@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public class CurrentsongScene {
+public class CurrentSongScene {
     @FXML
     ImageView songImage;
     @FXML

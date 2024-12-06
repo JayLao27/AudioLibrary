@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="currentsongPane" prefHeight="80.0" prefWidth="393.0" stylesheets="@../CSS/currentsongScene.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CurrentsongScene">
+<AnchorPane id="currentsongPane" prefHeight="80.0" prefWidth="393.0" stylesheets="@../CSS/currentsongScene.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.CurrentSongScene">
    <children>
       <ImageView fx:id="songImage" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="songNameLabel" alignment="CENTER" layoutX="85.0" layoutY="14.0" prefHeight="17.0" prefWidth="290.0" text="Song Name">

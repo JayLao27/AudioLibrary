@@ -54,7 +54,7 @@ public class CheckoutScene implements SceneWithHomeContext {
                 AnchorPane checkoutItem = fxmlLoader.load();
 
                 // Get the controller for the loaded FXML and set the audioID
-                CheckoutlisttemplateScene controller = fxmlLoader.getController();
+                CheckoutListTemplateScene controller = fxmlLoader.getController();
                 controller.setAudioID(audioID, this);
 
                 // Add the checkout item to the VBox

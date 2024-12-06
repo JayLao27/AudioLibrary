@@ -6,11 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class LibrarylisttemplateScene {
-    @FXML
-    private Label songNameLabel;
+public class SongCardTemplateScene {
     @FXML
     private ImageView songCoverImage;
+    @FXML
+    private Label songNameLabel;
 
     private int audioID;
 
@@ -20,9 +20,7 @@ public class LibrarylisttemplateScene {
         loadAudioDetails();
     }
 
-    public void initialize() {
-
-    }
+    public void initialize() {}
 
     private void loadAudioDetails() {
         String songName = ResourceLoader.getAudioName(audioID);

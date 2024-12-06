@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PaymenthistoryScene implements SceneWithHomeContext {
+public class PaymentHistoryScene implements SceneWithHomeContext {
     private HomeScene homeScene;
 
     @FXML
@@ -50,7 +50,7 @@ public class PaymenthistoryScene implements SceneWithHomeContext {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/paymentslisttemplateScene.fxml"));
                     AnchorPane paymentsList = fxmlLoader.load();
 
-                    PaymentslisttemplateScene controller = fxmlLoader.getController();
+                    PaymentsListTemplateScene controller = fxmlLoader.getController();
                     controller.setpaymentID(paymentID);
 
                     addMouseEffects(paymentsList);

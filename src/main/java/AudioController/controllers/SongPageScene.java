@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class SongpageScene {
+public class SongPageScene {
     @FXML
     private ImageView songCoverImage;
     @FXML

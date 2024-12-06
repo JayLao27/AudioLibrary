@@ -380,7 +380,7 @@ public class HomeScene {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/currentsongScene.fxml"));
             Parent sceneContent = loader.load();
 
-            CurrentsongScene controller = loader.getController();
+            CurrentSongScene controller = loader.getController();
 
             if (controller instanceof SceneWithHomeContext) {
                 ((SceneWithHomeContext) controller).setHomeScene(this);

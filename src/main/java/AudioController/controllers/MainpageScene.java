@@ -44,7 +44,7 @@ public class MainpageScene implements SceneWithHomeContext {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/songcardtemplateScene.fxml"));
                 AnchorPane songCard = fxmlLoader.load();
 
-                SongcardtemplateScene controller = fxmlLoader.getController();
+                SongCardTemplateScene controller = fxmlLoader.getController();
                 controller.setAudioID(audioID);
 
                 addMouseEffects(songCard);

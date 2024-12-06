@@ -63,7 +63,7 @@ public class LibraryScene implements SceneWithHomeContext {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/librarylisttemplateScene.fxml"));
                     AnchorPane songList = fxmlLoader.load();
 
-                    LibrarylisttemplateScene controller = fxmlLoader.getController();
+                    LibraryListTemplateScene controller = fxmlLoader.getController();
                     System.out.println("Controller initialized: " + controller);
                     controller.setAudioID(audioID);
 

@@ -116,24 +116,19 @@ public class AudioPlayer implements SceneWithHomeContext {
     public void playNext() {
         if (!audioQueue.isEmpty()) {
             if (isShuffled) {
-                // Create a list without the current song and shuffle it
                 List<Integer> remainingQueue = new ArrayList<>(audioQueue);
                 remainingQueue.remove(currentIndex);
 
                 Collections.shuffle(remainingQueue);
-
-                // If looped, the queue should loop back to the start after the last song
                 currentIndex = audioQueue.indexOf(remainingQueue.get(0));
             } else {
                 if (!isLooped) {
-                    // If not looped, don't go beyond the last song
                     if (currentIndex + 1 < audioQueue.size()) {
                         currentIndex++;
                     } else {
                         return;
                     }
                 } else {
-                    // If looped, move to the next song
                     currentIndex = (currentIndex + 1) % audioQueue.size();
                 }
             }

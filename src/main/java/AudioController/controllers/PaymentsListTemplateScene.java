@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PaymentslisttemplateScene {
+public class PaymentsListTemplateScene {
     @FXML
     private Label paymentLabel;
 
