@@ -30,7 +30,6 @@ public class CurrentsongScene {
 
     @FXML
     public void initialize() {
-        // Initialize playback slider and bind to the media player's current time
         setupSlider();
     }
 
@@ -38,14 +37,13 @@ public class CurrentsongScene {
         // Prevent media player updates when the user is dragging the slider
         playbackSlider.valueChangingProperty().addListener((obs, wasChanging, isChanging) -> {
             if (!isChanging) {
-                // When the user stops changing the slider value (i.e., releases the knob)
                 Duration seekTo = AudioPlayer.getInstance().getMediaPlayer().getMedia().getDuration()
                         .multiply(playbackSlider.getValue() / 100.0);
                 AudioPlayer.getInstance().getMediaPlayer().seek(seekTo);
             }
         });
 
-        // This ensures the media player position is updated when the slider knob is released
+        // Media player position gets updated when the slider knob is released
         playbackSlider.setOnMouseReleased(event -> {
             if (AudioPlayer.getInstance().isPlaying()) {
                 Duration seekTo = AudioPlayer.getInstance().getMediaPlayer().getMedia().getDuration()
@@ -56,16 +54,12 @@ public class CurrentsongScene {
 
         // Update the slider's value and time labels only when the user is not dragging
         AudioPlayer.getInstance().getMediaPlayer().currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-            // Only update the slider value if the user is not interacting with it
             if (!playbackSlider.isValueChanging()) {
                 Platform.runLater(() -> {
-                    // Ensure the total duration is not null before accessing it
                     Duration totalDuration = AudioPlayer.getInstance().getMediaPlayer().getTotalDuration();
                     if (totalDuration != null) {
                         double newValue = newTime.toMillis() / totalDuration.toMillis() * 100;
                         playbackSlider.setValue(newValue);
-
-                        // Update the current time label
                         updateTimeLabels(newTime);
                     }
                 });
@@ -77,9 +71,8 @@ public class CurrentsongScene {
             if (AudioPlayer.getInstance().isPlaying()) {
                 double clickX = event.getX();
                 double sliderWidth = playbackSlider.getWidth();
-                double percentage = clickX / sliderWidth;  // Get the percentage of the click position
+                double percentage = clickX / sliderWidth;
 
-                // Calculate the corresponding time position in the media
                 Duration totalDuration = AudioPlayer.getInstance().getMediaPlayer().getTotalDuration();
                 if (totalDuration != null) {
                     Duration seekTo = totalDuration.multiply(percentage);
@@ -88,7 +81,6 @@ public class CurrentsongScene {
             }
         });
     }
-
 
     private void updateTimeLabels(Duration currentTime) {
         currentTimeLabel.setText(formatTime(currentTime));

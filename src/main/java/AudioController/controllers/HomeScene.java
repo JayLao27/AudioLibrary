@@ -63,6 +63,8 @@ public class HomeScene {
         isPlaying.bind(AudioPlayer.getInstance().isPlayingProperty());
 
         isPlaying.addListener((observable, oldValue, newValue) -> updatePlayPauseIcon(newValue));
+        shuffleIcon.setPickOnBounds(true);
+        loopIcon.setPickOnBounds(true);
     }
 
 

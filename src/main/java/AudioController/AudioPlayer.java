@@ -129,6 +129,8 @@ public class AudioPlayer implements SceneWithHomeContext {
                     // If not looped, don't go beyond the last song
                     if (currentIndex + 1 < audioQueue.size()) {
                         currentIndex++;
+                    } else {
+                        return;
                     }
                 } else {
                     // If looped, move to the next song
