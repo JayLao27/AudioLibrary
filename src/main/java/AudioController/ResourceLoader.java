@@ -248,18 +248,19 @@ public class ResourceLoader {
 
 
     public static User getProfile(int userID) {
-        String query = "SELECT userName, firstName, lastName, email FROM User WHERE userID = ?";
+        String query = "SELECT userName, firstName, lastName, email, balance FROM User WHERE userID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, userID); // Set userID in the query
+            preparedStatement.setInt(1, userID);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return new User(
                         resultSet.getString("userName"),
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
-                        resultSet.getString("email")
+                        resultSet.getString("email"),
+                        resultSet.getDouble("balance")
                 );
             }
         } catch (Exception e) {
@@ -268,5 +269,6 @@ public class ResourceLoader {
         }
         return null;
     }
+
 
 }

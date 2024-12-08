@@ -5,12 +5,14 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private double balance;
 
-    public User(String userName, String firstName, String lastName, String email) {
+    public User(String userName, String firstName, String lastName, String email, double balance) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.balance = balance;
     }
 
     public String getUserName() {
@@ -27,5 +29,9 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }

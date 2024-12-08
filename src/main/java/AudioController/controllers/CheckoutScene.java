@@ -72,10 +72,11 @@ public class CheckoutScene implements SceneWithHomeContext {
     @FXML
     private void handlePurchaseClicked(MouseEvent event) {
         int userID = UserSession.getInstance().getUserID();
-        double userBalance = 100.00;
-        String paymentMethod = "Credit Card"; // Placeholder, you may replace with actual payment method from UI
+        String paymentMethod = "Credit Card"; // Placeholder for the payment method from the UI
 
         double totalPrice = 0.0;
+        String getUserBalanceQuery = "SELECT balance FROM User WHERE userID = ?";
+        String updateUserBalanceQuery = "UPDATE User SET balance = ? WHERE userID = ?";
         String priceQuery = "SELECT audioPrice FROM Audio WHERE audioID = ?";
         String insertQuery = "INSERT IGNORE INTO LibraryAudio (userID, audioID) VALUES (?, ?)";
         String deleteQuery = "DELETE FROM CartAudio WHERE userID = ? AND audioID = ?";
@@ -83,11 +84,24 @@ public class CheckoutScene implements SceneWithHomeContext {
         String insertPaymentAudioQuery = "INSERT INTO PaymentAudio (paymentID, audioID) VALUES (?, ?)";
 
         try (Connection conn = new DatabaseConnection().getConnection();
+             PreparedStatement getBalanceStmt = conn.prepareStatement(getUserBalanceQuery);
+             PreparedStatement updateBalanceStmt = conn.prepareStatement(updateUserBalanceQuery);
              PreparedStatement priceStmt = conn.prepareStatement(priceQuery);
              PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
              PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery);
              PreparedStatement insertPaymentStmt = conn.prepareStatement(insertPaymentQuery, Statement.RETURN_GENERATED_KEYS);
              PreparedStatement insertPaymentAudioStmt = conn.prepareStatement(insertPaymentAudioQuery)) {
+
+            // Retrieve the user's current balance
+            getBalanceStmt.setInt(1, userID);
+            double userBalance;
+            try (ResultSet rs = getBalanceStmt.executeQuery()) {
+                if (rs.next()) {
+                    userBalance = rs.getDouble("balance");
+                } else {
+                    throw new SQLException("User not found.");
+                }
+            }
 
             // Calculate the total price
             for (int audioID : checkedAudio) {
@@ -101,9 +115,13 @@ public class CheckoutScene implements SceneWithHomeContext {
 
             // Check if the user has enough balance
             if (userBalance >= totalPrice) {
-                // Deduct balance (placeholder logic)
-                userBalance -= totalPrice;
-                System.out.println("Purchase successful! Remaining balance: " + userBalance);
+                // Deduct balance and update in the database
+                double newBalance = userBalance - totalPrice;
+                updateBalanceStmt.setDouble(1, newBalance);
+                updateBalanceStmt.setInt(2, userID);
+                updateBalanceStmt.executeUpdate();
+
+                System.out.println("Purchase successful! Remaining balance: " + newBalance);
 
                 // Insert the payment record into the Payments table
                 insertPaymentStmt.setInt(1, userID);
@@ -116,13 +134,12 @@ public class CheckoutScene implements SceneWithHomeContext {
                     if (generatedKeys.next()) {
                         int paymentID = generatedKeys.getInt(1);
 
-                        // Insert the audio into LibraryAudio table
+                        // Insert the audio into LibraryAudio table and PaymentAudio table
                         for (int audioID : checkedAudio) {
                             insertStmt.setInt(1, userID);
                             insertStmt.setInt(2, audioID);
                             insertStmt.executeUpdate();
 
-                            // Insert into PaymentAudio table
                             insertPaymentAudioStmt.setInt(1, paymentID);
                             insertPaymentAudioStmt.setInt(2, audioID);
                             insertPaymentAudioStmt.executeUpdate();
@@ -149,14 +166,14 @@ public class CheckoutScene implements SceneWithHomeContext {
                         double finalTotalPrice = totalPrice;
                         successAlert.showAndWait().ifPresent(response -> {
                             if (response == ButtonType.YES) {
-                                // Generate a receipt (Placeholder logic)
+                                // Generate a receipt
                                 displayReceiptDetails(userID, finalTotalPrice);
                             } else {
                                 System.out.println("Receipt generation canceled.");
                             }
                         });
 
-                        if(homeScene != null) {
+                        if (homeScene != null) {
                             homeScene.loadScene("/FXMLs/libraryScene.fxml");
                         }
 

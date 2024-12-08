@@ -26,6 +26,16 @@
     -fx-underline: true;
 }
 
+#topUpLink {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;    
+    -fx-text-align: center;
+    -fx-underline: true;
+}
+
 #logoutButton {
     -fx-border-radius: 20 20 20 20;
     -fx-background-radius: 20 20 20 20;

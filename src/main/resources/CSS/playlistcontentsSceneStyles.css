@@ -37,3 +37,20 @@
     -fx-background-color: #ffffff;
 }
 
+#deletePlaylistButton {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    -fx-background-color: #e0e0e0;
+
+    -fx-font-family: "Dubai";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0e0e0e;
+}
+
+#deletePlaylistButton:hover {
+    -fx-background-color: #e71616;
+    -fx-text-fill: #ffffff;
+}
+
+

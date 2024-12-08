@@ -1,29 +1,22 @@
 package AudioController.controllers;
 
-import AudioController.ResourceLoader;
-import AudioController.SceneWithHomeContext;
-import AudioController.User;
-import AudioController.UserSession;
+import AudioController.*;
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class ProfileScene implements SceneWithHomeContext {
     private HomeScene homeScene;
-
-    @FXML
-    private FlowPane paymentsFlowPane;
 
     @Override
     public void setHomeScene(HomeScene homeScene) {
@@ -32,19 +25,10 @@ public class ProfileScene implements SceneWithHomeContext {
     private ResourceLoader resourceLoader = new ResourceLoader();
 
     @FXML
-    private Label usernameLabel;
-    @FXML
-    private Label firstnameLabel;
-    @FXML
-    private Label lastnameLabel;
-    @FXML
-    private Label emailLabel;
+    private Label usernameLabel, firstnameLabel, lastnameLabel,  emailLabel, thankYouLabel, balanceLabel;
     @FXML
     private Button logoutButton;
-    @FXML
-    private Label thankYouLabel;
-    @FXML
-    private Hyperlink viewhistoryLink;
+
 
     @FXML
     public void onViewPaymentClicked(javafx.event.ActionEvent actionEvent) {
@@ -75,12 +59,16 @@ public class ProfileScene implements SceneWithHomeContext {
                 firstnameLabel.setText(user.getFirstName());
                 lastnameLabel.setText(user.getLastName());
                 emailLabel.setText(user.getEmail());
+
+                // Update balance label
+                balanceLabel.setText("Balance: " + user.getBalance());
             } else {
                 // If user not found in DB
                 usernameLabel.setText("User not found.");
                 firstnameLabel.setText("-");
                 lastnameLabel.setText("-");
                 emailLabel.setText("-");
+                balanceLabel.setText("Balance: -");
             }
         } else {
             // No valid userID in the session
@@ -88,6 +76,7 @@ public class ProfileScene implements SceneWithHomeContext {
             firstnameLabel.setText("-");
             lastnameLabel.setText("-");
             emailLabel.setText("-");
+            balanceLabel.setText("Balance: -");
         }
     }
 
@@ -100,6 +89,15 @@ public class ProfileScene implements SceneWithHomeContext {
 
     private void displayThankYouMessage(String message) {
         thankYouLabel.setText(message);
+
+        thankYouLabel.setOpacity(1.0);
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), thankYouLabel);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setDelay(Duration.seconds(1));
+
+        fadeTransition.play();
     }
 
     @FXML
@@ -150,5 +148,54 @@ public class ProfileScene implements SceneWithHomeContext {
         }
     }
 
+    @FXML
+    private void handleTopUpClicked(MouseEvent event) {
+        // Create a dialog to prompt for the top-up amount
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Top-Up Balance");
+        dialog.setHeaderText("Add Balance");
+        dialog.setContentText("Enter the amount to top-up:");
+
+        // Show the dialog and capture the result
+        dialog.showAndWait().ifPresent(input -> {
+            try {
+                // Parse the input as a double
+                double topUpAmount = Double.parseDouble(input);
+
+                if (topUpAmount <= 0) {
+                    throw new NumberFormatException("Amount must be positive.");
+                }
+
+                // Get the user ID
+                int userID = UserSession.getInstance().getUserID();
+
+                // Update the balance in the database
+                String updateQuery = "UPDATE User SET balance = balance + ? WHERE userID = ?";
+                try (Connection connection = new DatabaseConnection().getConnection();
+                     PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+                    preparedStatement.setDouble(1, topUpAmount);
+                    preparedStatement.setInt(2, userID);
+
+                    int rowsAffected = preparedStatement.executeUpdate();
+                    if (rowsAffected > 0) {
+                        System.out.println("Top-up successful. Amount added: " + topUpAmount);
+                        displayThankYouMessage("Balance updated successfully!");
+
+                        // Update the UI with the new balance
+                        displayUserProfile();
+                    } else {
+                        System.out.println("Failed to update balance. User ID not found.");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.println("Error updating the balance.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input: " + input);
+                displayThankYouMessage("Invalid amount entered. Please try again.");
+            }
+        });
+    }
 
 }
