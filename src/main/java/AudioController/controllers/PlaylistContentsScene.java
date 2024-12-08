@@ -3,9 +3,7 @@ package AudioController.controllers;
 import AudioController.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -302,6 +300,56 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
     @FXML
     private void handleAddSongsClicked(MouseEvent event) {
         homeScene.loadPlaylistScene("/FXMLs/libraryselectorScene.fxml", playlistID);
+    }
+
+    @FXML
+    private void handleDeletePlaylistClicked(MouseEvent event) {
+        // Confirmation prompt
+        boolean confirmDelete = showConfirmationDialog(
+                "Delete Playlist",
+                "Are you sure you want to delete this playlist?",
+                "This action cannot be undone."
+        );
+
+        if (confirmDelete) {
+            // Delete the playlist from the database
+            deletePlaylistFromDatabase();
+
+            // Redirect to the PlaylistScene
+            homeScene.loadPlaylistScene("/FXMLs/playlistScene.fxml", playlistID);
+        }
+    }
+
+    private boolean showConfirmationDialog(String title, String header, String content) {
+        // Use JavaFX Alert for the confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        // Wait for user response
+        return alert.showAndWait().filter(response -> response == ButtonType.OK).isPresent();
+    }
+
+    private void deletePlaylistFromDatabase() {
+        String query = "DELETE FROM Playlists WHERE playlistID = ?";
+
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, playlistID);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Playlist deleted successfully.");
+            } else {
+                System.out.println("Failed to delete the playlist.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error deleting playlist from database.");
+        }
     }
 
 }
