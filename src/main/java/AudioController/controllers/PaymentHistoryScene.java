@@ -1,6 +1,7 @@
 package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
+import AudioController.MouseEffects;
 import AudioController.SceneWithHomeContext;
 import AudioController.UserSession;
 import javafx.animation.ScaleTransition;
@@ -53,7 +54,7 @@ public class PaymentHistoryScene implements SceneWithHomeContext {
                     PaymentsListTemplateScene controller = fxmlLoader.getController();
                     controller.setpaymentID(paymentID);
 
-                    addMouseEffects(paymentsList);
+                    MouseEffects.addMouseEffects(paymentsList);
 
                     paymentsList.setOnMouseClicked(event -> {
                         System.out.println("Redirecting to song...");
@@ -72,47 +73,5 @@ public class PaymentHistoryScene implements SceneWithHomeContext {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void addMouseEffects(Pane paymentList) {
-        // Mouse enter: scale up and change background
-        paymentList.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), paymentList);
-            scaleTransition.setToX(1.02);
-            scaleTransition.setToY(1.02);
-            scaleTransition.play();
-
-            paymentList.setStyle("-fx-background-color: #d3d3d32b;");
-        });
-
-        paymentList.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), paymentList);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-
-            paymentList.setStyle("-fx-background-color: #cfcfcf1b");
-        });
-
-        // Mouse pressed: scale slightly down and darken background
-        paymentList.setOnMousePressed(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), paymentList);
-            scaleTransition.setToX(1.01);
-            scaleTransition.setToY(1.01);
-            scaleTransition.play();
-
-            // Darken background color
-            paymentList.setStyle("-fx-background-color: #dfdfdf2b;");
-        });
-
-        paymentList.setOnMouseReleased(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), paymentList);
-            scaleTransition.setToX(1.02);
-            scaleTransition.setToY(1.02);
-            scaleTransition.play();
-
-            // Restore hover background color
-            paymentList.setStyle("-fx-background-color: #d3d3d32b;");
-        });
     }
 }

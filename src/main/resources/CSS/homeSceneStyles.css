@@ -94,3 +94,43 @@
     -fx-border-width: 2px;
     -fx-padding: 6px;
 }
+
+.progress-bar > .bar {
+    -fx-padding: 0;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+}
+
+.bar-exit .bar {
+    -fx-background-color: white;
+}
+
+.bar-enter .bar {
+    -fx-background-color: #c42727;
+}
+
+.progress-bar > .track {
+   -fx-background-color: #797979, #797979;
+   -fx-background-radius: 5px;
+   -fx-background-insets: 0, 1;
+
+}
+
+.slider {
+    -fx-control-inner-background: transparent;
+    -default-track-color: transparent;
+}
+
+.slider .track {
+    -fx-background-color: transparent;
+}
+
+/* Customize the thumb (slider knob) */
+.slider .thumb {
+    -fx-background-color: transparent;
+}
+
+.slider:hover .thumb {
+    -fx-background-color: #ffffff;
+}

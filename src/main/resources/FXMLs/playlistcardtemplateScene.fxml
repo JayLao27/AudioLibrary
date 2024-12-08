@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="songcardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="200.0" stylesheets="@../CSS/songcardtemplateSceneStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AudioController.controllers.PlaylistCardTemplateScene">
+   <children>
+      <ImageView fx:id="playlistImage" fitHeight="180.0" fitWidth="180.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../ProjectImages/cardplaceholder.png" />
+         </image>
+      </ImageView>
+      <Label id="songcardLabel" fx:id="playlistNameLabel" alignment="CENTER" layoutX="46.0" layoutY="205.0" text="Playlist Name" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0" />
+   </children>
+</AnchorPane>

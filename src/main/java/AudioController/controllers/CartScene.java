@@ -1,6 +1,7 @@
 package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
+import AudioController.MouseEffects;
 import AudioController.SceneWithHomeContext;
 import AudioController.UserSession;
 import javafx.fxml.FXML;
@@ -75,7 +76,7 @@ public class CartScene implements SceneWithHomeContext {
                     CartListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID, this);
 
-                    addMouseEffects(cartItem);
+                    MouseEffects.addMouseEffects(cartItem);
 
                     cartItem.setOnMouseClicked(event -> {
                         System.out.println("Redirecting to song...");
@@ -138,46 +139,6 @@ public class CartScene implements SceneWithHomeContext {
 
     public void reloadCart() {
         loadCartList(UserSession.getInstance().getUserID());
-    }
-
-    // Button UX
-    private void addMouseEffects(Pane songList) {
-        // Mouse effects for cart items
-        songList.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songList);
-            scaleTransition.setToX(1.02);
-            scaleTransition.setToY(1.02);
-            scaleTransition.play();
-
-            songList.setStyle("-fx-background-color: #d3d3d32b;");
-        });
-
-        songList.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songList);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-
-            songList.setStyle("-fx-background-color: #cfcfcf1b");
-        });
-
-        songList.setOnMousePressed(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.01);
-            scaleTransition.setToY(1.01);
-            scaleTransition.play();
-
-            songList.setStyle("-fx-background-color: #dfdfdf2b;");
-        });
-
-        songList.setOnMouseReleased(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.02);
-            scaleTransition.setToY(1.02);
-            scaleTransition.play();
-
-            songList.setStyle("-fx-background-color: #d3d3d32b;");
-        });
     }
 
     @FXML

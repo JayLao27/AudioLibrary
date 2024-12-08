@@ -1,32 +1,49 @@
 /* Style for the parent pane */
 #currentsongPane {
-    -fx-background-color: #dbdbdb;
+    -fx-background-color: #2e2e2e;
     -fx-background-radius: 15px;
 }
 
-/* Define default colors and track styles */
+#currentsongPane Label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.progress-bar > .bar {
+    -fx-padding: 0;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+}
+
+.bar-exit .bar {
+    -fx-background-color: white;
+}
+
+.bar-enter .bar {
+    -fx-background-color: #c42727;
+}
+
+.progress-bar > .track {
+   -fx-background-color: #797979, #797979;
+   -fx-background-radius: 5px;
+   -fx-background-insets: 0, 1;
+
+}
+
 .slider {
-    -fx-control-inner-background: #ddd;  /* default background for the track */
-    -fx-accent: #ff5722;  /* Color for the filled part (highlighted) */
-    -default-track-color: #e2e2e2;  /* Color for the unfilled part (remaining) */
+    -fx-control-inner-background: transparent;
+    -default-track-color: transparent;
 }
 
 .slider .track {
-    -fx-background-color: -fx-shadow-highlight-color,
-          linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
-          -default-track-color;
-    -fx-background-radius: 5px;
+    -fx-background-color: transparent;
 }
 
 /* Customize the thumb (slider knob) */
 .slider .thumb {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #b91818;
-    -fx-border-width: 2px;
-    -fx-border-radius: 100%;
-    -fx-background-radius: 100%;
+    -fx-background-color: transparent;
 }
 
-.slider .thumb:hover {
+.slider:hover .thumb {
     -fx-background-color: #ffffff;
 }

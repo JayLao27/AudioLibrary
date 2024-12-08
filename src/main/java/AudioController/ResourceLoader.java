@@ -1,5 +1,7 @@
 package AudioController;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -188,6 +190,62 @@ public class ResourceLoader {
 
         return null;
     }
+
+    public static String getPlaylistName(int playlistID) {
+        String query = "SELECT playlistName FROM Playlists WHERE playlistID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, playlistID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                System.out.println("Returning name: " + resultSet.getString("playlistName"));
+                return resultSet.getString("playlistName");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving playlist name from database.");
+        }
+       return null;
+    }
+
+    public static String getPlaylistImagePath(int playlistID) {
+        String query = "SELECT playlistImageFile FROM Playlists WHERE playlistID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, playlistID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String imageFileName = resultSet.getString("playlistImageFile");
+
+                if (imageFileName != null && !imageFileName.isEmpty()) {
+                    // Create File object to handle both relative and absolute paths
+                    File file = new File(imageFileName);
+
+                    // If the path is not absolute, try to resolve it relative to the project's base directory
+                    if (!file.isAbsolute()) {
+                        // Get the base directory of the project (adjust this path as needed)
+                        String basePath = System.getProperty("user.dir") + File.separator + "ProjectImages";
+                        file = new File(basePath, imageFileName);
+                    }
+
+                    // Check if the file exists
+                    if (file.exists() && file.isFile()) {
+                        return file.getAbsolutePath();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving playlist image path from database.");
+        }
+
+        // Return default image path (as an absolute path)
+        return new File(System.getProperty("user.dir") + File.separator + "ProjectImages" + File.separator + "Vector.png").getAbsolutePath();
+    }
+
 
     public static User getProfile(int userID) {
         String query = "SELECT userName, firstName, lastName, email FROM User WHERE userID = ?";

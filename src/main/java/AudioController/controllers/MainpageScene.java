@@ -1,6 +1,7 @@
 package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
+import AudioController.MouseEffects;
 import AudioController.SceneWithHomeContext;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
@@ -47,7 +48,7 @@ public class MainpageScene implements SceneWithHomeContext {
                 SongCardTemplateScene controller = fxmlLoader.getController();
                 controller.setAudioID(audioID);
 
-                addMouseEffects(songCard);
+                MouseEffects.addMouseEffects(songCard);
 
                 songCard.setOnMouseClicked(event -> {
                     System.out.println("Redirecting to song...");
@@ -142,48 +143,4 @@ public class MainpageScene implements SceneWithHomeContext {
         scaleTransition.setToY(1.05);
         scaleTransition.play();
     }
-
-    //Song Card UX
-    private void addMouseEffects(Pane songCard) {
-        // Mouse enter: scale up and change background
-        songCard.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songCard);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
-            scaleTransition.play();
-
-            songCard.setStyle("-fx-background-color: #d3d3d32b;");
-        });
-
-        songCard.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songCard);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-
-            songCard.setStyle("-fx-background-color: #cfcfcf1b");
-        });
-
-        // Mouse pressed: scale slightly down and darken background
-        songCard.setOnMousePressed(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songCard);
-            scaleTransition.setToX(1.04);
-            scaleTransition.setToY(1.04);
-            scaleTransition.play();
-
-            // Darken background color
-            songCard.setStyle("-fx-background-color: #dfdfdf2b;");
-        });
-
-        songCard.setOnMouseReleased(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songCard);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
-            scaleTransition.play();
-
-            // Restore hover background color
-            songCard.setStyle("-fx-background-color: #d3d3d32b;");
-        });
-    }
-
 }

@@ -1,0 +1,39 @@
+#playlistPane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
+#playlistNameLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+}
+
+#playlistNameField {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+#addSongsButton {
+    -fx-border-radius: 20 20 20 20;
+    -fx-background-radius: 20 20 20 20;
+    -fx-background-color: #e0e0e0;
+
+    -fx-font-family: "Dubai";
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0e0e0e;
+}
+
+#addSongsButton:hover {
+    -fx-background-color: #ffffff;
+}
+

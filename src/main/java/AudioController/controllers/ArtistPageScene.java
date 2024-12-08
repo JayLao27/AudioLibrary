@@ -1,6 +1,7 @@
 package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
+import AudioController.MouseEffects;
 import AudioController.ResourceLoader;
 import AudioController.SceneWithHomeContext;
 import javafx.animation.ScaleTransition;
@@ -66,7 +67,7 @@ public class ArtistPageScene implements SceneWithHomeContext {
                     SongListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID);
 
-                    addMouseEffects(songList);
+                    MouseEffects.addMouseEffects(songList);
 
                     songList.setOnMouseClicked(event -> {
                         System.out.println("Redirecting to song...");
@@ -106,47 +107,5 @@ public class ArtistPageScene implements SceneWithHomeContext {
         } else {
             System.out.println("Artist image path is null for artistID: " + artistID);
         }
-    }
-
-    private void addMouseEffects(Pane songList) {
-        // Mouse enter: scale up and change background
-        songList.setOnMouseEntered(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songList);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
-            scaleTransition.play();
-
-            songList.setStyle("-fx-background-color: #d3d3d32b;");
-        });
-
-        songList.setOnMouseExited(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), songList);
-            scaleTransition.setToX(1.0);
-            scaleTransition.setToY(1.0);
-            scaleTransition.play();
-
-            songList.setStyle("-fx-background-color: #cfcfcf1b");
-        });
-
-        // Mouse pressed: scale slightly down and darken background
-        songList.setOnMousePressed(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.04);
-            scaleTransition.setToY(1.04);
-            scaleTransition.play();
-
-            // Darken background color
-            songList.setStyle("-fx-background-color: #dfdfdf2b;");
-        });
-
-        songList.setOnMouseReleased(event -> {
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), songList);
-            scaleTransition.setToX(1.05);
-            scaleTransition.setToY(1.05);
-            scaleTransition.play();
-
-            // Restore hover background color
-            songList.setStyle("-fx-background-color: #d3d3d32b;");
-        });
     }
 }

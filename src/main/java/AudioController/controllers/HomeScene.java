@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +27,8 @@ public class HomeScene {
     Label usernameLabel;
     @FXML
     Pane sidebarProfilePane, sidebarLibraryPane, sidebarPlaylistPane, sidebarCartPane, currentSongPane;
+    @FXML
+    ProgressBar volumeProgressBar;
     @FXML
     ImageView playPauseIcon, volumeIcon, shuffleIcon, loopIcon;
     @FXML
@@ -60,6 +63,28 @@ public class HomeScene {
         });
 
         updateVolumeIcon(volumeSlider.getValue());
+
+        volumeSlider.setOnMouseEntered(event -> {
+            volumeProgressBar.getStyleClass().add("bar-enter");
+            volumeProgressBar.getStyleClass().remove("bar-exit");
+        });
+
+        volumeSlider.setOnMouseExited(event -> {
+            volumeProgressBar.getStyleClass().add("bar-exit");
+            volumeProgressBar.getStyleClass().remove("bar-enter");
+        });
+
+        volumeSlider.setOnMousePressed(event -> {
+            volumeProgressBar.getStyleClass().add("bar-enter");
+            volumeProgressBar.getStyleClass().remove("bar-exit");
+        });
+
+        volumeSlider.setOnMouseReleased(event -> {
+            volumeProgressBar.getStyleClass().add("bar-exit");
+            volumeProgressBar.getStyleClass().remove("bar-enter");
+        });
+
+        volumeProgressBar.progressProperty().bind(volumeSlider.valueProperty().divide(100.0));
         isPlaying.bind(AudioPlayer.getInstance().isPlayingProperty());
 
         isPlaying.addListener((observable, oldValue, newValue) -> updatePlayPauseIcon(newValue));
@@ -333,6 +358,36 @@ public class HomeScene {
                     setArtistIDMethod.invoke(controller, artistID);
                 } catch (NoSuchMethodException e) {
                     System.out.println("Controller does not have setArtistID method: " + controller.getClass().getSimpleName());
+                }
+            }
+
+            bodyVBox.getChildren().setAll(sceneContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading " + fxmlPath);
+        }
+    }
+
+    public void loadPlaylistScene(String fxmlPath, int playlistID) {
+        loadPlaylistScene(fxmlPath, playlistID, controller -> {});
+    }
+
+    public void loadPlaylistScene(String fxmlPath, int playlistID, Consumer<Object> setupController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent sceneContent = loader.load();
+
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof SceneWithHomeContext) {
+                    ((SceneWithHomeContext) controller).setHomeScene(this);
+                }
+
+                try {
+                    Method setArtistIDMethod = controller.getClass().getMethod("setPlaylistID", int.class);
+                    setArtistIDMethod.invoke(controller, playlistID);
+                } catch (NoSuchMethodException e) {
+                    System.out.println("Controller does not have setPlaylistID method: " + controller.getClass().getSimpleName());
                 }
             }
 

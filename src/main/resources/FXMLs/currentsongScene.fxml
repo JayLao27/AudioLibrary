@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +16,8 @@
          </font>
       </Label>
       <Label fx:id="artistNameLabel" alignment="CENTER" layoutX="85.0" layoutY="39.0" prefHeight="17.0" prefWidth="290.0" text="Artist Name" />
-      <Slider fx:id="playbackSlider" layoutX="126.0" layoutY="59.0" prefHeight="14.0" prefWidth="215.0" />
+      <ProgressBar id="playbackProgressBar" fx:id="playbackProgressBar" layoutX="126.0" layoutY="61.0" prefHeight="8.0" prefWidth="215.0" progress="0.0" AnchorPane.topAnchor="63.0" />
+      <Slider fx:id="playbackSlider" layoutX="126.0" layoutY="57.0" prefHeight="14.0" prefWidth="215.0" AnchorPane.topAnchor="60.0" />
       <Label fx:id="durationLabel" alignment="CENTER" layoutX="341.0" layoutY="58.0" prefHeight="17.0" prefWidth="40.0" text="00:00" />
       <Label fx:id="currentTimeLabel" alignment="CENTER" layoutX="85.0" layoutY="58.0" prefHeight="17.0" prefWidth="40.0" text="00:00" />
    </children>

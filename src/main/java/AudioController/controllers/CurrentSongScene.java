@@ -5,6 +5,7 @@ import AudioController.ResourceLoader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,13 +17,9 @@ public class CurrentSongScene {
     @FXML
     ImageView songImage;
     @FXML
-    Label songNameLabel;
+    Label songNameLabel, artistNameLabel, currentTimeLabel, durationLabel;
     @FXML
-    Label artistNameLabel;
-    @FXML
-    Label currentTimeLabel;
-    @FXML
-    Label durationLabel;
+    ProgressBar playbackProgressBar;
     @FXML
     Slider playbackSlider;
 
@@ -34,7 +31,6 @@ public class CurrentSongScene {
     }
 
     private void setupSlider() {
-        // Prevent media player updates when the user is dragging the slider
         playbackSlider.valueChangingProperty().addListener((obs, wasChanging, isChanging) -> {
             if (!isChanging) {
                 Duration seekTo = AudioPlayer.getInstance().getMediaPlayer().getMedia().getDuration()
@@ -43,14 +39,33 @@ public class CurrentSongScene {
             }
         });
 
-        // Media player position gets updated when the slider knob is released
+        playbackSlider.setOnMouseEntered(event -> {
+            playbackProgressBar.getStyleClass().add("bar-enter");
+            playbackProgressBar.getStyleClass().remove("bar-exit");
+        });
+
+        playbackSlider.setOnMouseExited(event -> {
+            playbackProgressBar.getStyleClass().add("bar-exit");
+            playbackProgressBar.getStyleClass().remove("bar-enter");
+        });
+
+        playbackSlider.setOnMousePressed(event -> {
+            playbackProgressBar.getStyleClass().add("bar-enter");
+            playbackProgressBar.getStyleClass().remove("bar-exit");
+        });
+
         playbackSlider.setOnMouseReleased(event -> {
             if (AudioPlayer.getInstance().isPlaying()) {
                 Duration seekTo = AudioPlayer.getInstance().getMediaPlayer().getMedia().getDuration()
                         .multiply(playbackSlider.getValue() / 100.0);
                 AudioPlayer.getInstance().getMediaPlayer().seek(seekTo);
+                playbackProgressBar.getStyleClass().add("bar-exit");
+                playbackProgressBar.getStyleClass().remove("bar-enter");
             }
         });
+
+        // Bind ProgressBar progress to Slider value
+        playbackProgressBar.progressProperty().bind(playbackSlider.valueProperty().divide(100.0));
 
         // Update the slider's value and time labels only when the user is not dragging
         AudioPlayer.getInstance().getMediaPlayer().currentTimeProperty().addListener((obs, oldTime, newTime) -> {

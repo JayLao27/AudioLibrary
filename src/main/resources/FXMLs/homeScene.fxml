@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
@@ -141,6 +142,7 @@
                                     <Image url="@../ProjectImages/loop.png" />
                                  </image>
                               </ImageView>
+                              <ProgressBar fx:id="volumeProgressBar" layoutX="44.0" layoutY="55.0" prefHeight="8.0" prefWidth="164.0" progress="0.0" />
                               <Slider id="volumeSlider" fx:id="volumeSlider" blockIncrement="1.0" layoutX="39.0" layoutY="52.0" prefHeight="14.0" prefWidth="173.0" value="50.0" />
                               <ImageView fx:id="volumeIcon" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="49.0">
                                  <image>
