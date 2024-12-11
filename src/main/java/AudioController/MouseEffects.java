@@ -5,8 +5,21 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+
+/**
+ * Utility class that provides mouse effects for interactive elements such as {@link Pane} and {@link Button}.
+ * The effects include scaling and background color changes on mouse events (enter, exit, press, release).
+ */
 public class MouseEffects {
 
+    /**
+     * Adds mouse effects (scale transition and background color change) to a given {@link Pane}.
+     * Effects include:
+     * - Scaling when mouse enters or exits
+     * - Scaling and background color change when mouse is pressed or released
+     *
+     * @param pane the {@link Pane} to which mouse effects will be applied
+     */
     public static void addMouseEffects(Pane pane) {
         pane.setOnMouseEntered(event -> {
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), pane);
@@ -48,6 +61,15 @@ public class MouseEffects {
         });
     }
 
+
+    /**
+     * Adds mouse effects (scale transition) to a given {@link Button}.
+     * Effects include:
+     * - Scaling when mouse enters or exits
+     * - Scaling when mouse is pressed or released
+     *
+     * @param button the {@link Button} to which mouse effects will be applied
+     */
     public static void addMouseEffects(Button button) {
         button.setOnMouseEntered(event -> {
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);

@@ -6,9 +6,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-
+/**
+ * Utility class that provides methods for loading and retrieving various resources
+ * from the database, such as user information, artist details, audio file metadata,
+ * playlist details, and more. This class performs SQL queries and returns relevant
+ * data related to users, artists, audio, albums, playlists, and payments.
+ * <p>
+ * Each method handles a specific type of resource retrieval, such as retrieving
+ * a user's name, an artist's image path, audio details like price or duration,
+ * and more. The results are returned as strings, numbers, or custom objects as required.
+ * </p>
+ */
 public class ResourceLoader {
 
+    /**
+     * Retrieves the username associated with the given user ID from the database.
+     *
+     * @param userID the ID of the user
+     * @return the username of the user, or null if not found
+     */
     public static String getUsername(int userID) {
         String query = "SELECT userName FROM User" +
                 " WHERE userID = ?";
@@ -27,6 +43,13 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the file path of the artist's image based on the artist ID.
+     *
+     * @param artistID the ID of the artist
+     * @return the path to the artist's image, or null if not found
+     */
     public static String getArtistImagePath(int artistID) {
         String query = "SELECT artistImageFile FROM Artists WHERE artistID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -45,6 +68,13 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the name of the artist associated with the given artist ID.
+     *
+     * @param artistID the ID of the artist
+     * @return the name of the artist, or null if not found
+     */
     public static String getArtistName(int artistID) {
         String query = "SELECT artistName FROM Artists WHERE artistID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -62,6 +92,14 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the artist's name associated with the given audio ID by joining
+     * the audio and artist tables.
+     *
+     * @param audioID the ID of the audio file
+     * @return the name of the artist, or null if not found
+     */
     public static String getArtistNamefromAudioID(int audioID) {
         String query = "SELECT a.artistName " +
                 "FROM Audio AS au " +
@@ -82,6 +120,13 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the file path of the audio's image (cover art) based on the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the path to the audio's image, or null if not found
+     */
     public static String getAudioImagePath(int audioID) {
         String query = "SELECT audioImageFileName FROM Audio WHERE audioID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -100,6 +145,13 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the name of the audio file associated with the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the name of the audio file, or null if not found
+     */
     public static String getAudioName(int audioID) {
         String query = "SELECT audioName FROM Audio WHERE audioID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -117,6 +169,13 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the price of the audio associated with the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the price of the audio, or null if not found
+     */
     public static Double getAudioPrice(int audioID) {
         String query = "SELECT audioPrice FROM Audio WHERE audioID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -135,6 +194,13 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the duration of the audio associated with the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the duration of the audio in seconds, or 0 if not found
+     */
     public static int getAudioDuration(int audioID) {
         String query = "SELECT audioDuration FROM Audio WHERE audioID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -152,6 +218,14 @@ public class ResourceLoader {
         return 0; // Return 0 if no duration is found
     }
 
+
+    /**
+     * Retrieves the name of the album associated with the given audio ID.
+     * If no album is associated, an empty string is returned.
+     *
+     * @param audioID the ID of the audio file
+     * @return the name of the album, or an empty string if no album is found
+     */
     public static String getAlbumName(int audioID) {
         String query = "SELECT albumName FROM Albums " +
                 "LEFT JOIN Audio ON Audio.albumID = Albums.albumID WHERE audioID = ?";
@@ -161,16 +235,22 @@ public class ResourceLoader {
             preparedStatement.setInt(1, audioID);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                // Check if the albumName is NULL (which can happen if no album is associated with the audio)
                 return resultSet.getString("albumName");
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error retrieving album name from database.");
         }
-        return ""; // Return empty string if no album is found
+        return "";
     }
 
+
+    /**
+     * Retrieves the payment date associated with the given payment ID.
+     *
+     * @param paymentID the ID of the payment
+     * @return the date of the payment, or null if not found
+     */
     public static String getPaymentDate(int paymentID) {
         String query = "SELECT paymentDate FROM Payments WHERE paymentID = ?";
 
@@ -191,6 +271,13 @@ public class ResourceLoader {
         return null;
     }
 
+
+    /**
+     * Retrieves the name of the playlist associated with the given playlist ID.
+     *
+     * @param playlistID the ID of the playlist
+     * @return the name of the playlist, or null if not found
+     */
     public static String getPlaylistName(int playlistID) {
         String query = "SELECT playlistName FROM Playlists WHERE playlistID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -209,6 +296,14 @@ public class ResourceLoader {
        return null;
     }
 
+
+    /**
+     * Retrieves the file path of the playlist's image based on the given playlist ID.
+     * If no valid image path is found, a default image path is returned.
+     *
+     * @param playlistID the ID of the playlist
+     * @return the path to the playlist's image, or a default image path if not found
+     */
     public static String getPlaylistImagePath(int playlistID) {
         String query = "SELECT playlistImageFile FROM Playlists WHERE playlistID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -246,7 +341,13 @@ public class ResourceLoader {
         return new File(System.getProperty("user.dir") + File.separator + "ProjectImages" + File.separator + "Vector.png").getAbsolutePath();
     }
 
-
+    /**
+     * Retrieves a user's profile information based on the given user ID.
+     * The profile includes the username, first name, last name, email, and balance.
+     *
+     * @param userID the ID of the user
+     * @return a {@link User} object containing the user's profile, or null if not found
+     */
     public static User getProfile(int userID) {
         String query = "SELECT userName, firstName, lastName, email, balance FROM User WHERE userID = ?";
         try (Connection connection = new DatabaseConnection().getConnection();

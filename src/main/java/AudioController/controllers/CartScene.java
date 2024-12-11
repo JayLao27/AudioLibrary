@@ -22,10 +22,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the Cart Scene in the application.
+ * Manages the display of items in the user's cart and handles checkout functionality.
+ */
 public class CartScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
 
+    /**
+     * Sets the {@link HomeScene} instance for this controller. This is used to
+     * navigate back to the home scene or other pages from the artist page.
+     *
+     * @param homeScene The home scene instance to be set.
+     */
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
@@ -42,6 +52,9 @@ public class CartScene implements SceneWithHomeContext {
     private double totalAmount = 0.0;
     private List<Integer> checkedAudio = new ArrayList<>();
 
+    /**
+     * Initializes the CartScene by setting up tooltips and loading the cart list.
+     */
     @FXML
     public void initialize() {
 
@@ -51,6 +64,11 @@ public class CartScene implements SceneWithHomeContext {
         loadCartList(UserSession.getInstance().getUserID());
     }
 
+    /**
+     * Loads the user's cart list from the database and populates the cart UI.
+     *
+     * @param userID The user ID to fetch the cart items for.
+     */
     private void loadCartList(int userID) {
         cartlistVBox.getChildren().clear();
 
@@ -96,6 +114,10 @@ public class CartScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Handles the checkout button click event.
+     * If items are selected, redirects to the checkout page; otherwise, shows a warning.
+     */
     @FXML
     private void handleCheckoutClicked() {
         if (checkedItems > 0) {

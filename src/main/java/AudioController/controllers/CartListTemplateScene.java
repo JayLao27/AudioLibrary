@@ -19,6 +19,12 @@ import java.sql.SQLException;
 
 import static AudioController.ResourceLoader.getAudioPrice;
 
+/**
+ * Controller for handling the individual items in the cart on the cart page.
+ * This class is responsible for displaying each item (song) in the user's cart,
+ * handling interactions such as checkbox selection, image hover effects, and
+ * deleting items from the cart.
+ */
 public class CartListTemplateScene {
 
     @FXML
@@ -36,6 +42,13 @@ public class CartListTemplateScene {
 
     private int audioID;
 
+    /**
+     * Initializes the CartListTemplateScene with the given audio ID and CartScene reference.
+     * It loads the details of the audio item (song name, price, and cover art) into the view.
+     *
+     * @param audioID The unique identifier for the audio item.
+     * @param cartScene Reference to the CartScene for updating the cart after interactions.
+     */
     public void setAudioID(int audioID, CartScene cartScene) {
         this.audioID = audioID;
         this.cartScene = cartScene;
@@ -43,9 +56,17 @@ public class CartListTemplateScene {
         loadAudioDetails();
     }
 
+    /**
+     * Initializes the controller. This method is called automatically
+     * when the FXML file is loaded. In this case, there are no initializations
+     * required at this stage.
+     */
     @FXML
     private void initialize() {}
 
+    /**
+     * Loads the details of the audio (song name, price, and cover image) and displays them in the cart item.
+     */
     private void loadAudioDetails() {
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);
@@ -77,6 +98,12 @@ public class CartListTemplateScene {
         }
     }
 
+    /**
+     * Handles the delete button click event. When clicked, it removes the audio item from the user's cart
+     * and refreshes the cart view.
+     *
+     * @param event The mouse event triggering the delete action.
+     */
     public void handleDeleteClicked(MouseEvent event) {
         deleteAudioFromCart(UserSession.getInstance().getUserID(), audioID);
 
@@ -87,6 +114,12 @@ public class CartListTemplateScene {
         event.consume();
     }
 
+    /**
+     * Deletes the specified audio item from the cart in the database.
+     *
+     * @param userID The ID of the user whose cart is being modified.
+     * @param audioID The ID of the audio item to be deleted.
+     */
     private void deleteAudioFromCart(int userID, int audioID) {
         try (Connection connection = new DatabaseConnection().getConnection()) {
             String sql = "DELETE FROM CartAudio WHERE userID = ? AND audioID = ?";
@@ -150,6 +183,12 @@ public class CartListTemplateScene {
     }
 
     //Checkbox logic
+    /**
+     * Handles the checkbox state change event. When the checkbox is checked or unchecked,
+     * it updates the cart's total checkout details (price and selected items).
+     *
+     * @param event The action event triggered by the checkbox state change.
+     */
     @FXML
     private void handleCheckboxChange(ActionEvent event) {
         double price = getAudioPrice(audioID);
