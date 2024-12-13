@@ -63,21 +63,7 @@ public class LibraryScene implements SceneWithHomeContext {
                     LibraryListTemplateScene controller = fxmlLoader.getController();
                     System.out.println("Controller initialized: " + controller);
                     controller.setAudioID(audioID);
-
-                    MouseEffects.addMouseEffects(songList);
-
-                    songList.setOnMouseClicked(event -> {
-                        System.out.println("Redirecting to song...");
-
-                        if (homeScene != null) {
-                            // Play the clicked song
-                            AudioPlayer.getInstance().setQueue(audioQueue); // Set the entire queue
-                            AudioPlayer.getInstance().playAudio(audioID); // Start playback with the clicked song
-                            homeScene.loadCurrentSong(audioID); // Update homeScene with the current song
-                        } else {
-                            System.out.println("HomeScene is null!");
-                        }
-                    });
+                    controller.setQueue(audioQueue);
 
                     // Add the song to the flow pane
                     libraryFlowPane.getChildren().add(songList);

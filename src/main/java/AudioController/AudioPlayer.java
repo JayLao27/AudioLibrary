@@ -58,7 +58,7 @@ public class AudioPlayer implements SceneWithHomeContext {
         System.out.println("Trying to play audioID: " + audioID + " at index: " + currentIndex);
 
         if (currentIndex != -1) { // If the audioID is found in the queue
-            String audioFileName = fetchAudioFileName(audioID);
+            String audioFileName = ResourceLoader.getAudioFileName(audioID);
             if (audioFileName != null) {
                 String filePath = "/audioFiles/" + audioFileName;
                 URL resource = AudioPlayer.class.getResource(filePath);
@@ -78,29 +78,6 @@ public class AudioPlayer implements SceneWithHomeContext {
         } else {
             System.out.println("AudioID not found in the queue: " + audioID);
         }
-    }
-
-    /**
-     * Fetches the audio file name from the database using the provided audio ID.
-     *
-     * @param audioID the ID of the audio whose file name is to be fetched.
-     * @return the file name of the audio or {@code null} if not found.
-     */
-    private String fetchAudioFileName(int audioID) {
-        String query = "SELECT audioFileName FROM Audio WHERE audioID = ?";
-        try (Connection connection = new DatabaseConnection().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, audioID);
-
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("audioFileName");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     /**

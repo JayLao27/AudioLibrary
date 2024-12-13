@@ -2,6 +2,7 @@ package AudioController;
 
 import javafx.animation.ScaleTransition;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -97,6 +98,37 @@ public class MouseEffects {
             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), button);
             scaleTransition.setToX(1.02);
             scaleTransition.setToY(1.02);
+            scaleTransition.play();
+        });
+    }
+
+    public static void addMouseEffects(ImageView imageView) {
+        imageView.setOnMouseEntered(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), imageView);
+            scaleTransition.setToX(1.2);
+            scaleTransition.setToY(1.2);
+            scaleTransition.play();
+        });
+
+        imageView.setOnMouseExited(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), imageView);
+            scaleTransition.setToX(1.0);
+            scaleTransition.setToY(1.0);
+            scaleTransition.play();
+
+        });
+
+        imageView.setOnMousePressed(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), imageView);
+            scaleTransition.setToX(1.1);
+            scaleTransition.setToY(1.1);
+            scaleTransition.play();
+        });
+
+        imageView.setOnMouseReleased(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(20), imageView);
+            scaleTransition.setToX(1.2);
+            scaleTransition.setToY(1.2);
             scaleTransition.play();
         });
     }

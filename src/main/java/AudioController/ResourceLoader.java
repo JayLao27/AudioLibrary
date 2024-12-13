@@ -171,6 +171,30 @@ public class ResourceLoader {
 
 
     /**
+     * Retrieves the file name of the audio file associated with the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the file name of the audio file, or null if not found
+     */
+    public static String getAudioFileName(int audioID) {
+        String query = "SELECT audioFileName FROM Audio WHERE audioID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, audioID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("audioFileName");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving audio name from database.");
+        }
+        return null;
+    }
+
+
+    /**
      * Retrieves the price of the audio associated with the given audio ID.
      *
      * @param audioID the ID of the audio file

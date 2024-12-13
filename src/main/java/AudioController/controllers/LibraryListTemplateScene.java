@@ -1,18 +1,28 @@
 package AudioController.controllers;
 
+import AudioController.AudioPlayer;
+import AudioController.DownloadManager;
+import AudioController.MouseEffects;
 import AudioController.ResourceLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LibraryListTemplateScene {
     @FXML
     private Label songNameLabel;
     @FXML
-    private ImageView songCoverImage;
+    private ImageView songCoverImage, playImage, downloadImage;
 
     private int audioID;
+
+    private List<Integer> audioQueue = new ArrayList<>();
 
     public void setAudioID(int audioID) {
         this.audioID = audioID;
@@ -20,8 +30,29 @@ public class LibraryListTemplateScene {
         loadAudioDetails();
     }
 
-    public void initialize() {
+    public void setQueue(List audioQueue) {
+        this.audioQueue = audioQueue;
+    }
 
+    public void initialize() {
+        MouseEffects.addMouseEffects(playImage);
+        MouseEffects.addMouseEffects(downloadImage);
+
+        playImage.setOnMouseClicked(event -> {
+            System.out.println("Redirecting to song...");
+            AudioPlayer.getInstance().setQueue(audioQueue); // Set the entire queue
+            AudioPlayer.getInstance().playAudio(audioID); // Start playback with the clicked song
+        });
+        downloadImage.setOnMouseClicked(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Audio File");
+            fileChooser.setInitialFileName(ResourceLoader.getAudioName(audioID) + ".mp3");
+            Path destination = fileChooser.showSaveDialog(songCoverImage.getScene().getWindow()).toPath();
+
+            if (destination != null) {
+                DownloadManager.downloadAudio(audioID, destination);
+            }
+        });
     }
 
     private void loadAudioDetails() {

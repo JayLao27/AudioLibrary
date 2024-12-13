@@ -138,11 +138,10 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
     private void loadSongList() {
         playlistVBox.getChildren().clear();
 
-        String query = "SELECT Audio.audioID " +
+        String query = "SELECT audioID " +
                 "FROM PlaylistAudio " +
-                "INNER JOIN Audio ON PlaylistAudio.audioID = Audio.audioID " +
-                "WHERE PlaylistAudio.playlistID = ? " +
-                "ORDER BY Audio.audioID ASC";
+                "WHERE playlistID = ? " +
+                "ORDER BY audioID ASC";
 
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -163,22 +162,7 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
 
                     LibraryListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID);
-
-                    // Add mouse effects and handle click event
-                    MouseEffects.addMouseEffects(songList);
-
-                    songList.setOnMouseClicked(event -> {
-                        System.out.println("Redirecting to song...");
-
-                        if (homeScene != null) {
-                            // Play the clicked song
-                            AudioPlayer.getInstance().setQueue(audioQueue); // Set the entire queue
-                            AudioPlayer.getInstance().playAudio(audioID); // Start playback with the clicked song
-                            homeScene.loadCurrentSong(audioID); // Update homeScene with the current song
-                        } else {
-                            System.out.println("HomeScene is null!");
-                        }
-                    });
+                    controller.setQueue(audioQueue);
 
                     // Add the song to the VBox
                     playlistVBox.getChildren().add(songList);
