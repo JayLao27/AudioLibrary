@@ -1,0 +1,22 @@
+#searchPane {
+    -fx-background-color: #1c1c1c8c;
+    -fx-background-radius: 10px;
+}
+
+#searchTitle {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;
+    -fx-text-align: center;
+}
+
+#resultsLabel {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fefcff;
+    -fx-letter-spacing: 1px;
+    -fx-text-align: center;
+}

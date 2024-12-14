@@ -11,9 +11,14 @@ import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SongListTemplateScene {
+    private ArtistPageScene parentScene;
+    public void setParentScene(ArtistPageScene parentScene) {
+        this.parentScene = parentScene;
+    }
 
     @FXML
     private Button addtocartButton;
@@ -33,17 +38,9 @@ public class SongListTemplateScene {
     public void initialize() {}
 
     private void loadAudioDetails() {
+        int userID = UserSession.getInstance().getUserID();
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);
-
-        Double price = ResourceLoader.getAudioPrice(audioID);
-        if (price == 0) {
-            addtocartButton.setText("Add to Cart (FREE)");
-        } else if (price > 0) {
-            addtocartButton.setText("Add to Cart (₱" + String.format("%.2f", price) + ")");
-        } else {
-            addtocartButton.setText("Add to Cart (₱ ???)");
-        }
 
         String artistImagePath = ResourceLoader.getAudioImagePath(audioID);
         if (artistImagePath != null) {
@@ -59,8 +56,73 @@ public class SongListTemplateScene {
                 System.out.println("Exception loading image: " + artistImagePath);
             }
         } else {
-            System.out.println("Artist image path is null for artistID: " + audioID);
+            System.out.println("Artist image path is null for audioID: " + audioID);
         }
+
+        if (isSongInLibrary(userID, audioID)) {
+            addtocartButton.setText("Already Bought");
+            addtocartButton.setDisable(true);
+            return;
+        }
+
+        if (isSongInCart(userID, audioID)) {
+            addtocartButton.setText("In Cart");
+            addtocartButton.setDisable(true);
+            return;
+        }
+
+        Double price = ResourceLoader.getAudioPrice(audioID);
+        if (price == 0) {
+            addtocartButton.setText("Add to Cart (FREE)");
+        } else if (price > 0) {
+            addtocartButton.setText("Add to Cart (₱" + String.format("%.2f", price) + ")");
+        } else {
+            addtocartButton.setText("Add to Cart (₱ ???)");
+        }
+    }
+
+    private boolean isSongInLibrary(int userID, int audioID) {
+        String query = "SELECT COUNT(*) FROM LibraryAudio WHERE userID = ? AND audioID = ?";
+
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(2, audioID);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error checking if song is in library: " + e.getMessage());
+        }
+        return false;
+    }
+
+    private boolean isSongInCart(int userID, int audioID) {
+        String query = "SELECT COUNT(*) FROM CartAudio WHERE userID = ? AND audioID = ?";
+
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(2, audioID);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error checking if song is in cart: " + e.getMessage());
+        }
+        return false;
     }
 
     public void addToCart() {
@@ -83,6 +145,10 @@ public class SongListTemplateScene {
 
             if (rowsAffected > 0) {
                 System.out.println("Audio added to cart successfully!");
+                if (parentScene != null) {
+                    parentScene.loadSongList();  // Call method to refresh song list
+                }
+
             } else {
                 System.out.println("Failed to add audio to cart.");
             }
@@ -91,4 +157,6 @@ public class SongListTemplateScene {
             System.out.println("Error adding audio to cart: " + e.getMessage());
         }
     }
+
+
 }

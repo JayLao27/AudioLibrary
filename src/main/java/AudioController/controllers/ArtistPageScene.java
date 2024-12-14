@@ -87,7 +87,8 @@ public class ArtistPageScene implements SceneWithHomeContext {
      * them in the song list VBox. Each song is clickable and redirects
      * to the song page when clicked.
      */
-    private void loadSongList() {
+    void loadSongList() {
+        songlistVBox.getChildren().clear();
         String query = "SELECT audioID FROM Audio WHERE artistID = ? ORDER BY audioID ASC";
 
         try (Connection connection = new DatabaseConnection().getConnection();
@@ -104,6 +105,7 @@ public class ArtistPageScene implements SceneWithHomeContext {
 
                     SongListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID);
+                    controller.setParentScene(this);
 
                     MouseEffects.addMouseEffects(songList);
 

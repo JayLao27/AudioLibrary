@@ -5,16 +5,19 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
@@ -33,6 +36,8 @@ public class HomeScene {
     ImageView playPauseIcon, volumeIcon, shuffleIcon, loopIcon;
     @FXML
     Slider volumeSlider;
+    @FXML
+    TextField topbarSearchField;
     @FXML
     VBox bodyVBox;
 
@@ -90,6 +95,47 @@ public class HomeScene {
         isPlaying.addListener((observable, oldValue, newValue) -> updatePlayPauseIcon(newValue));
         shuffleIcon.setPickOnBounds(true);
         loopIcon.setPickOnBounds(true);
+
+        topbarSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Trim the input for clean comparisons
+            String query = newValue.trim();
+
+            if (query.isEmpty() || query.equalsIgnoreCase("Search")) {
+                // Reload the main page scene if input is empty or default text
+                loadScene("/FXMLs/mainpageScene.fxml");
+            } else {
+                // Dynamically load a scene based on the current query
+                searchAndLoadResults(query);
+            }
+        });
+
+        // Handle when the search bar gains focus (click or tab)
+        topbarSearchField.setOnMouseClicked(event -> {
+            if (topbarSearchField.getText().equals("Search")) {
+                topbarSearchField.clear();
+            }
+        });
+
+        // Handle focus lost (restore the filler text if the field is empty)
+        topbarSearchField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && topbarSearchField.getText().trim().isEmpty()) {
+                topbarSearchField.setText("Search");
+            }
+        });
+
+        // Handle ESC key press (clear text and restore the filler)
+        topbarSearchField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ESCAPE:
+                    if (topbarSearchField.getText().trim().isEmpty()) {
+                        topbarSearchField.setText("Search");
+                    }
+                    topbarSearchField.getParent().requestFocus(); // Remove focus from search bar
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
 
@@ -270,6 +316,30 @@ public class HomeScene {
         System.out.println(newLoopState ? "Loop enabled" : "Loop disabled");
         updateLoopIcon(newLoopState);
     }
+
+    @FXML
+    private void searchAndLoadResults(String query) {
+        try {
+            bodyVBox.getChildren().clear(); // Clear any existing content in the VBox
+
+            // Load the search results scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/searchScene.fxml"));
+            Node searchScene = loader.load();
+
+            // Get the controller of the loaded scene
+            SearchScene controller = loader.getController();
+            controller.setHomeScene(this);
+
+            // Pass the query to the controller so it can use it to fetch and display results
+            controller.populateSearchResults(query);
+
+            // Add the search results scene to the VBox
+            bodyVBox.getChildren().add(searchScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     /**************************************************************************************************************************
