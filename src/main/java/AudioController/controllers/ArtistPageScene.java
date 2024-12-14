@@ -20,33 +20,31 @@ import java.sql.SQLException;
 
 
 /**
- * Controller for the artist page scene in the audio application.
- * This page displays the details of an artist, including their name, image,
- * and a list of songs they have produced.
- * The artist's details and song list are loaded dynamically from a database
- * based on the provided artist ID. The user can click on a song to navigate
- * to the individual song page.
+ * Controller for the artist page in the audio application.
+ * <p>
+ * This controller manages the display of an artist's information, including their name, image,
+ * and a list of songs associated with the artist. It dynamically fetches artist data and songs
+ * from a database and populates the corresponding UI components. The controller also supports
+ * navigation to individual song pages upon user interaction.
+ * </p>
  *
- * <p>This controller interacts with the {@link HomeScene} to enable navigation
- * between the artist page and the song pages. It also handles the loading of
- * artist data (name and image) and the list of songs associated with the artist.</p>
- *
- * <p>Key Responsibilities:</p>
+ * <h2>Key Responsibilities:</h2>
  * <ul>
- *   <li>Loading artist details (name and image) from the database and displaying them on the page.</li>
- *   <li>Loading a list of songs associated with the artist and displaying them in a VBox.</li>
- *   <li>Handling navigation to a song page when a song is clicked.</li>
+ *   <li>Loading and displaying the artist's details (name and image).</li>
+ *   <li>Fetching and rendering a list of songs associated with the artist.</li>
+ *   <li>Enabling navigation to individual song pages when a song is clicked.</li>
  * </ul>
+ *
+ * Implements the {@link SceneWithHomeContext} interface for managing navigation.
  */
 public class ArtistPageScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
 
     /**
-     * Sets the {@link HomeScene} instance for this controller. This is used to
-     * navigate back to the home scene or other pages from the artist page.
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
      *
-     * @param homeScene The home scene instance to be set.
+     * @param homeScene The home scene instance for navigation purposes.
      */
     @Override
     public void setHomeScene(HomeScene homeScene) {
@@ -83,9 +81,10 @@ public class ArtistPageScene implements SceneWithHomeContext {
     public void initialize() {}
 
     /**
-     * Loads the list of songs for the artist from the database and displays
-     * them in the song list VBox. Each song is clickable and redirects
-     * to the song page when clicked.
+     * Loads and displays the list of songs associated with the artist.
+     * <p>
+     * The song data is fetched from the database using the artist's ID. Each song is
+     * displayed as a clickable UI component, which navigates to the corresponding song page.
      */
     void loadSongList() {
         songlistVBox.getChildren().clear();
@@ -105,7 +104,7 @@ public class ArtistPageScene implements SceneWithHomeContext {
 
                     SongListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID);
-                    controller.setParentScene(this);
+                    controller.setArtistPageScene(this);
 
                     MouseEffects.addMouseEffects(songList);
 
@@ -128,9 +127,10 @@ public class ArtistPageScene implements SceneWithHomeContext {
     }
 
     /**
-     * Loads the details (name and image) for the artist from the resource loader.
-     * The artist's name is displayed in the artistNameLabel, and their image
-     * is loaded into the artistImage view.
+     * Loads and displays the artist's name and image.
+     * <p>
+     * The artist's name and image path are retrieved using {@link ResourceLoader}, and
+     * the image is set in the {@link ImageView}. If the image cannot be loaded, an error is logged.
      */
     private void loadArtistDetails() {
         String artistName = ResourceLoader.getArtistName(artistID);

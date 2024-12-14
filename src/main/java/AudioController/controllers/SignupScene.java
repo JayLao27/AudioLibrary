@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.*;
 
+/**
+ * Controller class for the SignupScene, responsible for handling the user registration process.
+ * It validates user input, registers the user in the database, and provides visual feedback.
+ */
 public class SignupScene {
 
     @FXML
@@ -33,6 +37,10 @@ public class SignupScene {
     @FXML
     private Hyperlink loginLink;
 
+    /**
+     * Handles the event when the login link is clicked.
+     * Redirects the user to the login scene.
+     */
     @FXML
     private void onLoginLinkClick() {
         try {
@@ -46,6 +54,12 @@ public class SignupScene {
         }
     }
 
+    /**
+     * Handles the registration process. It validates user input, inserts the user data into the database,
+     * and shows appropriate alerts based on the result.
+     *
+     * @param event The action event triggered by clicking the create account button.
+     */
     @FXML
     public void register(ActionEvent event) {
         DatabaseConnection db = new DatabaseConnection();
@@ -100,6 +114,9 @@ public class SignupScene {
         }
     }
 
+    /**
+     * Highlights the input fields that are empty by setting a red border around them.
+     */
     private void highlightEmptyFields() {
         if (signupFirstnameField.getText().trim().isEmpty()) {
             signupFirstnameField.setStyle("-fx-border-color: red;");
@@ -118,6 +135,13 @@ public class SignupScene {
         }
     }
 
+    /**
+     * Displays an alert with the specified message and alert type.
+     *
+     * @param alertType The type of the alert (e.g., INFORMATION, WARNING, etc.).
+     * @param title The title of the alert.
+     * @param message The message to display in the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

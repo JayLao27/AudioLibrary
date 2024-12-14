@@ -25,16 +25,16 @@ import java.util.List;
 /**
  * Controller for the Cart Scene in the application.
  * Manages the display of items in the user's cart and handles checkout functionality.
+ * Implements the {@link SceneWithHomeContext} interface for managing navigation.
  */
 public class CartScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
 
     /**
-     * Sets the {@link HomeScene} instance for this controller. This is used to
-     * navigate back to the home scene or other pages from the artist page.
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
      *
-     * @param homeScene The home scene instance to be set.
+     * @param homeScene The home scene instance for navigation purposes.
      */
     @Override
     public void setHomeScene(HomeScene homeScene) {

@@ -6,6 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Controller class for the SongCardTemplateScene, responsible for displaying
+ * song details including the song name and cover image.
+ */
 public class SongCardTemplateScene {
     @FXML
     private ImageView songCoverImage;
@@ -14,6 +18,12 @@ public class SongCardTemplateScene {
 
     private int audioID;
 
+    /**
+     * Sets the audio ID for the song card and loads the corresponding song details.
+     * This method is called to initialize the song card with specific details.
+     *
+     * @param audioID The ID of the audio to load details for.
+     */
     public void setAudioID(int audioID) {
         this.audioID = audioID;
         System.out.println("Initializing with audio ID: " + audioID);
@@ -22,6 +32,12 @@ public class SongCardTemplateScene {
 
     public void initialize() {}
 
+    /**
+     * Loads the audio details including the song name and artist's cover image
+     * based on the audio ID.
+     * This method fetches the song name and image from the resource loader and
+     * updates the corresponding UI elements.
+     */
     private void loadAudioDetails() {
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);

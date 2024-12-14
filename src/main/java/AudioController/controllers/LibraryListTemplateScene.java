@@ -14,6 +14,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the library list template scene. This scene displays song details, such as the song name
+ * and cover image, and provides functionality for playing and downloading the audio.
+ */
 public class LibraryListTemplateScene {
     @FXML
     private Label songNameLabel;
@@ -24,16 +28,30 @@ public class LibraryListTemplateScene {
 
     private List<Integer> audioQueue = new ArrayList<>();
 
+    /**
+     * Sets the audio ID for the current scene and loads the song details.
+     *
+     * @param audioID the ID of the audio to be displayed
+     */
     public void setAudioID(int audioID) {
         this.audioID = audioID;
         System.out.println("Initializing with audio ID: " + audioID);
         loadAudioDetails();
     }
 
+    /**
+     * Sets the audio queue, which is a list of audio IDs.
+     *
+     * @param audioQueue the list of audio IDs to be set as the audio queue
+     */
     public void setQueue(List audioQueue) {
         this.audioQueue = audioQueue;
     }
 
+    /**
+     * Initializes the scene with mouse effects for the play and download buttons, and sets up event handlers
+     * for clicking on the play and download buttons.
+     */
     public void initialize() {
         MouseEffects.addMouseEffects(playImage);
         MouseEffects.addMouseEffects(downloadImage);
@@ -55,6 +73,10 @@ public class LibraryListTemplateScene {
         });
     }
 
+    /**
+     * Loads the details of the audio, such as the song name and cover image.
+     * The song name is fetched using the `ResourceLoader`, and the cover image is set if available.
+     */
     private void loadAudioDetails() {
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);

@@ -19,10 +19,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Controller for the main page scene. This class handles displaying song cards,
+ * navigating to artist or song pages, and applying UX enhancements for shortcut buttons and images.
+ * Implements the {@link SceneWithHomeContext} interface for managing navigation.
+ */
 public class MainpageScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
 
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
@@ -31,6 +41,11 @@ public class MainpageScene implements SceneWithHomeContext {
     @FXML
     FlowPane songcardContainerPane;
 
+    /**
+     * Initializes the main page by querying the database for song IDs and loading
+     * corresponding song card templates. Each card is clickable and redirects
+     * to the song page.
+     */
     @FXML
     public void initialize() {
         String query = "SELECT audioID FROM Audio ORDER BY audioID ASC";
@@ -68,7 +83,12 @@ public class MainpageScene implements SceneWithHomeContext {
         }
     }
 
-
+    /**
+     * Handles the click event on a shortcut image. It identifies the clicked
+     * shortcut and redirects the user to the corresponding artist page.
+     *
+     * @param event The mouse event triggered when a shortcut image is clicked.
+     */
     public void handleShortcutClicked(MouseEvent event) {
         ImageView clickedShortcut = (ImageView) event.getSource();
         String fxId = clickedShortcut.getId();

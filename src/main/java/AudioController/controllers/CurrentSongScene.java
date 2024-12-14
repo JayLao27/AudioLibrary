@@ -13,6 +13,11 @@ import javafx.util.Duration;
 
 import java.util.List;
 
+/**
+ * Controller for the current song scene in the audio player.
+ * This class manages the UI elements that display information about the current song,
+ * such as the song name, artist, duration, and the playback progress.
+ */
 public class CurrentSongScene {
     @FXML
     ImageView songImage;
@@ -30,6 +35,10 @@ public class CurrentSongScene {
         setupSlider();
     }
 
+    /**
+     * Sets up the playback slider to allow seeking through the audio and reflects the current playback position.
+     * The slider is updated based on the current time of the audio being played.
+     */
     private void setupSlider() {
         playbackSlider.valueChangingProperty().addListener((obs, wasChanging, isChanging) -> {
             if (!isChanging) {
@@ -97,22 +106,44 @@ public class CurrentSongScene {
         });
     }
 
+    /**
+     * Updates the time labels (current time) on the UI.
+     *
+     * @param currentTime the current playback time to be displayed
+     */
     private void updateTimeLabels(Duration currentTime) {
         currentTimeLabel.setText(formatTime(currentTime));
     }
 
+    /**
+     * Formats the given time (in Duration) to a string in the format "MM:SS".
+     *
+     * @param duration the Duration to be formatted
+     * @return a string representation of the duration in "MM:SS" format
+     */
     private String formatTime(Duration duration) {
         int minutes = (int) duration.toMinutes();
         int seconds = (int) duration.toSeconds() % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
 
+    /**
+     * Formats the given time (in seconds) to a string in the format "MM:SS".
+     *
+     * @param durationSeconds the duration in seconds to be formatted
+     * @return a string representation of the time in "MM:SS" format
+     */
     private String formatTime(int durationSeconds) {
         int minutes = durationSeconds / 60;
         int seconds = durationSeconds % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
 
+    /**
+     * Loads the details of a song (name, artist, image, and duration) and displays them in the UI.
+     *
+     * @param index the index of the song in the audio queue to be loaded
+     */
     public void loadSong(int index) {
         int audioID = audioQueue.get(index);
         String songName = ResourceLoader.getAudioName(audioID);

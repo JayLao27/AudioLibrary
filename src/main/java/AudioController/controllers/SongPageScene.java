@@ -17,6 +17,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Controller for the song page scene. This scene displays the details of a specific song, including the song name,
+ * artist name, album name, and cover image. It also provides functionality for adding the song to the user's cart.
+ */
 public class SongPageScene {
     @FXML
     private ImageView songCoverImage;
@@ -31,6 +35,11 @@ public class SongPageScene {
 
     private int audioID;
 
+    /**
+     * Sets the audio ID for the current scene and loads the corresponding song details.
+     *
+     * @param audioID the ID of the audio to be displayed
+     */
     public void setAudioID(int audioID) {
         this.audioID = audioID;
         System.out.println("Initializing with audio ID: " + audioID);
@@ -39,6 +48,10 @@ public class SongPageScene {
 
     public void initialize() {}
 
+    /**
+     * Loads the details of the audio, such as the song name, artist name, album name, and cover image.
+     * Also updates the button text based on the availability of the song in the user's library or cart.
+     */
     private void loadAudioDetails() {
 
         int userID = UserSession.getInstance().getUserID();
@@ -92,6 +105,13 @@ public class SongPageScene {
 
     }
 
+    /**
+     * Checks if the song is already in the user's library.
+     *
+     * @param userID the ID of the user
+     * @param audioID the ID of the audio
+     * @return true if the song is in the user's library, false otherwise
+     */
     private boolean isSongInLibrary(int userID, int audioID) {
         String query = "SELECT COUNT(*) FROM LibraryAudio WHERE userID = ? AND audioID = ?";
 
@@ -114,6 +134,13 @@ public class SongPageScene {
         return false;
     }
 
+    /**
+     * Checks if the song is already in the user's cart.
+     *
+     * @param userID the ID of the user
+     * @param audioID the ID of the audio
+     * @return true if the song is in the user's cart, false otherwise
+     */
     private boolean isSongInCart(int userID, int audioID) {
         String query = "SELECT COUNT(*) FROM CartAudio WHERE userID = ? AND audioID = ?";
 
@@ -136,6 +163,9 @@ public class SongPageScene {
         return false;
     }
 
+    /**
+     * Adds the selected song to the user's cart.
+     */
     public void addToCart() {
         int userID = UserSession.getInstance().getUserID();
 

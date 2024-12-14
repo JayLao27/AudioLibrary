@@ -17,6 +17,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the library scene in the audio library application.
+ * This scene displays a list of songs that the user has in their library.
+ * Implements the {@link SceneWithHomeContext} interface for managing navigation.
+ */
 public class LibraryScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
@@ -24,17 +29,30 @@ public class LibraryScene implements SceneWithHomeContext {
     @FXML
     private FlowPane libraryFlowPane;
 
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
         System.out.println("HomeScene set on LibraryScene: " + (homeScene != null));
     }
 
+    /**
+     * Initializes the scene by loading the song list.
+     */
     @FXML
     private void initialize() {
         loadSongList();
     }
 
+    /**
+     * Loads the list of songs from the user's library and displays them in the FlowPane.
+     * The songs are fetched from the LibraryAudio table in the database for the current user.
+     * Each song is loaded using the LibraryListTemplateScene template.
+     */
     private void loadSongList() {
         // Get the current userID from the UserSession instance
         int userID = UserSession.getInstance().getUserID();

@@ -23,6 +23,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The CheckoutScene class handles the user interface and logic for the checkout process in the audio library application.
+ * It manages the display of the checkout list, the purchase logic, balance verification, and receipt generation.
+ * The class interacts with the database to retrieve user balance, calculate the total price of selected audio items,
+ * and update the user's library and payment records.
+ * Implements the {@link SceneWithHomeContext} interface for managing navigation.
+ */
 public class CheckoutScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
@@ -37,11 +44,22 @@ public class CheckoutScene implements SceneWithHomeContext {
     @FXML
     private void initialize() {}
 
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
     }
 
+    /**
+     * Loads the checkout list by fetching audio items selected for purchase.
+     * It updates the checkout list and calculates the total price.
+     *
+     * @param checkedAudio a list of audio IDs that the user has selected for purchase
+     */
     public void loadCheckoutList(List<Integer> checkedAudio) {
         this.checkedAudio = checkedAudio;
         checkoutlistVBox.getChildren().clear(); // Clear the VBox before loading new items
@@ -67,7 +85,12 @@ public class CheckoutScene implements SceneWithHomeContext {
         }
     }
 
-
+    /**
+     * Handles the purchase button click event.
+     * Verifies the user's balance, processes the payment, updates the user's library, and generates a receipt if successful.
+     *
+     * @param event the mouse event triggered by the user clicking the purchase button
+     */
     //Logic
     @FXML
     private void handlePurchaseClicked(MouseEvent event) {
@@ -197,6 +220,12 @@ public class CheckoutScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Displays the receipt details in an alert dialog after a successful purchase.
+     *
+     * @param userID the ID of the user who made the purchase
+     * @param totalPrice the total amount paid for the purchase
+     */
     private void displayReceiptDetails(int userID, double totalPrice) {
         StringBuilder audioNames = new StringBuilder();
         String audioNamesQuery = "SELECT audioName FROM Audio WHERE audioID = ?";
@@ -238,7 +267,11 @@ public class CheckoutScene implements SceneWithHomeContext {
     }
 
 
-    //Button UX
+    /**
+     * Handles the cancel button click event, which returns the user to the cart scene.
+     *
+     * @param event the mouse event triggered by the user clicking the cancel button
+     */
     @FXML
     private void handleCancelClicked(MouseEvent event) {
         if(homeScene != null) {

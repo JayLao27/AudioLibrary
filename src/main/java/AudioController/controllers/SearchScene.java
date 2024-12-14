@@ -15,6 +15,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Controller class for the SearchScene, responsible for handling the search functionality
+ * within the application. It populates the search results based on a query and displays
+ * the results dynamically in a FlowPane.
+ */
 public class SearchScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
@@ -57,6 +62,8 @@ public class SearchScene implements SceneWithHomeContext {
 
                     SongListTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID);
+                    controller.setHomeScene(this.homeScene);
+                    controller.setSearchScene(this);
 
                     MouseEffects.addMouseEffects(songList);
 
@@ -69,7 +76,6 @@ public class SearchScene implements SceneWithHomeContext {
                             System.out.println("HomeScene is null!");
                         }
                     });
-
                     searchFlowPane.getChildren().add(songList);
                 }
             }

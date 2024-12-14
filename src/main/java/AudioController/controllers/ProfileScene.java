@@ -15,13 +15,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Controller for the ProfileScene of the application.
+ * This class manages the profile view of the user, displaying user information,
+ * handling user interactions such as logout, viewing payment history, and top-up balance.
+ */
 public class ProfileScene implements SceneWithHomeContext {
     private HomeScene homeScene;
 
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
     }
+
     private ResourceLoader resourceLoader = new ResourceLoader();
 
     @FXML
@@ -29,7 +40,9 @@ public class ProfileScene implements SceneWithHomeContext {
     @FXML
     private Button logoutButton;
 
-
+    /**
+     * Loads a payment history scene on click.
+     */
     @FXML
     public void onViewPaymentClicked(javafx.event.ActionEvent actionEvent) {
         System.out.println("Button clicked!");
@@ -38,17 +51,27 @@ public class ProfileScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Initializes the ProfileScene by setting up tooltips for buttons and displaying user profile information.
+     */
     @FXML
     public void initialize() {
         setupLogoutTooltip();
         displayUserProfile(); // Ensure this method is called to display profile data
     }
 
+    /**
+     * Sets up the tooltip for the logout button.
+     */
     private void setupLogoutTooltip() {
         Tooltip tooltip = new Tooltip("Click to Logout");
         logoutButton.setTooltip(tooltip);
     }
 
+    /**
+     * Displays the profile information of the current user.
+     * Retrieves user details from the database and populates the labels.
+     */
     private void displayUserProfile() {
         int userID = UserSession.getInstance().getUserID();
         if (userID != 0) {
@@ -80,6 +103,10 @@ public class ProfileScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Logs the user out by clearing the session and loading the login scene.
+     * @param event The mouse event triggered by the logout action.
+     */
     @FXML
     private void logout(MouseEvent event) {
         displayThankYouMessage("Thank you for using the app!");
@@ -87,6 +114,10 @@ public class ProfileScene implements SceneWithHomeContext {
         loadLoginScene();
     }
 
+    /**
+     * Displays a thank you message with a fade-out effect after logout.
+     * @param message The message to display.
+     */
     private void displayThankYouMessage(String message) {
         thankYouLabel.setText(message);
 
@@ -127,13 +158,9 @@ public class ProfileScene implements SceneWithHomeContext {
         scaleTransition.play();
     }
 
-    private void scaleButton(Button button, double scale, int durationMillis) {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(durationMillis), button);
-        scaleTransition.setToX(scale);
-        scaleTransition.setToY(scale);
-        scaleTransition.play();
-    }
-
+    /**
+     * Loads the login scene after logging out the user.
+     */
     private void loadLoginScene() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/loginScene.fxml"));
@@ -148,6 +175,11 @@ public class ProfileScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Handles the top-up balance action triggered by the user.
+     * Prompts the user for an amount and updates the balance in the database.
+     * @param event The mouse event triggered when the top-up action is initiated.
+     */
     @FXML
     private void handleTopUpClicked(MouseEvent event) {
         // Create a dialog to prompt for the top-up amount

@@ -18,22 +18,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Controller for the payment history scene. This class is responsible for displaying
+ * the list of payments made by the user and allowing navigation to the details of each payment.
+ */
 public class PaymentHistoryScene implements SceneWithHomeContext {
     private HomeScene homeScene;
 
     @FXML
     private FlowPane paymentsFlowPane;
 
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
     }
 
+    /**
+     * Initializes the payment history scene by loading the list of payments made by the user.
+     * This method is called when the scene is loaded and ready for interaction.
+     */
     @FXML
     private void initialize() {
         loadPaymentsList();
     }
 
+    /**
+     * Loads the list of payments made by the current user and adds them to the payment history view.
+     * Each payment is displayed as a list item that can be clicked to view more details.
+     * The payments are fetched from the database based on the current user's ID.
+     */
     private void loadPaymentsList() {
         int userID = UserSession.getInstance().getUserID();
 

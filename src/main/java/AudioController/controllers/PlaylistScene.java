@@ -14,6 +14,12 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.sql.*;
 
+/**
+ * Controller for managing the playlist scene in the application.
+ * Handles displaying the user's playlists and adding new playlists.
+ * Provides user interaction for viewing and creating playlists.
+ * Implements the {@link SceneWithHomeContext} interface for managing navigation.
+ */
 public class PlaylistScene implements SceneWithHomeContext {
 
     @FXML
@@ -21,11 +27,19 @@ public class PlaylistScene implements SceneWithHomeContext {
 
     private HomeScene homeScene; // Reference to the HomeScene
 
-    // Method to set the HomeScene reference
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
     }
 
+    /**
+     * Initializes the PlaylistScene by retrieving the user's playlists
+     * from the database and displaying them in the FlowPane.
+     */
     @FXML
     private void initialize() {
         // Retrieve the userID from the UserSession
@@ -70,7 +84,12 @@ public class PlaylistScene implements SceneWithHomeContext {
         }
     }
 
-
+    /**
+     * Handles the click event to create a new playlist.
+     * Adds the new playlist to the database and loads the playlist contents scene.
+     *
+     * @param event The MouseEvent triggered by clicking the button.
+     */
     @FXML
     private void onMakeplaylistCardClicked(MouseEvent event) {
         System.out.println("Button clicked!");
@@ -122,8 +141,6 @@ public class PlaylistScene implements SceneWithHomeContext {
             e.printStackTrace();
         }
     }
-
-
 
     // Playlist Card Pane UX
     @FXML

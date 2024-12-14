@@ -2,6 +2,7 @@ package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
 import AudioController.ResourceLoader;
+import AudioController.SceneWithHomeContext;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Controller for the library list selector template scene. This scene displays a song's name and cover image.
+ * The user can add a song to a playlist using the provided functionality.
+ */
 public class LibraryListSelectorTemplateScene {
 
     @FXML
@@ -25,6 +30,13 @@ public class LibraryListSelectorTemplateScene {
     private int playlistID;
     private LibrarySelectorScene librarySelectorScene; // Reference to LibrarySelectorScene
 
+    /**
+     * Sets the audio and playlist IDs for the current scene, and loads the song details.
+     *
+     * @param audioID the ID of the audio to be displayed
+     * @param playlistID the ID of the playlist where the audio can be added
+     * @param librarySelectorScene the scene from which the user navigates to reload the song list after adding
+     */
     public void setAudioAndPlaylistID(int audioID, int playlistID, LibrarySelectorScene librarySelectorScene) {
         this.audioID = audioID;
         this.playlistID = playlistID;
@@ -33,6 +45,10 @@ public class LibraryListSelectorTemplateScene {
         loadAudioDetails();
     }
 
+    /**
+     * Loads the details of the audio, such as the song name and cover image.
+     * The song name is fetched using the `ResourceLoader`, and the cover image is set if available.
+     */
     private void loadAudioDetails() {
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);
@@ -55,6 +71,12 @@ public class LibraryListSelectorTemplateScene {
         }
     }
 
+    /**
+     * Handles the click event on the "Add" button. This method checks if both the playlist and audio exist
+     * in the database, and if so, adds the audio to the playlist.
+     *
+     * @param event the mouse event triggered when the button is clicked
+     */
     @FXML
     private void handleAddButtonClicked(MouseEvent event) {
         System.out.println("Add button clicked!");

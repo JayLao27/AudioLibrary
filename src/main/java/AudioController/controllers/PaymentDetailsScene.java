@@ -9,6 +9,10 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
+/**
+ * Controller for the payment details scene. This class is responsible for displaying
+ * payment history information, including the payment details and the list of purchased audio.
+ */
 public class PaymentDetailsScene {
 
     @FXML
@@ -18,12 +22,24 @@ public class PaymentDetailsScene {
 
     private int paymentID;
 
+    /**
+     * Sets the payment ID and loads the corresponding payment details.
+     *
+     * @param paymentID The ID of the payment whose details are to be loaded.
+     */
     public void setPaymentID(int paymentID) {
         this.paymentID = paymentID;
         System.out.println("Initializing with paymentID: " + paymentID);
         loadPaymentDetails(paymentID);
     }
 
+    /**
+     * Loads the payment details for the given payment ID from the database.
+     * This includes the payment information such as the user’s first and last name,
+     * payment amount, date, and the list of purchased audio items.
+     *
+     * @param paymentID The ID of the payment to load the details for.
+     */
     public void loadPaymentDetails(int paymentID) {
         String paymentQuery = "SELECT p.paymentID, u.firstName, u.lastName, p.amount, p.paymentDate, a.audioName, a.audioPrice " +
                 "FROM Payments p " +

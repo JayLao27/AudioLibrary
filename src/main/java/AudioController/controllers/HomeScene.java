@@ -21,10 +21,36 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
+/**
+ * Controller for the HomeScene in the AudioPlayer application.
+ *
+ * This class is responsible for managing the interactions and UI updates for the home scene.
+ * It includes handling user input, search functionality, volume control, play/pause state,
+ * and sidebar pane interactions.
+ *
+ * <p>
+ * This class provides a set of methods that are responsible for loading various types of scenes,
+ * including artist, song, playlist, payment, and current song scenes. It allows flexibility for passing
+ * parameters such as artist ID, audio ID, and payment ID, as well as safely handling any potential errors
+ * during the FXML loading process.
+ * </p>
+ *
+ * <p>
+ * Key features:
+ * <li> Dynamic loading of the main page or search results based on user input in the search bar.</li>
+ * <li> Volume control using a slider that updates the audio player's volume and displays corresponding icons.</li>
+ * <li> Play/pause button that updates based on the playback state.</li>
+ * <li> Sidebar pane hover effects for a better user experience.</li>
+ * <li> Search queries for specific songs.</li>
+ * <li> Load Scene methods to allow other controllers to update HomeScene's bodyVBox.</li>
+ * </p>
+ */
 public class HomeScene {
 
     //JavaFX's BooleanProperty is used instead of primitive boolean as its state can be tracked with a listener.
     private BooleanProperty isPlaying = new SimpleBooleanProperty(false);
+
+    private String currentQuery;
 
     @FXML
     Label usernameLabel;
@@ -41,17 +67,15 @@ public class HomeScene {
     @FXML
     VBox bodyVBox;
 
-    /**************************************************************************************************************************
-     * Initializes the scene and sets up the initial UI components and bindings.
+    /**
+     * Initializes the HomeScene and sets up the UI components.
      *
-     * - Sets the home scene for the `AudioPlayer` instance.
      * - Sets the username label using the `UserSession` and `ResourceLoader`.
      * - Loads the main page scene as the initial view.
-     * - Initializes the volume slider to 50 and binds its value to the `AudioPlayer` instance's volume property.
-     * - Adds a listener to the volume slider to update the `AudioPlayer` volume and the volume icon when the slider value changes.
-     * - Updates the volume icon based on the initial volume slider value.
-     * - Binds the `isPlaying` property of the `AudioPlayer` to update the play/pause icon when the playback state changes.
-     **************************************************************************************************************************/
+     * - Sets up the volume slider and binds it to the audio player's volume property.
+     * - Adds listeners to the volume slider and play/pause button.
+     * - Handles search field input and dynamically loads the appropriate scene.
+     */
     @FXML
     private void initialize() {
         AudioPlayer.getInstance().setHomeScene(this);
@@ -280,23 +304,47 @@ public class HomeScene {
      * - `handleReverseClicked`: Plays the previous track using the `AudioPlayer` instance.
      * - `handlePlayPauseClicked`: Toggles between play and pause states using the `AudioPlayer` instance.
      * - `handleForwardClicked`: Plays the next track using the `AudioPlayer` instance.
-     * - `handleShuffleClicked`: Handles shuffle functionality.
+     * - `handleShuffleClicked`: Handles shuffle functionality, toggling shuffle mode on or off.
+     * - `handleLoopClicked`: Handles loop functionality, toggling loop mode on or off.
      **************************************************************************************************************************/
+
+    /**
+     * Handles the reverse button click event. Plays the previous track in the playlist.
+     *
+     * @param event The mouse event triggered by the button click.
+     */
     @FXML
     private void handleReverseClicked(MouseEvent event) {
         AudioPlayer.getInstance().playPrevious();
     }
 
+
+    /**
+     * Handles the play/pause button click event. Toggles the playback state between playing and paused.
+     *
+     * @param event The mouse event triggered by the button click.
+     */
     @FXML
     private void handlePlayPauseClicked(MouseEvent event) {
         AudioPlayer.getInstance().togglePlayPause();
     }
 
+    /**
+     * Handles the forward button click event. Plays the next track in the playlist.
+     *
+     * @param event The mouse event triggered by the button click.
+     */
     @FXML
     private void handleForwardClicked(MouseEvent event) {
         AudioPlayer.getInstance().playNext();
     }
 
+    /**
+     * Handles the shuffle button click event. Toggles shuffle mode on or off.
+     * Updates the shuffle icon based on the new state.
+     *
+     * @param event The mouse event triggered by the button click.
+     */
     @FXML
     private void handleShuffleClicked(MouseEvent event) {
         AudioPlayer audioPlayer = AudioPlayer.getInstance();
@@ -307,6 +355,12 @@ public class HomeScene {
         updateShuffleIcon(newShuffleState);
     }
 
+    /**
+     * Handles the loop button click event. Toggles loop mode on or off.
+     * Updates the loop icon based on the new state.
+     *
+     * @param event The mouse event triggered by the button click.
+     */
     @FXML
     private void handleLoopClicked(MouseEvent event) {
         AudioPlayer audioPlayer = AudioPlayer.getInstance();
@@ -317,8 +371,16 @@ public class HomeScene {
         updateLoopIcon(newLoopState);
     }
 
+    /**
+     * Searches for content based on the query and dynamically loads the search results scene.
+     * Clears the current content in the VBox and loads a new search scene based on the query.
+     *
+     * @param query The search query entered by the user.
+     */
     @FXML
     private void searchAndLoadResults(String query) {
+        this.currentQuery = query;
+
         try {
             bodyVBox.getChildren().clear(); // Clear any existing content in the VBox
 
@@ -333,6 +395,7 @@ public class HomeScene {
             // Pass the query to the controller so it can use it to fetch and display results
             controller.populateSearchResults(query);
 
+
             // Add the search results scene to the VBox
             bodyVBox.getChildren().add(searchScene);
         } catch (IOException e) {
@@ -340,23 +403,36 @@ public class HomeScene {
         }
     }
 
-
-
-    /**************************************************************************************************************************
-     * Utility methods for dynamically loading FXML scenes into the application.
+    /**
+     * Returns the current search query entered by the user.
      *
-     * - `loadScene`: Loads an FXML scene to HomeScene's bodyVBox, with optional controller setup.
-     * - `loadScene(String, int)`: Loads an FXML scene to HomeScene's bodyVBox and sets an `artistID` in the controller, if supported.
-     * - `loadSongScene`: Loads a song-specific FXML scene to HomeScene's bodyVBox and passes an `audioID` to the controller.
-     * - `loadPaymentScene`: Loads a payment-specific FXML scene HomeScene's bodyVBox and passes a `paymentID` to the controller.
-     * - `loadCurrentSong`: Loads the "current song" scene, setting the `audioID` and linking it to HomeScene's top bar.
+     * @return The current search query.
+     */
+    public String getCurrentQuery() {
+        return currentQuery;
+    }
+
+    /**
+     * Loads a scene from the specified FXML path and sets the `HomeScene` context.
+     * This method returns the controller of the loaded scene, allowing further manipulation if necessary.
      *
-     * All methods support setting the `HomeScene` context and safely handle errors during FXML loading or method invocation.
-     **************************************************************************************************************************/
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param <T> The type of the controller associated with the FXML scene.
+     * @return The controller of the loaded scene.
+     */
     public <T> T loadScene(String fxmlPath) {
         return loadScene(fxmlPath, controller -> {});
     }
 
+    /**
+     * Loads a scene from the specified FXML path, sets the `HomeScene` context, and allows additional setup
+     * of the controller using the provided `Consumer` function.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param setupController The setup function to modify the controller after it is loaded.
+     * @param <T> The type of the controller associated with the FXML scene.
+     * @return The controller of the loaded scene.
+     */
     public <T> T loadScene(String fxmlPath, Consumer<T> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -378,10 +454,25 @@ public class HomeScene {
         }
     }
 
+    /**
+     * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes an `artistID`
+     * to the controller if it supports it.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param artistID The artist ID to be passed to the controller, if supported.
+     */
     public void loadScene(String fxmlPath, int artistID) {
         loadScene(fxmlPath, artistID, controller -> {});
     }
 
+    /**
+     * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes an `artistID`
+     * to the controller, if the controller has a method for setting the artist ID.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param artistID The artist ID to be passed to the controller.
+     * @param setupController The setup function to modify the controller after it is loaded.
+     */
     public void loadScene(String fxmlPath, int artistID, Consumer<Object> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -408,10 +499,24 @@ public class HomeScene {
         }
     }
 
+    /**
+     * Loads a song-specific scene from the specified FXML path and passes an `audioID` to the controller.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param artistID The artist ID to be passed to the controller.
+     */
     public void loadSongScene(String fxmlPath, int artistID) {
         loadSongScene(fxmlPath, artistID, controller -> {});
     }
 
+    /**
+     * Loads a song-specific scene from the specified FXML path, passes an `audioID` to the controller,
+     * and allows additional setup of the controller using the provided `Consumer` function.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param artistID The artist ID to be passed to the controller.
+     * @param setupController The setup function to modify the controller after it is loaded.
+     */
     public void loadSongScene(String fxmlPath, int artistID, Consumer<Object> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -438,10 +543,24 @@ public class HomeScene {
         }
     }
 
+    /**
+     * Loads a playlist-specific scene from the specified FXML path and passes a `playlistID` to the controller.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param playlistID The playlist ID to be passed to the controller.
+     */
     public void loadPlaylistScene(String fxmlPath, int playlistID) {
         loadPlaylistScene(fxmlPath, playlistID, controller -> {});
     }
 
+    /**
+     * Loads a playlist-specific scene from the specified FXML path, passes a `playlistID` to the controller,
+     * and allows additional setup of the controller using the provided `Consumer` function.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param playlistID The playlist ID to be passed to the controller.
+     * @param setupController The setup function to modify the controller after it is loaded.
+     */
     public void loadPlaylistScene(String fxmlPath, int playlistID, Consumer<Object> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -468,10 +587,24 @@ public class HomeScene {
         }
     }
 
+    /**
+     * Loads a payment-specific scene from the specified FXML path and passes a `paymentID` to the controller.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param paymentID The payment ID to be passed to the controller.
+     */
     public void loadPaymentScene(String fxmlPath, int paymentID) {
         loadPaymentScene(fxmlPath, paymentID, controller -> {});
     }
 
+    /**
+     * Loads a payment-specific scene from the specified FXML path, passes a `paymentID` to the controller,
+     * and allows additional setup of the controller using the provided `Consumer` function.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param paymentID The payment ID to be passed to the controller.
+     * @param setupController The setup function to modify the controller after it is loaded.
+     */
     public void loadPaymentScene(String fxmlPath, int paymentID, Consumer<Object> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -500,6 +633,11 @@ public class HomeScene {
         }
     }
 
+    /**
+     * Loads the current song scene into the top bar.
+     *
+     * @param audioID The audio ID to be passed to the controller.
+     */
     public void loadCurrentSong(int audioID) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLs/currentsongScene.fxml"));

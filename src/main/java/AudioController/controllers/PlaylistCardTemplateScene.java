@@ -8,6 +8,10 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
+/**
+ * Controller for the playlist card template scene. This class is responsible for displaying
+ * the playlist name and image in the playlist card.
+ */
 public class PlaylistCardTemplateScene {
     @FXML
     private ImageView playlistImage;
@@ -16,6 +20,12 @@ public class PlaylistCardTemplateScene {
 
     private int playlistID;
 
+    /**
+     * Sets the playlist ID and loads the details for the playlist, including the name
+     * and image. This method is called when the playlist ID is available.
+     *
+     * @param playlistID The ID of the playlist whose details are to be displayed.
+     */
     public void setPlaylistID(int playlistID) {
         this.playlistID = playlistID; // Correct assignment
         System.out.println("Initializing with playlist ID: " + this.playlistID);
@@ -24,6 +34,12 @@ public class PlaylistCardTemplateScene {
 
     public void initialize() {}
 
+    /**
+     * Loads the details for the playlist including its name and image. The playlist name
+     * is fetched using the `ResourceLoader` and displayed on the `playlistNameLabel`.
+     * The playlist image is loaded from a file, and if there is an issue with the image,
+     * a default image is set instead.
+     */
     private void loadAudioDetails() {
         String playlistName = ResourceLoader.getPlaylistName(playlistID);
         if (playlistName != null) {
@@ -61,7 +77,11 @@ public class PlaylistCardTemplateScene {
         }
     }
 
-    // Helper method to set a default image
+    /**
+     * Sets a default image for the playlist when the actual image is unavailable or
+     * if an error occurs while loading the playlist image. This method constructs
+     * a robust path to the default image and sets it to the `playlistImage` view.
+     */
     private void setDefaultImage() {
         try {
             // More robust path construction

@@ -2,6 +2,7 @@ package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
 import AudioController.ResourceLoader;
+import AudioController.SceneWithHomeContext;
 import AudioController.UserSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,10 +15,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SongListTemplateScene {
-    private ArtistPageScene parentScene;
-    public void setParentScene(ArtistPageScene parentScene) {
-        this.parentScene = parentScene;
+/**
+ * Controller class for the SongListTemplateScene, responsible for displaying
+ * song details and managing interactions such as adding songs to the user's cart.
+ * Implements the {@link SceneWithHomeContext} interface for managing navigation.
+ */
+public class SongListTemplateScene implements SceneWithHomeContext {
+
+    private HomeScene homeScene;
+
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
+    public void setHomeScene(HomeScene homeScene) {
+        this.homeScene = homeScene;
+    }
+
+    /**
+     * Sets the {@link ArtistPageScene} for managing the artist page navigation.
+     *
+     * @param artistPageScene The instance of the ArtistPageScene.
+     */
+    private ArtistPageScene artistPageScene;
+    public void setArtistPageScene(ArtistPageScene artistPageScene) {
+        this.artistPageScene = artistPageScene;
+    }
+
+    /**
+     * Sets the {@link SearchScene} for managing the search page navigation.
+     *
+     * @param searchScene The instance of the SearchScene.
+     */
+    private SearchScene searchScene;
+    public void setSearchScene(SearchScene searchScene) {
+        this.searchScene = searchScene;
     }
 
     @FXML
@@ -29,6 +62,11 @@ public class SongListTemplateScene {
 
     private int audioID;
 
+    /**
+     * Sets the audio ID for the current song and loads its details.
+     *
+     * @param audioID The ID of the audio to load details for.
+     */
     public void setAudioID(int audioID) {
         this.audioID = audioID;
         System.out.println("Initializing with audio ID: " + audioID);
@@ -37,6 +75,10 @@ public class SongListTemplateScene {
 
     public void initialize() {}
 
+    /**
+     * Loads the details of the audio, including song name and cover image.
+     * Also checks if the song is in the user's library or cart, and updates the button text accordingly.
+     */
     private void loadAudioDetails() {
         int userID = UserSession.getInstance().getUserID();
         String songName = ResourceLoader.getAudioName(audioID);
@@ -81,6 +123,13 @@ public class SongListTemplateScene {
         }
     }
 
+    /**
+     * Checks if the song is already in the user's library.
+     *
+     * @param userID The ID of the user.
+     * @param audioID The ID of the audio.
+     * @return {@code true} if the song is in the user's library, {@code false} otherwise.
+     */
     private boolean isSongInLibrary(int userID, int audioID) {
         String query = "SELECT COUNT(*) FROM LibraryAudio WHERE userID = ? AND audioID = ?";
 
@@ -103,6 +152,13 @@ public class SongListTemplateScene {
         return false;
     }
 
+    /**
+     * Checks if the song is already in the user's cart.
+     *
+     * @param userID The ID of the user.
+     * @param audioID The ID of the audio.
+     * @return {@code true} if the song is in the user's cart, {@code false} otherwise.
+     */
     private boolean isSongInCart(int userID, int audioID) {
         String query = "SELECT COUNT(*) FROM CartAudio WHERE userID = ? AND audioID = ?";
 
@@ -125,7 +181,12 @@ public class SongListTemplateScene {
         return false;
     }
 
-    public void addToCart() {
+    /**
+     * Adds the song to the user's cart.
+     * This method inserts a record into the CartAudio table and updates the UI accordingly.
+     */
+    @FXML
+    private void addToCart() {
         int userID = UserSession.getInstance().getUserID();
 
         String query = """
@@ -145,8 +206,12 @@ public class SongListTemplateScene {
 
             if (rowsAffected > 0) {
                 System.out.println("Audio added to cart successfully!");
-                if (parentScene != null) {
-                    parentScene.loadSongList();  // Call method to refresh song list
+                if (artistPageScene != null) {
+                    artistPageScene.loadSongList();
+                }
+
+                if (searchScene != null) {
+                    searchScene.populateSearchResults(homeScene.getCurrentQuery());
                 }
 
             } else {
@@ -157,6 +222,4 @@ public class SongListTemplateScene {
             System.out.println("Error adding audio to cart: " + e.getMessage());
         }
     }
-
-
 }

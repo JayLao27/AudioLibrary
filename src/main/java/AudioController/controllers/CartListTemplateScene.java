@@ -20,10 +20,11 @@ import java.sql.SQLException;
 import static AudioController.ResourceLoader.getAudioPrice;
 
 /**
- * Controller for handling the individual items in the cart on the cart page.
- * This class is responsible for displaying each item (song) in the user's cart,
- * handling interactions such as checkbox selection, image hover effects, and
- * deleting items from the cart.
+ * Controller for managing individual items in the cart UI.
+ * <p>
+ * This class handles displaying each song in the cart, including its name, price,
+ * and cover image. It manages user interactions such as checkbox selection for checkout,
+ * hover effects for the delete button, and deleting items from the cart database.
  */
 public class CartListTemplateScene {
 
@@ -43,11 +44,12 @@ public class CartListTemplateScene {
     private int audioID;
 
     /**
-     * Initializes the CartListTemplateScene with the given audio ID and CartScene reference.
-     * It loads the details of the audio item (song name, price, and cover art) into the view.
+     * Initializes the CartListTemplateScene with the given audio ID and cart reference.
+     * <p>
+     * It loads the audio details (name, price, and cover art) and prepares the view.
      *
-     * @param audioID The unique identifier for the audio item.
-     * @param cartScene Reference to the CartScene for updating the cart after interactions.
+     * @param audioID   The unique identifier for the audio item.
+     * @param cartScene The reference to the CartScene controller for cart updates.
      */
     public void setAudioID(int audioID, CartScene cartScene) {
         this.audioID = audioID;
@@ -57,9 +59,8 @@ public class CartListTemplateScene {
     }
 
     /**
-     * Initializes the controller. This method is called automatically
-     * when the FXML file is loaded. In this case, there are no initializations
-     * required at this stage.
+     * Loads the details of the audio file (song name, price, and cover image)
+     * from the resource loader and displays them in the cart UI.
      */
     @FXML
     private void initialize() {}
@@ -140,7 +141,14 @@ public class CartListTemplateScene {
         }
     }
 
-    //Delete Button UX
+
+    //Button UX
+    /**
+     * Handles mouse hover effects for the delete button, providing a scaling animation
+     * and changing the button image to indicate interactivity.
+     *
+     * @param event The mouse event triggering the hover animation.
+     */
     @FXML
     private void onMouseEnteredImage(MouseEvent event) {
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(50), deleteImage);
@@ -184,10 +192,10 @@ public class CartListTemplateScene {
 
     //Checkbox logic
     /**
-     * Handles the checkbox state change event. When the checkbox is checked or unchecked,
-     * it updates the cart's total checkout details (price and selected items).
+     * Handles the checkbox state changes (checked/unchecked) to update the cart's
+     * checkout details, including selected items and total price.
      *
-     * @param event The action event triggered by the checkbox state change.
+     * @param event The action event triggered when the checkbox state changes.
      */
     @FXML
     private void handleCheckboxChange(ActionEvent event) {

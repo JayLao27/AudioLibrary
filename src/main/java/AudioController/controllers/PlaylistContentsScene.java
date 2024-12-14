@@ -21,9 +21,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class for managing the contents of a playlist in the audio library.
+ * This scene allows the user to add, remove, and update songs in a playlist,
+ * as well as update the playlist's name and image.
+ */
 public class PlaylistContentsScene implements SceneWithHomeContext {
     private HomeScene homeScene;
 
+    /**
+     * Sets the {@link HomeScene} instance to enable navigation from the artist page.
+     *
+     * @param homeScene The home scene instance for navigation purposes.
+     */
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
@@ -42,6 +52,12 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
 
     private int playlistID;
 
+    /**
+     * Initializes the playlist with the given playlist ID.
+     * Loads the song list, playlist name, and playlist image.
+     *
+     * @param playlistID the ID of the playlist to initialize
+     */
     public void setPlaylistID(int playlistID) {
         this.playlistID = playlistID;
         System.out.println("Initializing with artist ID: " + playlistID);
@@ -51,6 +67,9 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         loadPlaylistImage();
     }
 
+    /**
+     * Initializes the scene elements, including handling double-click events for editing the playlist name.
+     */
     @FXML
     public void initialize() {
         addImage.setOpacity(0);
@@ -76,6 +95,9 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         });
     }
 
+    /**
+     * Saves the changes made to the playlist name.
+     */
     private void saveChanges() {
         String updatedName = playlistNameField.getText();
 
@@ -86,6 +108,11 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         updatePlaylistName(updatedName);
     }
 
+    /**
+     * Updates the playlist name in the database.
+     *
+     * @param newName the new name for the playlist
+     */
     private void updatePlaylistName(String newName) {
         String query = "UPDATE Playlists SET playlistName = ? WHERE playlistID = ?";
 
@@ -111,6 +138,11 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Updates the playlist image file path in the database.
+     *
+     * @param filePath the absolute file path of the new playlist image
+     */
     private void updatePlaylistImagePath(String filePath) {
         // Use the filePath to update the database with the new path
         String query = "UPDATE Playlists SET playlistImageFile = ? WHERE playlistID = ?";
@@ -135,6 +167,9 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Loads the list of songs for the current playlist and adds them to the VBox.
+     */
     private void loadSongList() {
         playlistVBox.getChildren().clear();
 
@@ -173,6 +208,10 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Loads the playlist image from the file system and sets it to the ImageView.
+     * If the image cannot be loaded, a default image is displayed.
+     */
     private void loadPlaylistImage() {
 
         String imagePath = ResourceLoader.getPlaylistImagePath(playlistID);
@@ -198,6 +237,9 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Loads a default image and sets it to the playlist image view.
+     */
     private void loadDefaultImage() {
         try {
             // More robust path construction
@@ -230,6 +272,12 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Opens a file chooser to allow the user to select a new playlist image.
+     * The image file path is updated in the database.
+     *
+     * @param event the mouse event triggering this method
+     */
     @FXML
     private void handleAddImageClicked(MouseEvent event) {
         // Create a new FileChooser instance
@@ -281,11 +329,22 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
 
     }
 
+    /**
+     * Opens the scene to add new songs to the playlist.
+     *
+     * @param event the mouse event triggering this method
+     */
     @FXML
     private void handleAddSongsClicked(MouseEvent event) {
         homeScene.loadPlaylistScene("/FXMLs/libraryselectorScene.fxml", playlistID);
     }
 
+    /**
+     * Prompts the user to confirm before deleting the playlist.
+     * If confirmed, the playlist is deleted from the database.
+     *
+     * @param event the mouse event triggering this method
+     */
     @FXML
     private void handleDeletePlaylistClicked(MouseEvent event) {
         // Confirmation prompt
@@ -304,6 +363,14 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         }
     }
 
+    /**
+     * Displays a confirmation dialog with the given title, header, and content.
+     *
+     * @param title the title of the dialog
+     * @param header the header text of the dialog
+     * @param content the content text of the dialog
+     * @return true if the user confirms the action, false otherwise
+     */
     private boolean showConfirmationDialog(String title, String header, String content) {
         // Use JavaFX Alert for the confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -315,6 +382,9 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         return alert.showAndWait().filter(response -> response == ButtonType.OK).isPresent();
     }
 
+    /**
+     * Deletes the playlist from the database.
+     */
     private void deletePlaylistFromDatabase() {
         String query = "DELETE FROM Playlists WHERE playlistID = ?";
 
