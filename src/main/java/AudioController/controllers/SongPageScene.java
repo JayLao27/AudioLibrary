@@ -110,7 +110,7 @@ public class SongPageScene {
      *
      * @param userID the ID of the user
      * @param audioID the ID of the audio
-     * @return true if the song is in the user's library, false otherwise
+     * @return {@code true} if the song is in the user's library, false otherwise
      */
     private boolean isSongInLibrary(int userID, int audioID) {
         String query = "SELECT COUNT(*) FROM LibraryAudio WHERE userID = ? AND audioID = ?";
@@ -139,7 +139,7 @@ public class SongPageScene {
      *
      * @param userID the ID of the user
      * @param audioID the ID of the audio
-     * @return true if the song is in the user's cart, false otherwise
+     * @return {@code true} if the song is in the user's cart, false otherwise
      */
     private boolean isSongInCart(int userID, int audioID) {
         String query = "SELECT COUNT(*) FROM CartAudio WHERE userID = ? AND audioID = ?";
