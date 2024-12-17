@@ -65,7 +65,7 @@ public class PaymentDetailsScene {
 
                     ObservableList<String> audioItems = FXCollections.observableArrayList();
                     do {
-                        String audioInfo = rs.getString("audioName") + " - $" + rs.getDouble("audioPrice");
+                        String audioInfo = rs.getString("audioName") + " - ₱" + rs.getDouble("audioPrice");
                         audioItems.add(audioInfo);
                     } while (rs.next());
 

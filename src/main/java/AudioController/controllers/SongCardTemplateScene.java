@@ -14,7 +14,7 @@ public class SongCardTemplateScene {
     @FXML
     private ImageView songCoverImage;
     @FXML
-    private Label songNameLabel;
+    private Label songNameLabel, priceLabel;
 
     private int audioID;
 
@@ -41,6 +41,10 @@ public class SongCardTemplateScene {
     private void loadAudioDetails() {
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);
+
+        Double price = ResourceLoader.getAudioPrice(audioID);
+        String priceText = (price == 0.0) ? "FREE" : "₱ " + price;
+        priceLabel.setText(priceText);
 
         String artistImagePath = ResourceLoader.getAudioImagePath(audioID);
         if (artistImagePath != null) {

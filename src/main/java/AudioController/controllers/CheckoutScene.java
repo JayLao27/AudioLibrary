@@ -254,7 +254,7 @@ public class CheckoutScene implements SceneWithHomeContext {
             receiptAlert.setHeaderText("Purchase Receipt");
 
             String receiptMessage = "User ID: " + userID + "\n" +
-                    "Total Amount: $" + totalPrice + "\n" +
+                    "Total Amount: ₱" + totalPrice + "\n" +
                     "Purchased Items: " + audioNames.toString() + "\n" +
                     "Purchase Time: " + formattedTime;
 

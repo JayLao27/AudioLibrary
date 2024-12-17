@@ -44,6 +44,26 @@ public class SongListTemplateScene implements SceneWithHomeContext {
     }
 
     /**
+     * Sets the {@link AlbumPageScene} for managing the album page navigation.
+     *
+     * @param albumPageScene The instance of the AlbumPageScene.
+     */
+    private AlbumPageScene albumPageScene;
+    public void setAlbumPageScene(AlbumPageScene albumPageScene) {
+        this.albumPageScene = albumPageScene;
+    }
+
+    /**
+     * Sets the {@link GenrePageScene} for managing the genre page navigation.
+     *
+     * @param genrePageScene The instance of the GenrePageScene.
+     */
+    private GenrePageScene genrePageScene;
+    public void setGenrePageScene(GenrePageScene genrePageScene) {
+        this.genrePageScene = genrePageScene;
+    }
+
+    /**
      * Sets the {@link SearchScene} for managing the search page navigation.
      *
      * @param searchScene The instance of the SearchScene.

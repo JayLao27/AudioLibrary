@@ -23,7 +23,8 @@ INSERT IGNORE INTO Genre (genreName) VALUES
 ('Punk'),
 ('Soul'),
 ('Indie'),
-('Alternative');
+('Alternative'),
+('Sound Effect');
 
 INSERT IGNORE INTO Audio (audioName, audioDuration, audioFileName, audioImageFileName, audioPrice, artistID, genreID) VALUES
 ('1812 Overture', 247, '1812overture.mp3', '1812overture.png', 0, 2, 1),

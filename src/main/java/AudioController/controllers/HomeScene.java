@@ -371,6 +371,7 @@ public class HomeScene {
         updateLoopIcon(newLoopState);
     }
 
+
     /**
      * Searches for content based on the query and dynamically loads the search results scene.
      * Clears the current content in the VBox and loads a new search scene based on the query.
@@ -403,6 +404,7 @@ public class HomeScene {
         }
     }
 
+
     /**
      * Returns the current search query entered by the user.
      *
@@ -411,6 +413,7 @@ public class HomeScene {
     public String getCurrentQuery() {
         return currentQuery;
     }
+
 
     /**
      * Loads a scene from the specified FXML path and sets the `HomeScene` context.
@@ -423,6 +426,7 @@ public class HomeScene {
     public <T> T loadScene(String fxmlPath) {
         return loadScene(fxmlPath, controller -> {});
     }
+
 
     /**
      * Loads a scene from the specified FXML path, sets the `HomeScene` context, and allows additional setup
@@ -454,6 +458,7 @@ public class HomeScene {
         }
     }
 
+
     /**
      * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes an `artistID`
      * to the controller if it supports it.
@@ -464,6 +469,7 @@ public class HomeScene {
     public void loadScene(String fxmlPath, int artistID) {
         loadScene(fxmlPath, artistID, controller -> {});
     }
+
 
     /**
      * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes an `artistID`
@@ -499,6 +505,101 @@ public class HomeScene {
         }
     }
 
+
+    /**
+     * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes a `genreID`
+     * to the controller if it supports it.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param genreID The genre ID to be passed to the controller, if supported.
+     */
+    public void loadGenreScene(String fxmlPath, int genreID) {
+        loadGenreScene(fxmlPath, genreID, controller -> {});
+    }
+
+
+    /**
+     * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes a `genreID`
+     * to the controller, if the controller has a method for setting the genre ID.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param genreID The genre ID to be passed to the controller.
+     * @param setupController The setup function to modify the controller after it is loaded.
+     */
+    public void loadGenreScene(String fxmlPath, int genreID, Consumer<Object> setupController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent sceneContent = loader.load();
+
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof SceneWithHomeContext) {
+                    ((SceneWithHomeContext) controller).setHomeScene(this);
+                }
+
+                try {
+                    Method setGenreIDMethod = controller.getClass().getMethod("setGenreID", int.class);
+                    setGenreIDMethod.invoke(controller, genreID);
+                } catch (NoSuchMethodException e) {
+                    System.out.println("Controller does not have setGenreID method: " + controller.getClass().getSimpleName());
+                }
+            }
+
+            bodyVBox.getChildren().setAll(sceneContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading " + fxmlPath);
+        }
+    }
+
+
+    /**
+     * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes an `albumID`
+     * to the controller if it supports it.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param albumID The album ID to be passed to the controller, if supported.
+     */
+    public void loadAlbumScene(String fxmlPath, int albumID) {
+        loadAlbumScene(fxmlPath, albumID, controller -> {});
+    }
+
+
+    /**
+     * Loads a scene from the specified FXML path, sets the `HomeScene` context, and passes an `albumID`
+     * to the controller, if the controller has a method for setting the album ID.
+     *
+     * @param fxmlPath The path to the FXML file to be loaded.
+     * @param albumID The album ID to be passed to the controller.
+     * @param setupController The setup function to modify the controller after it is loaded.
+     */
+    public void loadAlbumScene(String fxmlPath, int albumID, Consumer<Object> setupController) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent sceneContent = loader.load();
+
+            Object controller = loader.getController();
+            if (controller != null) {
+                if (controller instanceof SceneWithHomeContext) {
+                    ((SceneWithHomeContext) controller).setHomeScene(this);
+                }
+
+                try {
+                    Method setAlbumIDMethod = controller.getClass().getMethod("setAlbumID", int.class);
+                    setAlbumIDMethod.invoke(controller, albumID);
+                } catch (NoSuchMethodException e) {
+                    System.out.println("Controller does not have setAlbumID method: " + controller.getClass().getSimpleName());
+                }
+            }
+
+            bodyVBox.getChildren().setAll(sceneContent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading " + fxmlPath);
+        }
+    }
+
+
     /**
      * Loads a song-specific scene from the specified FXML path and passes an `audioID` to the controller.
      *
@@ -508,6 +609,7 @@ public class HomeScene {
     public void loadSongScene(String fxmlPath, int artistID) {
         loadSongScene(fxmlPath, artistID, controller -> {});
     }
+
 
     /**
      * Loads a song-specific scene from the specified FXML path, passes an `audioID` to the controller,
@@ -543,6 +645,7 @@ public class HomeScene {
         }
     }
 
+
     /**
      * Loads a playlist-specific scene from the specified FXML path and passes a `playlistID` to the controller.
      *
@@ -552,6 +655,7 @@ public class HomeScene {
     public void loadPlaylistScene(String fxmlPath, int playlistID) {
         loadPlaylistScene(fxmlPath, playlistID, controller -> {});
     }
+
 
     /**
      * Loads a playlist-specific scene from the specified FXML path, passes a `playlistID` to the controller,
@@ -587,6 +691,7 @@ public class HomeScene {
         }
     }
 
+
     /**
      * Loads a payment-specific scene from the specified FXML path and passes a `paymentID` to the controller.
      *
@@ -596,6 +701,7 @@ public class HomeScene {
     public void loadPaymentScene(String fxmlPath, int paymentID) {
         loadPaymentScene(fxmlPath, paymentID, controller -> {});
     }
+
 
     /**
      * Loads a payment-specific scene from the specified FXML path, passes a `paymentID` to the controller,
@@ -632,6 +738,7 @@ public class HomeScene {
             System.out.println("Error loading " + fxmlPath);
         }
     }
+
 
     /**
      * Loads the current song scene into the top bar.

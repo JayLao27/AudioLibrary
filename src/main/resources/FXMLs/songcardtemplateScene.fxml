@@ -12,6 +12,7 @@
             <Image url="@../ProjectImages/cardplaceholder.png" />
          </image>
       </ImageView>
-      <Label id="songcardLabel" fx:id="songNameLabel" alignment="CENTER" layoutX="46.0" layoutY="205.0" text="Song Name" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0" />
+      <Label id="songcardLabel" fx:id="songNameLabel" alignment="CENTER" layoutX="46.0" layoutY="205.0" prefHeight="19.0" prefWidth="180.0" text="Song Name" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0" />
+      <Label id="songcardLabel" fx:id="priceLabel" alignment="CENTER" layoutX="10.0" layoutY="219.0" prefHeight="19.0" prefWidth="180.0" text="Price" />
    </children>
 </AnchorPane>

@@ -2,10 +2,12 @@ package AudioController.controllers;
 
 import AudioController.DatabaseConnection;
 import AudioController.ResourceLoader;
+import AudioController.SceneWithHomeContext;
 import AudioController.UserSession;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,15 +23,20 @@ import java.sql.SQLException;
  * Controller for the song page scene. This scene displays the details of a specific song, including the song name,
  * artist name, album name, and cover image. It also provides functionality for adding the song to the user's cart.
  */
-public class SongPageScene {
+public class SongPageScene implements SceneWithHomeContext {
+    private HomeScene homeScene;
+
+    @Override
+    public void setHomeScene(HomeScene homeScene) {
+        this.homeScene = homeScene;
+    }
+
+    @FXML
+    private Hyperlink genreLabel, artistNameLabel, albumNameLabel;
     @FXML
     private ImageView songCoverImage;
     @FXML
     private Label songNameLabel;
-    @FXML
-    private Label artistNameLabel;
-    @FXML
-    private Label albumNameLabel;
     @FXML
     private Button addtocartButton;
 
@@ -60,10 +67,13 @@ public class SongPageScene {
         String songName = ResourceLoader.getAudioName(audioID);
         songNameLabel.setText(songName);
 
+        String genre = ResourceLoader.getAudioGenre(audioID);
+        genreLabel.setText(genre);
+
         String artistName = ResourceLoader.getArtistNamefromAudioID(audioID);
         artistNameLabel.setText(artistName);
 
-        String albumName = ResourceLoader.getAlbumName(audioID);
+        String albumName = (ResourceLoader.getAlbumName(audioID) == null) ? "Single" : ResourceLoader.getAlbumName(audioID);
         albumNameLabel.setText(albumName);
 
         String artistImagePath = ResourceLoader.getAudioImagePath(audioID);
@@ -197,6 +207,30 @@ public class SongPageScene {
             System.out.println("Error adding audio to cart: " + e.getMessage());
         }
     }
+
+    @FXML
+    private void handleGenreClicked() {
+        if (homeScene != null) {
+            homeScene.loadGenreScene("/FXMLs/genrePageScene.fxml", ResourceLoader.getGenreID(audioID));
+        }
+    }
+
+    @FXML
+    private void handleArtistClicked() {
+        if (homeScene != null) {
+            homeScene.loadScene("/FXMLs/artistpageScene.fxml", ResourceLoader.getArtistIDFromAudioID(audioID));
+        }
+    }
+
+    @FXML
+    private void handleAlbumClicked() {
+        int albumID = ResourceLoader.getAlbumID(audioID);
+        System.out.println("album id is " + albumID);
+        if (homeScene != null && albumID >= 1) {
+            homeScene.loadAlbumScene("/FXMLs/albumpageScene.fxml", albumID);
+        }
+    }
+
 
     //Button UX
     @FXML

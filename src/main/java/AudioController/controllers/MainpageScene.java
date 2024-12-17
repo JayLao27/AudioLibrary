@@ -39,7 +39,7 @@ public class MainpageScene implements SceneWithHomeContext {
     }
 
     @FXML
-    FlowPane songcardContainerPane;
+    FlowPane recommendedSongContainerPane;
 
     /**
      * Initializes the main page by querying the database for song IDs and loading
@@ -48,7 +48,7 @@ public class MainpageScene implements SceneWithHomeContext {
      */
     @FXML
     public void initialize() {
-        String query = "SELECT audioID FROM Audio ORDER BY audioID ASC";
+        String query = "SELECT audioID FROM Audio ORDER BY audioID ASC LIMIT 8";
 
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -75,7 +75,7 @@ public class MainpageScene implements SceneWithHomeContext {
                     }
                 });
 
-                songcardContainerPane.getChildren().add(songCard);
+                recommendedSongContainerPane.getChildren().add(songCard);
             }
 
         } catch (SQLException | IOException e) {

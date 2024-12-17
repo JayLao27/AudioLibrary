@@ -122,6 +122,34 @@ public class ResourceLoader {
 
 
     /**
+     * Retrieves the artist's ID associated with the given audio ID by joining
+     * the audio and artist tables.
+     *
+     * @param audioID the ID of the audio file
+     * @return the artist's ID, or -1 if not found
+     */
+    public static int getArtistIDFromAudioID(int audioID) {
+        String query = "SELECT au.artistID " +
+                "FROM Audio AS au " +
+                "JOIN Artists AS a ON au.artistID = a.artistID " +
+                "WHERE au.audioID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, audioID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("artistID");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving artist ID from database.");
+        }
+        return -1;  // Return -1 if artist ID is not found
+    }
+
+
+    /**
      * Retrieves the file path of the audio's image (cover art) based on the given audio ID.
      *
      * @param audioID the ID of the audio file
@@ -220,6 +248,33 @@ public class ResourceLoader {
 
 
     /**
+     * Retrieves the genre of the audio associated with the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the genre of the audio, or empty if not found
+     */
+    public static String getAudioGenre(int audioID) {
+        String query = "SELECT g.genreName " +
+                "FROM Audio a " +
+                "JOIN Genre g ON a.genreID = g.genreID " +
+                "WHERE a.audioID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, audioID);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("genreName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving genre from database.");
+        }
+        return "";
+    }
+
+
+    /**
      * Retrieves the duration of the audio associated with the given audio ID.
      *
      * @param audioID the ID of the audio file
@@ -244,11 +299,63 @@ public class ResourceLoader {
 
 
     /**
+     * Retrieves the genre ID associated with the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the genre ID of the audio, or -1 if not found
+     */
+    public static int getGenreID(int audioID) {
+        String query = "SELECT genreID " +
+                "FROM Audio " +
+                "WHERE audioID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, audioID);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("genreID");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving genre ID from database.");
+        }
+        return -1; // Return -1 if not found
+    }
+
+
+    /**
+     * Retrieves the genre name associated with the given genre ID.
+     *
+     * @param genreID the ID of the genre
+     * @return the genre name, or an empty string if not found
+     */
+    public static String getGenreName(int genreID) {
+        String query = "SELECT genreName " +
+                "FROM Genre " +
+                "WHERE genreID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, genreID);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("genreName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving genre name from database.");
+        }
+        return ""; // Return an empty string if not found
+    }
+
+
+    /**
      * Retrieves the name of the album associated with the given audio ID.
      * If no album is associated, an empty string is returned.
      *
      * @param audioID the ID of the audio file
-     * @return the name of the album, or an empty string if no album is found
+     * @return the name of the album, or null if no album is found
      */
     public static String getAlbumName(int audioID) {
         String query = "SELECT albumName FROM Albums " +
@@ -265,7 +372,33 @@ public class ResourceLoader {
             e.printStackTrace();
             System.out.println("Error retrieving album name from database.");
         }
-        return "";
+        return null;
+    }
+
+
+    /**
+     * Retrieves the album ID associated with the given audio ID.
+     *
+     * @param audioID the ID of the audio file
+     * @return the album ID of the audio, or -1 if not found
+     */
+    public static int getAlbumID(int audioID) {
+        String query = "SELECT albumID " +
+                "FROM Audio " +
+                "WHERE audioID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, audioID);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("albumID");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving album ID from database.");
+        }
+        return -1; // Return -1 if not found
     }
 
 
