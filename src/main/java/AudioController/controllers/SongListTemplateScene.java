@@ -231,7 +231,7 @@ public class SongListTemplateScene implements SceneWithHomeContext {
                 }
 
                 if (searchScene != null) {
-                    searchScene.populateSearchResults(homeScene.getCurrentQuery());
+                    searchScene.populateSearchResults(homeScene.getCurrentQuery(), homeScene.getCurrentMode());
                 }
 
             } else {

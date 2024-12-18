@@ -23,6 +23,7 @@ import java.sql.SQLException;
 public class SearchScene implements SceneWithHomeContext {
 
     private HomeScene homeScene;
+
     @Override
     public void setHomeScene(HomeScene homeScene) {
         this.homeScene = homeScene;
@@ -34,15 +35,20 @@ public class SearchScene implements SceneWithHomeContext {
     private Label resultsLabel;
 
     /**
-     * Populates the search results dynamically based on the query string.
-     * Fetches matching audio files from the database and displays them in the FlowPane.
+     * Populates the search results dynamically based on the query string and mode.
+     * Fetches matching songs from the database and displays them in the FlowPane.
      *
      * @param query The search query string.
+     * @param mode  The search mode (TITLE, GENRE, ARTIST, ALBUM).
      */
-    public void populateSearchResults(String query) {
+    public void populateSearchResults(String query, String mode) {
         searchFlowPane.getChildren().clear();
 
-        String sql = "SELECT audioID FROM Audio WHERE audioName LIKE ? ORDER BY audioID ASC";
+        String sql = getSQLForMode(mode);
+        if (sql == null) {
+            resultsLabel.setText("Invalid search mode.");
+            return;
+        }
 
         try (Connection connection = new DatabaseConnection().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -89,5 +95,39 @@ public class SearchScene implements SceneWithHomeContext {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Returns the appropriate SQL query based on the search mode.
+     *
+     * @param mode The search mode.
+     * @return SQL query string.
+     */
+    private String getSQLForMode(String mode) {
+        return switch (mode) {
+            case "Title" -> "SELECT audioID FROM Audio WHERE audioName LIKE ? ORDER BY audioID ASC";
+            case "Genre" -> """
+                SELECT a.audioID 
+                FROM Audio a 
+                JOIN Genre g ON a.genreID = g.genreID 
+                WHERE g.genreName LIKE ? 
+                ORDER BY a.audioID ASC
+                """;
+            case "Artist" -> """
+                SELECT a.audioID 
+                FROM Audio a 
+                JOIN Artists ar ON a.artistID = ar.artistID 
+                WHERE ar.artistName LIKE ? 
+                ORDER BY a.audioID ASC
+                """;
+            case "Album" -> """
+                SELECT a.audioID 
+                FROM Audio a 
+                JOIN Albums al ON a.albumID = al.albumID 
+                WHERE al.albumName LIKE ? 
+                ORDER BY a.audioID ASC
+                """;
+            default -> null;
+        };
     }
 }

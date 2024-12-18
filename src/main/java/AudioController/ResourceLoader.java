@@ -1,6 +1,7 @@
 package AudioController;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,6 +40,30 @@ public class ResourceLoader {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error retrieving username from database.");
+        }
+        return null;
+    }
+
+
+    /**
+     * Retrieves the balance associated with the given user ID from the database.
+     *
+     * @param userID the ID of the user
+     * @return the balance of the user, or null if not found
+     */
+    public static BigDecimal getBalance(int userID) {
+        String query = "SELECT balance FROM User WHERE userID = ?";
+        try (Connection connection = new DatabaseConnection().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getBigDecimal("balance");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error retrieving balance from database.");
         }
         return null;
     }
@@ -498,6 +523,7 @@ public class ResourceLoader {
         return new File(System.getProperty("user.dir") + File.separator + "ProjectImages" + File.separator + "Vector.png").getAbsolutePath();
     }
 
+
     /**
      * Retrieves a user's profile information based on the given user ID.
      * The profile includes the username, first name, last name, email, and balance.
@@ -527,6 +553,5 @@ public class ResourceLoader {
         }
         return null;
     }
-
 
 }

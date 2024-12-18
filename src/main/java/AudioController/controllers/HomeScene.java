@@ -3,14 +3,12 @@ package AudioController.controllers;
 import AudioController.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -50,8 +48,10 @@ public class HomeScene {
     //JavaFX's BooleanProperty is used instead of primitive boolean as its state can be tracked with a listener.
     private BooleanProperty isPlaying = new SimpleBooleanProperty(false);
 
-    private String currentQuery;
+    private String currentQuery, mode;
 
+    @FXML
+    ComboBox<SearchMode> modeComboBox;
     @FXML
     Label usernameLabel;
     @FXML
@@ -79,7 +79,7 @@ public class HomeScene {
     @FXML
     private void initialize() {
         AudioPlayer.getInstance().setHomeScene(this);
-        usernameLabel.setText(ResourceLoader.getUsername(UserSession.getInstance().getUserID()));
+        usernameLabel.setText(ResourceLoader.getUsername(UserSession.getInstance().getUserID()) + " (₱ " + ResourceLoader.getBalance(UserSession.getInstance().getUserID()) + ")");
         loadScene("/FXMLs/mainpageScene.fxml");
         volumeSlider.setValue(50);
 
@@ -129,7 +129,7 @@ public class HomeScene {
                 loadScene("/FXMLs/mainpageScene.fxml");
             } else {
                 // Dynamically load a scene based on the current query
-                searchAndLoadResults(query);
+                searchAndLoadResults(query, getCurrentMode());
             }
         });
 
@@ -160,6 +160,32 @@ public class HomeScene {
                     break;
             }
         });
+
+        modeComboBox.setItems(FXCollections.observableArrayList(SearchMode.values()));
+        modeComboBox.setValue(SearchMode.TITLE);
+
+        // Listen for ComboBox value changes
+        modeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String query = topbarSearchField.getText().trim();
+            if (!query.isEmpty() && !query.equalsIgnoreCase("Search")) {
+                searchAndLoadResults(query, String.valueOf(newValue));
+            }
+        });
+    }
+
+    public enum SearchMode {
+        TITLE("Title"), GENRE("Genre"), ARTIST("Artist"), ALBUM("Album");
+
+        private final String displayName;
+
+        SearchMode(String displayName) {
+            this.displayName = displayName;
+        }
+
+        @Override
+        public String toString() {
+            return displayName;
+        }
     }
 
 
@@ -379,8 +405,9 @@ public class HomeScene {
      * @param query The search query entered by the user.
      */
     @FXML
-    private void searchAndLoadResults(String query) {
+    private void searchAndLoadResults(String query, String mode) {
         this.currentQuery = query;
+        this.mode = String.valueOf(modeComboBox.getValue());
 
         try {
             bodyVBox.getChildren().clear(); // Clear any existing content in the VBox
@@ -394,7 +421,7 @@ public class HomeScene {
             controller.setHomeScene(this);
 
             // Pass the query to the controller so it can use it to fetch and display results
-            controller.populateSearchResults(query);
+            controller.populateSearchResults(query, mode);
 
 
             // Add the search results scene to the VBox
@@ -404,7 +431,6 @@ public class HomeScene {
         }
     }
 
-
     /**
      * Returns the current search query entered by the user.
      *
@@ -412,6 +438,15 @@ public class HomeScene {
      */
     public String getCurrentQuery() {
         return currentQuery;
+    }
+
+    /**
+     * Returns the current search mode entered by the user.
+     *
+     * @return The current search mode.
+     */
+    public String getCurrentMode() {
+        return mode;
     }
 
 
