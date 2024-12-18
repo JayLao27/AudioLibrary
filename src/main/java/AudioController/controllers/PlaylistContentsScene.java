@@ -95,6 +95,10 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
         });
     }
 
+    public void reloadSongList() {
+        loadSongList();
+    }
+
     /**
      * Saves the changes made to the playlist name.
      */
@@ -192,12 +196,14 @@ public class PlaylistContentsScene implements SceneWithHomeContext {
                     audioQueue.add(audioID);
 
                     // Load the song list template
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/librarylisttemplateScene.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/playlisttemplateScene.fxml"));
                     AnchorPane songList = fxmlLoader.load();
 
-                    LibraryListTemplateScene controller = fxmlLoader.getController();
+                    PlaylistTemplateScene controller = fxmlLoader.getController();
                     controller.setAudioID(audioID);
+                    controller.setPlaylistID(playlistID);
                     controller.setQueue(audioQueue);
+                    controller.setPlaylistContentsScene(this);
 
                     // Add the song to the VBox
                     playlistVBox.getChildren().add(songList);
