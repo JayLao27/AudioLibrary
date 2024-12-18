@@ -61,7 +61,7 @@ public class PaymentDetailsScene {
                     paymentIDLabel.setText("Payment ID: " + rs.getInt("paymentID"));
                     firstNameLabel.setText("First Name: " + rs.getString("firstName"));
                     lastNameLabel.setText("Last Name: " + rs.getString("lastName"));
-                    totalLabel.setText("Total Amount: $" + rs.getDouble("amount"));
+                    totalLabel.setText("Total Amount: ₱" + rs.getDouble("amount"));
 
                     ObservableList<String> audioItems = FXCollections.observableArrayList();
                     do {
