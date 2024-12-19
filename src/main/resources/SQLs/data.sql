@@ -8,6 +8,9 @@ VALUES
 ('Ludwig van Beethoven', 'beethoven.png'),
 ('Soundeffects', 'Soundeffect.png');
 
+INSERT IGNORE INTO Albums (albumName) VALUES
+('Tchaikovsky\'s Best');
+
 INSERT IGNORE INTO Genre (genreName) VALUES
 ('Classical'),
 ('Electronic'),
@@ -41,4 +44,11 @@ INSERT IGNORE INTO Audio (audioName, audioDuration, audioFileName, audioImageFil
 ('Bossing', 5, 'KamustaAngBuhayBuhaySoundEffect.mp3', 'Soundeffect.png', 0, 7, 17),
 ('Last Christmas', 18, 'LastChrismasSoundEffect.mp3', 'Soundeffect.png', 0, 7, 17),
 ('Spiderman', 12, 'spiderman-meme-song.mp3', 'Soundeffect.png', 0, 7, 17),
-('You are my sunshine', 29, 'youaremysunshineSoundEffect.mp3', 'Soundeffect.png', 0, 7, 17);
+('You are my sunshine', 29, 'youaremysunshineSoundEffect.mp3', 'Soundeffect.png', 0, 7, 17),
+('Bluetooth Device', 3, 'bluetooth.mp3', 'Soundeffect.png', 0, 7, 17),
+('Toink', 1, 'toink.mp3', 'Soundeffect.png', 0, 7, 17),
+('Windows XP', 5, 'winxp.mp3', 'Soundeffect.png', 0, 7, 17);
+
+UPDATE Audio
+SET albumID = 1
+WHERE artistID = 2;
