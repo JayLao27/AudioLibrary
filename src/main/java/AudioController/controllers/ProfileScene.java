@@ -20,7 +20,7 @@ import java.sql.SQLException;
  * This class manages the profile view of the user, displaying user information,
  * handling user interactions such as logout, viewing payment history, and top-up balance.
  */
-public class ProfileScene implements SceneWithHomeContext {
+public class    ProfileScene implements SceneWithHomeContext {
     private HomeScene homeScene;
 
     /**

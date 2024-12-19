@@ -47,7 +47,7 @@ public class Main extends Application {
     /**
      * The entry point for launching the JavaFX application.
      * <p>
-     * This method invokes the {@link launch(String[])} method from the {@link Application} class,
+     * This method invokes the {@link #launch(String[])} method from the {@link Application} class,
      * which in turn calls the {@link #start(Stage)} method to initialize the GUI and display the application window.
      * </p>
      *
