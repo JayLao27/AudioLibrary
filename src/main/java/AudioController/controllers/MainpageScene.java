@@ -41,6 +41,8 @@ public class MainpageScene implements SceneWithHomeContext {
     @FXML
     FlowPane recommendedSongContainerPane;
 
+    @FXML
+    FlowPane soundeffectContainerPane;
     /**
      * Initializes the main page by querying the database for song IDs and loading
      * corresponding song card templates. Each card is clickable and redirects
@@ -48,14 +50,19 @@ public class MainpageScene implements SceneWithHomeContext {
      */
     @FXML
     public void initialize() {
-        String query = "SELECT audioID FROM Audio ORDER BY audioID ASC LIMIT 8";
+        // Query to get the first 8 audio IDs for recommended songs
+        String recommendedQuery = "SELECT audioID FROM Audio ORDER BY audioID ASC LIMIT 8";
+
+        // Query to get sound effects
+        String soundEffectQuery = "SELECT audioID FROM Audio WHERE genreID = (SELECT genreID FROM Genre WHERE genreName = 'Sound Effect')";
 
         try (Connection connection = new DatabaseConnection().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet rs = preparedStatement.executeQuery()) {
+             PreparedStatement recommendedStatement = connection.prepareStatement(recommendedQuery);
+             ResultSet recommendedRs = recommendedStatement.executeQuery()) {
 
-            while (rs.next()) {
-                int audioID = rs.getInt("audioID");
+            // Load recommended songs
+            while (recommendedRs.next()) {
+                int audioID = recommendedRs.getInt("audioID");
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/songcardtemplateScene.fxml"));
                 AnchorPane songCard = fxmlLoader.load();
@@ -74,8 +81,35 @@ public class MainpageScene implements SceneWithHomeContext {
                         System.out.println("HomeScene is null!");
                     }
                 });
-
                 recommendedSongContainerPane.getChildren().add(songCard);
+            }
+
+            // Load sound effects
+            try (PreparedStatement soundEffectStatement = connection.prepareStatement(soundEffectQuery);
+                 ResultSet soundEffectRs = soundEffectStatement.executeQuery()) {
+
+                while (soundEffectRs.next()) {
+                    int audioID = soundEffectRs.getInt("audioID");
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXMLs/songcardtemplateScene.fxml"));
+                    AnchorPane soundEffectCard = fxmlLoader.load();
+
+                    SongCardTemplateScene controller = fxmlLoader.getController();
+                    controller.setAudioID(audioID);
+
+                    MouseEffects.addMouseEffects(soundEffectCard);
+
+                    soundEffectCard.setOnMouseClicked(event -> {
+                        System.out.println("Redirecting to sound effect...");
+
+                        if (homeScene != null) {
+                            homeScene.loadSongScene("/FXMLs/songpageScene.fxml", audioID);
+                        } else {
+                            System.out.println("HomeScene is null!");
+                        }
+                    });
+                    soundeffectContainerPane.getChildren().add(soundEffectCard);
+                }
             }
 
         } catch (SQLException | IOException e) {
