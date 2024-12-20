@@ -102,13 +102,7 @@ public class AudioPlayer implements SceneWithHomeContext {
         if (mediaPlayer != null) {
             mediaPlayer.setVolume(volume);
             mediaPlayer.setOnEndOfMedia(() -> {
-                setPlaying(false);
-                if (isLooped) {
-                    mediaPlayer.seek(javafx.util.Duration.ZERO);
-                    mediaPlayer.play();
-                } else {
                     playNext();
-                }
             });
 
             mediaPlayer.setOnReady(() -> {
