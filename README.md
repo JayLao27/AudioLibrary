@@ -216,14 +216,5 @@ Audio files should be placed in: `src/main/resources/audioFiles`
 
 This project was developed by the NullPointers team. Contributions, issues, and feature requests are welcome!
 
-## License
-
-This project is for educational purposes.
-
-## Support
-
-For issues or questions, please check the troubleshooting section or review the code documentation in the source files.
-
----
 
 **Note**: Make sure all audio files and database are properly set up before running the application for the first time.
